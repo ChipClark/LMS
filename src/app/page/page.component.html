@@ -38,14 +38,14 @@
             <span *ngFor="let top_page of top_page | search: searchTerm | tag: tagpipe  ; let odd = odd; let even = even;
             let i = index;"
             #nGForArray>
-                <div class="box odd col-4" *ngIf="odd">
-                    <h1 class="{{top_page.Icon}} pe-5x pe-va"></h1>
+                <div class="box odd col-4" *ngIf="odd" [routerLink]="['courses/']">
+                    <h1 class="{{top_page.icon}} pe-5x pe-va"></h1>
                     <span class="boxtitle">{{top_page.title}}</span><br>
                     <p>{{top_page.description}}</p>
                     <span class="boxfilter">{{top_page.tags}}</span>
                 </div>
-                <div class="box even col-4" *ngIf="even">
-                        <h1 class="{{top_page.Icon}} pe-5x pe-va"></h1>
+                <div class="box even col-4" *ngIf="even" [routerLink]="['courses/']">
+                        <h1 class="{{top_page.icon}} pe-5x pe-va"></h1>
                         <span class="boxtitle">{{top_page.title}}</span><br>
                         <p>{{top_page.description}}</p>
                         <span class="boxfilter">{{top_page.tags}}</span>

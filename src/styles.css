@@ -58,10 +58,11 @@ body {
 }
 
 .footer-bar {
+    min-height: 50px;
     padding:10px;
-    background: #002a5f;
+    background: #464646;
     text-align: left;
-    color:#ccc;
+    color:#8c8c8c;
     font-size:10pt;
 }
 

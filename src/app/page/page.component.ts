@@ -61,10 +61,7 @@ export class PageComponent implements OnInit {
 
   ngOnInit() {
     this.getData();
-    this.route.queryParamMap.subscribe(params => {
-      const queryStrings: any = this.route.queryParamMap;
-      this.executeQueryParams(queryStrings.source.value);
-    });
+    this.getParams();
   }
 
   getData(): any {
@@ -89,6 +86,13 @@ export class PageComponent implements OnInit {
         this.connect_tags = connect_tags;
         //console.log(connect_tags);
       });
+  }
+
+  getParams(): void {
+    this.route.queryParamMap.subscribe(params => {
+      const queryStrings: any = this.route.queryParamMap;
+      this.executeQueryParams(queryStrings.source.value);
+    });
   }
 
   addQueryParams(query): void {
@@ -121,7 +125,6 @@ export class PageComponent implements OnInit {
   }
 
   executeQueryParams(queryStrings): void {
-    console.log(queryStrings);
     const queries = Object.entries(queryStrings);
     this.clearFilters();
     for (const q of queries) {

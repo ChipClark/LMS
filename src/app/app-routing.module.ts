@@ -9,7 +9,7 @@ import { SubpageComponent } from './subpage/subpage.component';
 const routes: Routes = [
   { path: 'root', component: PageComponent },
   { path: '', component: PageComponent, pathMatch: 'full' },
-  { path: 'course/:title', component: SubpageComponent, pathMatch: 'full'}
+  { path: 'courses/', component: SubpageComponent}
 ];
 
 @NgModule({

@@ -24,17 +24,18 @@ import { PageComponent } from '../page/page.component';
 
 export class SubpageComponent implements OnInit {
 
-  public pageURL = '../assets/tempdata.json';
+  public pageURL = '../assets/temppage.json';
   public tagsURL = '../assets/temptags.json';
   public subpageURL = '../assets/tempsubpage.json';
   public connectionURL = '../assets/tempconnections.json';
 
   // Filters
-
-
+  
   //includes
 
   @ViewChildren('nGForArray') filtered;
+  public tag: any;
+  public searchTerm = null;
 
   url: string;
   top_page: Page[];
@@ -42,8 +43,7 @@ export class SubpageComponent implements OnInit {
   subpage: SubPage[];
   connect_tags: assoc_top_tag[];
 
-  public tagid: any;
-
+  
   //completePerson: PersonPage[];
   router: RouterLink;
 
@@ -58,6 +58,7 @@ export class SubpageComponent implements OnInit {
 
   ngOnInit() {
     this.getData();
+    this.getParams();
   }
 
   getData(): any {
@@ -68,9 +69,9 @@ export class SubpageComponent implements OnInit {
         //console.log(top_page);
       });
     this.staffService.getTagData(this.tagsURL)
-      .subscribe(tags => {
-        this.tags = tags;
-        //console.log(tags);
+      .subscribe(tag => {
+        this.tag = tag;
+        //console.log(tag);
       });
     
     this.staffService.getSubpageData(this.subpageURL)
@@ -84,19 +85,62 @@ export class SubpageComponent implements OnInit {
       });
   }
 
+  getParams(): void {
+    this.route.queryParamMap.subscribe(params => {
+      const queryStrings: any = this.route.queryParamMap;
+      this.executeQueryParams(queryStrings.source.value);
+    });
+  }
+
   addQueryParams(query): void {
     const keys = Object.keys(query);
-    this.tagid = Object.values(query);
-    //console.log(query);
-    this._router.navigate([''], {
+    const values = Object.values(query);
+    for (let i = 0; i < keys.length; i++) {
+      switch (keys[i]) {
+        case 'tag':
+          this.tag= values[0];
+          break;
+      }
+    }
+    if (keys[0] === 'tag') {
+      this._router.navigate([''], {
         queryParams: {
           ...query
-        },
-        queryParamsHandling: 'merge',
+        }
       });
+    } else {
+      if (query === "") {
+        query = null;
+      }
+      this._router.navigate([''], {
+          queryParams: {
+            ...query
+          },
+          queryParamsHandling: 'merge',
+        });
+    }
+  }
+
+  executeQueryParams(queryStrings): void {
+    const queries = Object.entries(queryStrings);
+    this.clearFilters();
+    for (const q of queries) {
+      switch (q[0]) {
+        case 'tag':
+          this.tag = q[1];
+          break;
+        case 'search':
+          this.searchTerm = q[1];
+          break;
+
+      }
+    }
+  }
+
+  clearFilters() {
+    this.searchTerm = null;
+    this.tags = null;
   }
 
 
-
 }
-
