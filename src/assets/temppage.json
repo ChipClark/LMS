@@ -1,0 +1,63 @@
+    [ { 
+        "id" : "4", 
+        "title" : "Collaborating with Others", 
+        "description" : "Lorem ipsum dolor sit amet, ridens hendrerit nec at", 
+        "Icon" : "pe-7s-film", 
+        "sidebar" : "", 
+        "tags" : ["HR", "Skills"], 
+        "isactive" : "Yes" 
+        }, 
+    { 
+        "id" : "2", 
+        "title" : "Legal Documents", 
+        "description" : "Lorem ipsum dolor sit amet, ridens hendrerit nec at", 
+        "Icon" : "pe-7s-hammer", 
+        "sidebar" : "pe-7s-hourglass", 
+        "tags" : ["CLE", "Skills"], 
+        "isactive" : "Yes" 
+        }, 
+    { 
+        "id" : "3", 
+        "title" : "Managing Documents and Emails", 
+        "description" : "Lorem ipsum dolor sit amet, ridens hendrerit nec at", 
+        "Icon" : "pe-7s-copy-file", 
+        "sidebar" : "", 
+        "tags" : ["Skills"], 
+        "isactive" : "Yes" 
+        }, 
+    { 
+        "id" : "1", 
+        "title" : "Professional Development", 
+        "description" : "Lorem ipsum dolor sit amet, ridens hendrerit nec at", 
+        "Icon" : "pe-7s-box1", 
+        "sidebar" : "Test sidebar text. This should be HTML", 
+        "tags" : ["CLE", "Skills"], 
+        "isactive" : "Yes" 
+        }, 
+    { 
+        "id" : "6", 
+        "title" : "Road Warriors", 
+        "description" : "Lorem ipsum dolor sit amet, ridens hendrerit nec at", 
+        "Icon" : "pe-7s-car", 
+        "sidebar" : "", 
+        "tags" : ["Skills"], 
+        "isactive" : "Yes" 
+        }, 
+    { 
+        "id" : "7", 
+        "title" : "Security", 
+        "description" : "Lorem ipsum dolor sit amet, ridens hendrerit nec at", 
+        "Icon" : "pe-7s-unlock", 
+        "sidebar" : "", 
+        "tags" : ["Skills"], 
+        "isactive" : "Yes" 
+    }, 
+    { 
+        "id" : "5", 
+        "title" : "Time and Billing", 
+        "description" : "Lorem ipsum dolor sit amet, ridens hendrerit nec at", 
+        "Icon" : "pe-7s-hourglass", 
+        "sidebar" : "", 
+        "tags" : ["Skills"], "isactive" : "Yes" 
+        } 
+]

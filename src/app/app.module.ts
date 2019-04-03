@@ -4,65 +4,34 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
+import { MessagesComponent } from './messages/messages.component';
+import { SearchPipe, TagPipe } from './pipes/search.pipe';
 
 import { AppComponent } from './app.component';
-import { StaffDetailComponent } from './staff-detail/staff-detail.component';
-import { MessagesComponent } from './messages/messages.component';
-import { PersonSearchComponent } from './person-search/person-search.component';
-import { ConfigComponent } from './config/config.component';
-import { PeopleComponent } from './people/people.component';
-import { DepartmentsComponent } from './departments/departments.component';
+import { PageComponent } from './page/page.component';
 
 import { NavigationComponent } from './navigation/navigation.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { CityPipe } from './pipes/city.pipe';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { RolePipe } from './pipes/role.pipe';
-import { AlphaPipe } from './pipes/alpha.pipe';
-import { SearchPipe } from './pipes/search.pipe';
-import { IndividualPipe } from './pipes/individual.pipe';
-import { CityArrayPipe } from './pipes/cityArray.pipe';
-import { RoleArrayPipe } from './pipes/roleArray.pipe';
-import { StaffDeptPipe } from './pipes/staffDept.pipe';
-import { TimekeeperDeptPipe } from './pipes/timekeeperDept.pipe';
-import { OtherPipe } from './pipes/other.pipe';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { SubpageComponent } from './subpage/subpage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StaffDetailComponent,
+    PageComponent,
     MessagesComponent,
-    PersonSearchComponent,
-    ConfigComponent,
-    PeopleComponent,
-    DepartmentsComponent,
     NavigationComponent,
     HeaderComponent,
-    FooterComponent,
-    CityPipe,
-    RolePipe,
-    AlphaPipe,
     SearchPipe,
-    IndividualPipe,
-    CityArrayPipe,
-    RoleArrayPipe,
-    StaffDeptPipe,
-    TimekeeperDeptPipe,
-    OtherPipe
+    TagPipe,
+    FooterComponent,
+    SubpageComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule,
-    NgxPaginationModule,
-    BsDropdownModule.forRoot(),
-    TooltipModule.forRoot(),
-    ModalModule.forRoot()
+    HttpClientModule
 
   ],
   providers: [],

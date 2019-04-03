@@ -1,21 +1,16 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
+<div class="container main-body">
 
-<app-header></app-header>
-
-<app-navigation></app-navigation>
-
-
-<div class="main-body">
-  
-    <div class="router-body  col-md-12 col-sm-12">
-      <router-outlet></router-outlet>
-      <p>&nbsp;</p>
-    </div>
-  
-  <div class="message-body">
-    <!--<app-messages></app-messages>-->
+  <!--<app-navigation></app-navigation>-->
+  <div class="row">
+      <app-header class="col-12 header"></app-header>
+    
+      <div class="router-body col-12">
+        <router-outlet></router-outlet>
+        <p>&nbsp;</p>
+      </div>
   </div>
-</div>
 
-<app-footer></app-footer>
+  <app-footer></app-footer>
+</div>

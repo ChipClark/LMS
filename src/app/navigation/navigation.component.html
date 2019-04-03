@@ -1,10 +1,30 @@
-<nav class="navbar navbar-expand-sm bg-light d-none">
+<nav class="navbar">
     <div class="container-fluid">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a routerLink="/people" class="nav-link" >Personnel</a>&nbsp;
-        </li>
+      <div class="search col-7">
+          SEARCH &nbsp;&nbsp; <input  class="form-control searchbar" id="SearchBar" placeholder="" value="" autofocus
+          [(ngModel)]="searchTerm" (input)="searchTerm ? addQueryParams({search: searchTerm}) : addQueryParams({search: null})">
+      </div>
+      
+      <div class="leftnav col-5">
+          
+          <div class="leftnavbar skillfilter btn-group btn-group-toggle" data-toggle="locationbuttons">
+              FILTER:&nbsp;&nbsp;&nbsp;<strong>Skills</strong>&nbsp;
+              <label class="btn btn-primary" [class.active]="filterid == 2" id="filter2">
+                  <input type="radio" name="options" id="option1" class="" [(ngModel)]="filterid" value="2"
+                      [value]="2" (click)="addQueryParams({filter: 2, page: null})">&nbsp;CLE&nbsp;
+              </label>&nbsp;
+              <label class="btn btn-primary blur" [class.active]="filterid == 3" id="filter3">
+                  <input type="radio" name="options" id="option3" class="generalbtn" [(ngModel)]="filterid" [value]="3"
+                      value="3" (click)="addQueryParams({filter: 3, page: null})">&nbsp;HR&nbsp;
+              </label>&nbsp;
+              <label class="btn btn-primary blur" [class.active]="filterid == 1" id="filter1">
+                  <input type="radio" name="options" id="option4" class="generalbtn" [(ngModel)]="filterid" [value]="1"
+                      value="1" (click)="addQueryParams({filter: 1, page: null})">&nbsp;ALL&nbsp;
+              </label>&nbsp;
+              
 
-      </ul>
+          </div>
+      </div>
+        
     </div>
 </nav>

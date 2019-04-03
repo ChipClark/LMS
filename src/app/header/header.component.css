@@ -1,161 +1,157 @@
 .header-bar {
-    padding-top:2px;
-    padding-bottom:5px;
-    background: #002a5f;
+    background: #fff;
+    margin: 0px;
+    padding: 0px;
+    /*background-image: url(../../assets/AM-Search.jpg);*/
     text-align: center;
-    height: 80x;
+    height: 100px;
 }
 
-.header-tag {
-    display: inline-block;
-    width:400px;
-    color:#fff;
-    font-size: 42pt;
-    font-family: 'Times New Roman', Times, serif;
-    font-weight: 200;
-    vertical-align: middle;
-    top: 15px;
+.header-image {
+    width: 400px;
+    left: 40px;
+    padding-bottom: 10px;
+    height: auto;
+    float: left;
+  }
+
+.alignleft {
+      float: left;
+      padding-left: 10px;
+  }
+
+.container-fluid {
+    width: 100%;
+    align-content: center;
 }
 
-.header-img {
-    display: inline-block;
-    height:100px;
-    padding-right:20px;
-    position: relative;
-    left: -30px;
-    vertical-align: middle;
-}
-
-.username {
-    display: inline-block;
-    text-align: right;
-    color:#fff;
-    top: -20px;
-    padding-right: 50px;
-}
-
-.confidential {
-    display: inline-block;
-    color: #bbb;
-    font-size: 18pt;
-    vertical-align: middle;
-    top: 15px;
-}
-.bugcontact {
+.tagline {
+    float: left;
+    margin-left: 20px;
     color: #999;
+    font-size: 16pt;
+    margin-top: 40px;
 }
 
-.bugcontact a {
-    color: #ddd
+.menu {
+    color: #666;
+    font-size: 18pt;
+    font-weight: 600;
+    vertical-align: top;
+    text-align: right;
+    float: right;
 }
 
-.bugcontact a:hover {
-    color: #FFF;
-}
 
 .rightcol {
     top:10px;
+    z-index: 50;
 }
 
-/* start of desktop styles */
-
-@media screen and (max-width: 991px) {
-    /* start of large tablet styles */
-        .header-bar {
-            padding-top:2px;
-            padding-bottom:5px;
-            height: 100x;
-        }
-        .header-tag {
-            width:350px;
-            font-size: 36pt;
-            top: 15px;
-        }
-        .header-img {
-            height:100px;
-            position: relative;
-            left: -30px;
-        }
-        .confidential {
-            font-size: 14pt;
-        }
-        
-    }
-    
-    @media screen and (max-width: 767px) {
+@media screen and (max-width: 1024px) {
     /* start of medium tablet styles */
-        .header-bar {
-           padding:0px;
-           height: 100x;
+        .header-image  {
+            width: 400px;
         }
-        .header-tag {
-            width:250px;
-            font-size: 32pt;
-            top: 15px;
+        h1 a {
+        font-size: 60pt;
         }
-        .header-img {
-            height:100px;
-            position: relative;
-            left: 0px;
+        .tagline{
+            font-size:14pt;
         }
-        .confidential {
-            font-size: 14pt;
-            position: relative;
-            left: -10px;
+        .titlebox {
+            top: -30px;
         }
-        .bugcontact {
-            display: none;
-        }
-    
     }
+  
+    @media screen and (max-width: 880px) {
+    /* start of medium tablet styles */
+        .header-image  {
+            width: 400px;
+        }
+        h1 a {
+        font-size: 50pt;
+        }
+        .tagline{
+            font-size:14pt;
+        }
 
+    }
     
-    @media screen and (max-width: 635px) {
+    @media screen and (max-width: 768px) {
         /* start of phone styles */
-        .header-tag {
-            width:300px;
-            color:#fff;
-            font-size: 22pt;
-            top: 20px;
+        .header-image  {
+            width: 400px;
         }
-        .header-img {
-            height:80px;
-            position: relative;
-            left: 0px;
+        h1 a {
+            font-size: 40pt;
         }
-        .confidential {
-            font-size: 14pt;
-            position: relative;
-            left: -40px;
+        .tagline {
+            font-size:14pt;
         }
-        .bugcontact {
+        .titlebox {
+            top: -30px;
+        }
+    }
+  
+    @media screen and (max-width: 607px) {
+        /* start of phone styles */
+        .header-image  {
             display: none;
         }
-
+        h1 a {
+        font-size: 40pt;
+        }
+        .tagline .menu{
+            font-size:14pt;
+        }
     }
-
-    @media screen and (max-width: 479px) {
+  
+  
+    @media screen and (max-width: 550px) {
     /* start of phone styles */
-        .header-tag {
-            width:100px;
-            color:#fff;
-            font-size: 22pt;
-            top: 6px;
-            left: -20px;
+        .header-image  {
+           width:300px;
         }
-        .header-img {
-            height:60px;
-            position: relative;
-            left: 0px;
+        h1 a {
+        font-size: 30pt;
         }
-        .confidential {
-            font-size: 14pt;
-            position: relative;
-            left: -40px;
-            top: -10px;
+        .tagline .menu {
+            font-size:14pt;
         }
-        .bugcontact {
-            display: none;
+    }
+  
+    @media screen and (max-width: 415px) {
+        /* start of phone styles */
+        .header-image  {
+            width:250px;
+        }
+        h1 a {
+        font-size: 30pt;
+        }
+        .tagline{
+            font-size:12pt;
+        }
+        .menu { font-size: 14pt; }
+    }
+  
+    @media screen and (max-width: 375px) {
+        /* start of phone styles */
+        .header-image  {
+            width:200px;
+        }
+        h1 a {
+        font-size: 30pt;
+        }
+        .tagline{
+            font-size:10pt;
+        }
+        .titlebox {
+            top: -50px;
         }
 
+        .menu { font-size: 12pt; }
     }
+  
+  
+  

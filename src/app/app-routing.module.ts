@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { PeopleComponent }      from './people/people.component';
-import { StaffDetailComponent }  from './staff-detail/staff-detail.component';
+import { PageComponent }      from './page/page.component';
+import { SubpageComponent } from './subpage/subpage.component';
 //import { homedir } from 'os';
 
 
 const routes: Routes = [
-  { path: 'root', component: PeopleComponent },
-  { path: '', component: PeopleComponent, pathMatch: 'full' },
-  { path: 'detail/:id', component: StaffDetailComponent },
-  { path: 'people', component: PeopleComponent }
+  { path: 'root', component: PageComponent },
+  { path: '', component: PageComponent, pathMatch: 'full' },
+  { path: 'course/:title', component: SubpageComponent, pathMatch: 'full'}
 ];
 
 @NgModule({

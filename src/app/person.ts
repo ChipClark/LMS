@@ -1,12 +1,3 @@
-import { Phones } from "./datatables/phones";
-import { PersonRelationship } from "./datatables/personrelationship";
-import { OfficeLocation } from "./datatables/officelocation";
-import { HRDepartments, LegalDepartments, LegalSubDepartments } from "./datatables/departmenttables";
-import { License, LicenseType } from "./datatables/practicestables";
-import { Education } from "./datatables/school";
-import { JobTitle } from "./datatables/jobs";
-import { Photos } from "./datatables/photo";
-
 export class Person {
   pkpersonid: number;
   personguid: string;
@@ -66,16 +57,4 @@ export class Person {
   legaldepartmentid: number;
   hasbiography: boolean;
   biographyurl: string;
-  phones: Phones[];
-  supportrelationships: boolean;
-  personrelationship: PersonRelationship[];
-  officelocation: OfficeLocation[];
-  hrdepartment: HRDepartments[];
-  legaldepts: LegalDepartments[];
-  legalsubs: LegalSubDepartments[];
-  license: License[];
-  licensetype:LicenseType[];
-  education: Education[];
-  totalcount: number;
-  
 }

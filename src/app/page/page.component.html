@@ -1,0 +1,58 @@
+<div class="page">
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="search col-7">
+                SEARCH &nbsp;&nbsp; <input  class="form-control searchbar" id="SearchBar" placeholder="" value="" autofocus
+                [(ngModel)]="searchTerm" (input)="searchTerm ? addQueryParams({search: searchTerm}) : addQueryParams({search: null})">
+            </div>
+            
+            <div class="leftnav col-5">
+                
+                <div class="leftnavbar skillfilter btn-group btn-group-toggle" data-toggle="locationbuttons">
+                    FILTER:&nbsp;&nbsp;
+                    <label class="btn btn-primary blur" [class.active]="filter == Skills" id="filter1">
+                            <input type="radio" name="options" id="option1" class="" [(ngModel)]="filterid" value="Skills"
+                                [value]="Skills" (click)="addQueryParams({tag: 'Skills', page: null})">&nbsp;Skills&nbsp;
+                        </label>&nbsp;
+                        <label class="btn btn-primary blur" [class.active]="filter == CLE" id="filter1">
+                        <input type="radio" name="options" id="option1" class="" [(ngModel)]="filterid" value="CLE"
+                            [value]="CLE" (click)="addQueryParams({tag: 'CLE', page: null})">&nbsp;CLE&nbsp;
+                    </label>&nbsp;
+                    <label class="btn btn-primary blur" [class.active]="filter == HR" id="filter2">
+                        <input type="radio" name="options" id="option3" class="generalbtn" [(ngModel)]="filterid" [value]="HR"
+                            value="HR" (click)="addQueryParams({tag: 'HR', page: null})">&nbsp;HR&nbsp;
+                    </label>&nbsp;
+                    <label class="btn btn-primary blur" [class.active]="filter == null" id="filter0">
+                        <input type="radio" name="options" id="option0" class="generalbtn" [(ngModel)]="filterid" [value]=""
+                            value="null" (click)="addQueryParams({tag: null, page: null})">&nbsp;ALL&nbsp;
+                    </label>&nbsp;
+        
+
+                </div>
+            </div>
+            
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <span *ngFor="let top_page of top_page | search: searchTerm | tag: tagpipe  ; let odd = odd; let even = even;
+            let i = index;"
+            #nGForArray>
+                <div class="box odd col-4" *ngIf="odd">
+                    <h1 class="{{top_page.Icon}} pe-5x pe-va"></h1>
+                    <span class="boxtitle">{{top_page.title}}</span><br>
+                    <p>{{top_page.description}}</p>
+                    <span class="boxfilter">{{top_page.tags}}</span>
+                </div>
+                <div class="box even col-4" *ngIf="even">
+                        <h1 class="{{top_page.Icon}} pe-5x pe-va"></h1>
+                        <span class="boxtitle">{{top_page.title}}</span><br>
+                        <p>{{top_page.description}}</p>
+                        <span class="boxfilter">{{top_page.tags}}</span>
+                </div>
+                    
+            
+            </span>
+        </div>
+    </div>
+</div>

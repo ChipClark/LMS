@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { CompileShallowModuleMetadata } from '@angular/compiler';
 
 @Pipe({
     name: 'search'
@@ -11,22 +12,28 @@ export class SearchPipe implements PipeTransform {
         }
         const regExp = new RegExp(search, 'gi');
         const check = p => {
-            if (this.checkPhone(p, regExp)) { return true; }
-            return regExp.test(p.displayname) ||
-                regExp.test(p.officenumber) ||
-                regExp.test(p.officelocation.officelocationcode) ||
-                regExp.test(p.jobtitle.jobtitle) ||
-                regExp.test(p.emails[0].emailaddress) ||
-                regExp.test(p.timekeepernumber) ||
-                regExp.test(p.legalsubdeptfriendlyname);
+            return regExp.test(p.title) ||
+                regExp.test(p.description) ||
+                regExp.test(p.sidebar) ;
         };
         return items.filter(check);
 
     }
 
-    checkPhone(p: any, regExp: RegExp) {
-        return p.phones.some(ph => {
-          return ph.phonetypeid === 1 && regExp.test(ph.phonenumber);
-        });
-      }
+}
+
+@Pipe({
+    name: 'tag'
+})
+
+export class TagPipe implements PipeTransform {
+
+    transform(items: any[], tag: string): any {
+        if (!items || !tag) {
+            return items;
+        }
+        return items.filter(item => item.tag === tag);
+
+    }
+
 }
