@@ -28,11 +28,11 @@ export class SearchPipe implements PipeTransform {
 
 export class TagPipe implements PipeTransform {
 
-    transform(items: any[], tags: string): any {
-        if (!items || !tags) {
+    transform(items: any[], tagname: string): any {
+        if (!items || !tagname) {
             return items;
         }
-        return items.filter(item => item.tags === tags);
+        return items.filter(item => item.tagname === tagname);
 
     }
 
