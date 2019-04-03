@@ -14,7 +14,7 @@
     </nav>
     <div class="container-fluid">
         <div class="row">
-            <span *ngFor="let subpage of subpage | search: searchTerm | tag: tagpipe  ; let odd = odd; let even = even;
+            <span *ngFor="let subpage of subpage | search: searchTerm | tags: tagname  ; let odd = odd; let even = even;
             let i = index;"
             #nGForArray>
                 <div class="box odd col-4" *ngIf="odd" [routerLink]="['courses/']">

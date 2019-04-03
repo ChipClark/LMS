@@ -5,7 +5,6 @@ import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl
 import { Page, Tags, assoc_top_tag, SubPage } from '../datatables/page';
 import { HttpClient, HttpHeaders, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SearchPipe, TagPipe } from '../pipes/search.pipe'
 import { APIService } from '../api.service';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -37,12 +36,12 @@ export class PageComponent implements OnInit {
   //includes
 
   @ViewChildren('nGForArray') filtered;
-  public tag: any;
+  public tagname: any;
   public searchTerm = null;
 
   url: string;
   top_page: Page[];
-  tags: Tags[];
+  filtertags: Tags[];
   subpage: SubPage[];
   connect_tags: assoc_top_tag[];
 
@@ -72,8 +71,8 @@ export class PageComponent implements OnInit {
         //console.log(top_page);
       });
     this.staffService.getTagData(this.tagsURL)
-      .subscribe(tag => {
-        this.tag = tag;
+      .subscribe(filtertags => {
+        this.filtertags = filtertags;
         //console.log(tag);
       });
     
@@ -96,16 +95,17 @@ export class PageComponent implements OnInit {
   }
 
   addQueryParams(query): void {
+    console.log(query); 
     const keys = Object.keys(query);
     const values = Object.values(query);
     for (let i = 0; i < keys.length; i++) {
       switch (keys[i]) {
-        case 'tag':
-          this.tag= values[0];
+        case 'tags':
+          this.tagname= values[0];
           break;
       }
     }
-    if (keys[0] === 'tag') {
+    if (keys[0] === 'tags') {
       this._router.navigate([''], {
         queryParams: {
           ...query
@@ -129,8 +129,8 @@ export class PageComponent implements OnInit {
     this.clearFilters();
     for (const q of queries) {
       switch (q[0]) {
-        case 'tag':
-          this.tag = q[1];
+        case 'tags':
+          this.tagname = q[1];
           break;
         case 'search':
           this.searchTerm = q[1];
@@ -142,7 +142,7 @@ export class PageComponent implements OnInit {
 
   clearFilters() {
     this.searchTerm = null;
-    this.tags = null;
+    this.tagname = null;
   }
 
 

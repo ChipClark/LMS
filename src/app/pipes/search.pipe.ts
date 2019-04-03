@@ -23,16 +23,16 @@ export class SearchPipe implements PipeTransform {
 }
 
 @Pipe({
-    name: 'tag'
+    name: 'tags'
 })
 
 export class TagPipe implements PipeTransform {
 
-    transform(items: any[], tag: string): any {
-        if (!items || !tag) {
+    transform(items: any[], tags: string): any {
+        if (!items || !tags) {
             return items;
         }
-        return items.filter(item => item.tag === tag);
+        return items.filter(item => item.tags === tags);
 
     }
 
