@@ -36,8 +36,11 @@ export class PageComponent implements OnInit {
   //includes
 
   @ViewChildren('nGForArray') filtered;
-  public tagname: any;
+  public tags: any;
+
   public searchTerm = null;
+  public tagTerm = null;
+  public tagname: any;
 
   url: string;
   top_page: Page[];
@@ -73,6 +76,14 @@ export class PageComponent implements OnInit {
     this.staffService.getTagData(this.tagsURL)
       .subscribe(filtertags => {
         this.filtertags = filtertags;
+
+        console.log(this.filtertags);
+        for (let i = 0; i < filtertags.length; i++) {
+          if(filtertags[i]) {
+            this.tagname[i] = filtertags[i].tagname;
+          }
+          
+        }
         //console.log(tag);
       });
     
@@ -95,13 +106,12 @@ export class PageComponent implements OnInit {
   }
 
   addQueryParams(query): void {
-    console.log(query); 
     const keys = Object.keys(query);
     const values = Object.values(query);
     for (let i = 0; i < keys.length; i++) {
       switch (keys[i]) {
         case 'tags':
-          this.tagname= values[0];
+          this.tags= values[0];
           break;
       }
     }
@@ -130,7 +140,7 @@ export class PageComponent implements OnInit {
     for (const q of queries) {
       switch (q[0]) {
         case 'tags':
-          this.tagname = q[1];
+          this.tags = q[1];
           break;
         case 'search':
           this.searchTerm = q[1];
@@ -142,7 +152,7 @@ export class PageComponent implements OnInit {
 
   clearFilters() {
     this.searchTerm = null;
-    this.tagname = null;
+    this.tags = null;
   }
 
 

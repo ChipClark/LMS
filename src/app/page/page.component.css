@@ -55,6 +55,7 @@
 
 .btn-primary {
   text-decoration: none;
+  background-color: #d1462c;
   top: -10px;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -64,9 +65,10 @@
   font-weight: bold;
 }
 
-.btn-primary:not(:disabled):not(.disabled).active {
+.btn .active .btn:hover {
   background-color: #ab2724;
 }
+
 
 
 /* Main page */

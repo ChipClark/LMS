@@ -9,7 +9,7 @@ export class Page {
 
 export class Tags {
   id: number;
-  tag: string;
+  tagname: string;
 }
 
 export class assoc_top_tag {

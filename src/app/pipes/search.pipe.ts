@@ -28,12 +28,30 @@ export class SearchPipe implements PipeTransform {
 
 export class TagPipe implements PipeTransform {
 
-    transform(items: any[], tagname: string): any {
-        if (!items || !tagname) {
+    transform(items: any[], tags: string): any {
+        if (!items || !tags) {
             return items;
         }
-        return items.filter(item => item.tagname === tagname);
+        console.log(items[0].tags);
+        return items.filter(item => item.tags === tags);
 
     }
 
 }
+
+@Pipe({
+    name: 'tagsArray',
+    pure: false
+  })
+  export class TagsArrayPipe implements PipeTransform {
+  
+    transform(items: any[], tagsArr: any[]): any {
+      console.log(tagsArr);
+      if (!items || !tagsArr) {
+          return items;
+      }
+     return items.filter(item => tagsArr.some(c => c === item.tags));
+    }
+  
+  }
+  

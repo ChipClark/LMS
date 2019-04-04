@@ -1,5 +1,5 @@
-[   {"ID": 1, "tags": "CLE"},
-    {"ID": 2, "tags": "HR"},
-    {"ID": 3, "tags": "Skills"}
+[   {"ID": 1, "tagname": "CLE"},
+    {"ID": 2, "tagname": "HR"},
+    {"ID": 3, "tagname": "Skills"}
     ]
 

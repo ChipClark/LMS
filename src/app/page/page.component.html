@@ -8,25 +8,29 @@
             
             <div class="leftnav col-5">
                 
-                <div class="leftnavbar skillfilter btn-group btn-group-toggle" data-toggle="locationbuttons">
+                <div class="leftnavbar skillfilter btn-group-toggle" data-toggle="locationbuttons">
                     FILTER:&nbsp;&nbsp;
-                    <label class="btn btn-primary blur" [class.active]="filterid == Skills" id="filter1">
-                            <input type="radio" name="options" id="option1" class="generalbtn" [(ngModel)]="filterid" value="Skills"
-                                [value]="Skills" (click)="addQueryParams({tags: 'Skills', page: null})">&nbsp;Skills&nbsp;
-                        </label>&nbsp;
-                        <label class="btn btn-primary blur" [class.active]="ffilterid == CLE" id="filter1">
-                        <input type="radio" name="options" id="option1" class="generalbtn" [(ngModel)]="filterid" value="CLE"
-                            [value]="CLE" (click)="addQueryParams({tags: 'CLE', page: null})">&nbsp;CLE&nbsp;
-                    </label>&nbsp;
-                    <label class="btn btn-primary blur" [class.active]="filterid == HR" id="filter2">
-                        <input type="radio" name="options" id="option3" class="generalbtn" [(ngModel)]="filterid" [value]="HR"
-                            value="HR" (click)="addQueryParams({tags: 'HR', page: null})">&nbsp;HR&nbsp;
-                    </label>&nbsp;
-                    <label class="btn btn-primary blur" [class.active]="!filterid" id="filter0">
-                        <input type="radio" name="options" id="option0" class="generalbtn" [(ngModel)]="filterid" [value]=""
+                    <label class="btn active blur" [class.active]="!filtertags" id="filter0">
+                        <input type="radio" name="options" id="option0" class="generalbtn" [(ngModel)]="filtertags" [value]=""
                             value="null" (click)="addQueryParams({tags: null, page: null})">&nbsp;ALL&nbsp;
                     </label>&nbsp;
-        
+                        <label class="btn blur" [class.active]="tags == 'CLE'" id="CLE">
+                            <input type="radio" name="options" id="optionCLE" class="generalbtn" [(ngModel)]="filtertags"
+                                value="CLE" [value]="CLE" 
+                                (click)="addQueryParams({tags: 'CLE', page: null})">&nbsp;CLE&nbsp;
+                        </label>&nbsp;
+
+                        <label class="btn blur" [class.active]="tags == 'HR'" id="HR">
+                            <input type="radio" name="options" id="optionHR" class="generalbtn" [(ngModel)]="filtertags"
+                                value="HR" [value]="HR"
+                                (click)="addQueryParams({tags: 'HR', page: null})">&nbsp;HR&nbsp;
+                        </label>&nbsp;
+
+                        <label class="btn blur" [class.active]="tags == 'Skills'" id="Skills">
+                            <input type="radio" name="options" id="optionSkills" class="generalbtn" [(ngModel)]="filtertags"
+                                value="Skills" [value]="Skills"
+                                (click)="addQueryParams({tags: 'Skills', page: null})">&nbsp;Skills&nbsp;
+                        </label>&nbsp;
 
                 </div>
             </div>
@@ -35,7 +39,7 @@
     </nav>
     <div class="container-fluid">
         <div class="row">
-            <span *ngFor="let top_page of top_page | search: searchTerm | tags: tagname  ; let odd = odd; let even = even;
+            <span *ngFor="let top_page of top_page | search: searchTerm | tags: tags  ; let odd = odd; let even = even;
             let i = index;"
             #nGForArray>
                 <div class="box odd col-4" *ngIf="odd" [routerLink]="['courses/']">
