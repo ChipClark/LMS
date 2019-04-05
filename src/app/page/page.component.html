@@ -10,26 +10,26 @@
                 
                 <div class="leftnavbar skillfilter btn-group-toggle" data-toggle="locationbuttons">
                     FILTER:&nbsp;&nbsp;
-                    <label class="btn active blur" [class.active]="!filtertags" id="filter0">
-                        <input type="radio" name="options" id="option0" class="generalbtn" [(ngModel)]="filtertags" [value]=""
-                            value="null" (click)="addQueryParams({tags: null, page: null})">&nbsp;ALL&nbsp;
+                    <label class="btn active blur" [class.active]="!tag" id="filter0">
+                        <input type="radio" name="options" id="option0" class="generalbtn" [(ngModel)]="tag" [value]=""
+                            value="null" (click)="addQueryParams({tag: null, page: null})">&nbsp;ALL&nbsp;
                     </label>&nbsp;
-                        <label class="btn blur" [class.active]="tags == 'CLE'" id="CLE">
-                            <input type="radio" name="options" id="optionCLE" class="generalbtn" [(ngModel)]="filtertags"
+                        <label class="btn blur" [class.active]="tag == 'CLE'" id="CLE">
+                            <input type="radio" name="options" id="optionCLE" class="generalbtn" [(ngModel)]="tag"
                                 value="CLE" [value]="CLE" 
-                                (click)="addQueryParams({tags: 'CLE', page: null})">&nbsp;CLE&nbsp;
+                                (click)="addQueryParams({tag: 'CLE', page: null})">&nbsp;CLE&nbsp;
                         </label>&nbsp;
 
-                        <label class="btn blur" [class.active]="tags == 'HR'" id="HR">
-                            <input type="radio" name="options" id="optionHR" class="generalbtn" [(ngModel)]="filtertags"
+                        <label class="btn blur" [class.active]="tag == 'HR'" id="HR">
+                            <input type="radio" name="options" id="optionHR" class="generalbtn" [(ngModel)]="tag"
                                 value="HR" [value]="HR"
-                                (click)="addQueryParams({tags: 'HR', page: null})">&nbsp;HR&nbsp;
+                                (click)="addQueryParams({tag: 'HR', page: null})">&nbsp;HR&nbsp;
                         </label>&nbsp;
 
-                        <label class="btn blur" [class.active]="tags == 'Skills'" id="Skills">
-                            <input type="radio" name="options" id="optionSkills" class="generalbtn" [(ngModel)]="filtertags"
+                        <label class="btn blur" [class.active]="tag == 'Skills'" id="Skills">
+                            <input type="radio" name="options" id="optionSkills" class="generalbtn" [(ngModel)]="tag"
                                 value="Skills" [value]="Skills"
-                                (click)="addQueryParams({tags: 'Skills', page: null})">&nbsp;Skills&nbsp;
+                                (click)="addQueryParams({tag: 'Skills', page: null})">&nbsp;Skills&nbsp;
                         </label>&nbsp;
 
                 </div>
@@ -39,16 +39,16 @@
     </nav>
     <div class="container-fluid">
         <div class="row">
-            <span *ngFor="let top_page of top_page | search: searchTerm | tags: tags  ; let odd = odd; let even = even;
+            <span *ngFor="let top_page of top_page | search: searchTerm | tags: tag  ; let odd = odd; let even = even;
             let i = index;"
             #nGForArray>
-                <div class="box odd col-4" *ngIf="odd" [routerLink]="['courses/']">
+                <div class="box odd col-4" *ngIf="odd" >
                     <h1 class="{{top_page.icon}} pe-5x pe-va"></h1>
                     <span class="boxtitle">{{top_page.title}}</span><br>
                     <p>{{top_page.description}}</p>
                     <span class="boxfilter">{{top_page.tags}}</span>
                 </div>
-                <div class="box even col-4" *ngIf="even" [routerLink]="['courses/']">
+                <div class="box even col-4" *ngIf="even" >
                         <h1 class="{{top_page.icon}} pe-5x pe-va"></h1>
                         <span class="boxtitle">{{top_page.title}}</span><br>
                         <p>{{top_page.description}}</p>

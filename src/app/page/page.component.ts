@@ -35,16 +35,16 @@ export class PageComponent implements OnInit {
   
   //includes
 
-  @ViewChildren('nGForArray') filtered;
+  @ViewChildren('nGForArray')filtered;
   public tags: any;
-
+  public tag = null;
+  public tagArray = ['CLE', 'HR', 'Skills'];
   public searchTerm = null;
-  public tagTerm = null;
   public tagname: any;
 
   url: string;
   top_page: Page[];
-  filtertags: Tags[];
+  tagsArray: Tags[];
   subpage: SubPage[];
   connect_tags: assoc_top_tag[];
 
@@ -71,20 +71,14 @@ export class PageComponent implements OnInit {
     this.staffService.getPageData(this.pageURL)
       .subscribe(top_page => {
         this.top_page = top_page;
-        //console.log(top_page);
       });
     this.staffService.getTagData(this.tagsURL)
-      .subscribe(filtertags => {
-        this.filtertags = filtertags;
+      .subscribe(tagArray => {
+        this.tagsArray = tagArray;
 
-        console.log(this.filtertags);
-        for (let i = 0; i < filtertags.length; i++) {
-          if(filtertags[i]) {
-            this.tagname[i] = filtertags[i].tagname;
-          }
-          
-        }
-        //console.log(tag);
+        // for (let i = 0; i < filtertags.length; i++) {
+         
+        // }
       });
     
     this.staffService.getSubpageData(this.subpageURL)
@@ -110,12 +104,14 @@ export class PageComponent implements OnInit {
     const values = Object.values(query);
     for (let i = 0; i < keys.length; i++) {
       switch (keys[i]) {
-        case 'tags':
-          this.tags= values[0];
+        case 'tag':
+          this.tag = values[0];
+          console.log(this.tag);
           break;
       }
     }
-    if (keys[0] === 'tags') {
+    if (keys[0] === 'tag') {
+
       this._router.navigate([''], {
         queryParams: {
           ...query
@@ -139,8 +135,8 @@ export class PageComponent implements OnInit {
     this.clearFilters();
     for (const q of queries) {
       switch (q[0]) {
-        case 'tags':
-          this.tags = q[1];
+        case 'tag':
+          this.tag = q[1];
           break;
         case 'search':
           this.searchTerm = q[1];

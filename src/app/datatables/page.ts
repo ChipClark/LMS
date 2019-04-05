@@ -4,6 +4,7 @@ export class Page {
   description: string;
   icon: string;
   sidebar: string;
+  tags: any;
   is_active: boolean;
 }
 

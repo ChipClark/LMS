@@ -7,6 +7,7 @@ import { CompileShallowModuleMetadata } from '@angular/compiler';
 export class SearchPipe implements PipeTransform {
 
     transform(items: any[], search: string): any {
+
         if (!items || !search) {
             return items;
         }
@@ -17,23 +18,6 @@ export class SearchPipe implements PipeTransform {
                 regExp.test(p.sidebar) ;
         };
         return items.filter(check);
-
-    }
-
-}
-
-@Pipe({
-    name: 'tags'
-})
-
-export class TagPipe implements PipeTransform {
-
-    transform(items: any[], tags: string): any {
-        if (!items || !tags) {
-            return items;
-        }
-        console.log(items[0].tags);
-        return items.filter(item => item.tags === tags);
 
     }
 
@@ -55,3 +39,37 @@ export class TagPipe implements PipeTransform {
   
   }
   
+
+  @Pipe({
+    name: 'tags'
+})
+
+export class TagPipe implements PipeTransform {
+
+    transform(items: any[], tag: string): any {
+
+        if (!items || !tag) {
+            return items;
+        }
+
+        var filtertags: any[];
+
+        for (let i = 0; i < items.length; i++) {
+            console.log(items[i].tags);
+            for (let j = 0; j < items[i].tags.length; i++) {
+                if (tag == items[i].tags[j]) {
+                    console.log(items[i]);
+                    return items[i];
+                }
+            }
+            
+        }
+        
+        console.log("end of transform");
+        console.log(filtertags);
+        return filtertags;
+
+    }
+
+}
+
