@@ -36,6 +36,7 @@ export class SubpageComponent implements OnInit {
   @ViewChildren('nGForArray') filtered;
   public tag: any;
   public searchTerm = null;
+  public tagname: any;
 
   public topTitle;
 

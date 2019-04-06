@@ -41,6 +41,9 @@ export class PageComponent implements OnInit {
   public tagArray = ['CLE', 'HR', 'Skills'];
   public searchTerm = null;
   public tagname: any;
+  public CLE = 'CLE';
+  public HR = 'HR';
+  public Skills = 'Skills';
 
   url: string;
   top_page: Page[];
