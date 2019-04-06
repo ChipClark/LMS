@@ -37,6 +37,8 @@ export class SubpageComponent implements OnInit {
   public tag: any;
   public searchTerm = null;
 
+  public topTitle;
+
   url: string;
   top_page: Page[];
   tags: Tags[];
@@ -66,12 +68,10 @@ export class SubpageComponent implements OnInit {
     this.staffService.getPageData(this.pageURL)
       .subscribe(top_page => {
         this.top_page = top_page;
-        //console.log(top_page);
       });
     this.staffService.getTagData(this.tagsURL)
       .subscribe(tag => {
         this.tag = tag;
-        //console.log(tag);
       });
     
     this.staffService.getSubpageData(this.subpageURL)
@@ -85,11 +85,22 @@ export class SubpageComponent implements OnInit {
       });
   }
 
+  getTopTitle(): string {
+    let obj;
+    this.route.queryParams.subscribe(p => {
+      obj = p;
+    });
+    this.topTitle = Object.values(obj);
+    return this.topTitle;
+  }
+
   getParams(): void {
     this.route.queryParamMap.subscribe(params => {
       const queryStrings: any = this.route.queryParamMap;
       this.executeQueryParams(queryStrings.source.value);
     });
+    
+
   }
 
   addQueryParams(query): void {

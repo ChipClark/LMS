@@ -30,7 +30,7 @@ export class SearchPipe implements PipeTransform {
   export class TagsArrayPipe implements PipeTransform {
   
     transform(items: any[], tagsArr: any[]): any {
-      console.log(tagsArr);
+      //console.log(tagsArr);
       if (!items || !tagsArr) {
           return items;
       }
@@ -40,7 +40,7 @@ export class SearchPipe implements PipeTransform {
   }
   
 
-  @Pipe({
+@Pipe({
     name: 'tags'
 })
 

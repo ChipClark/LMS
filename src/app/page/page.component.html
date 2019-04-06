@@ -42,17 +42,17 @@
             <span *ngFor="let top_page of top_page | search: searchTerm | tags: tag  ; let odd = odd; let even = even;
             let i = index;"
             #nGForArray>
-                <div class="box odd col-4" *ngIf="odd" >
+                <div class="box odd col-4" *ngIf="odd" [routerLink]="['/course']" [queryParams]="{category: top_page.title}" >
                     <h1 class="{{top_page.icon}} pe-5x pe-va"></h1>
                     <span class="boxtitle">{{top_page.title}}</span><br>
                     <p>{{top_page.description}}</p>
                     <span class="boxfilter">{{top_page.tags}}</span>
                 </div>
-                <div class="box even col-4" *ngIf="even" >
-                        <h1 class="{{top_page.icon}} pe-5x pe-va"></h1>
-                        <span class="boxtitle">{{top_page.title}}</span><br>
-                        <p>{{top_page.description}}</p>
-                        <span class="boxfilter">{{top_page.tags}}</span>
+                <div class="box even col-4" *ngIf="even" [routerLink]="['/course']" [queryParams]="{category: top_page.title}"  >
+                    <h1 class="{{top_page.icon}} pe-5x pe-va"></h1>
+                    <span class="boxtitle">{{top_page.title}}</span><br>
+                    <p>{{top_page.description}}</p>
+                    <span class="boxfilter">{{top_page.tags}}</span>
                 </div>
                     
             

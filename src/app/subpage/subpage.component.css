@@ -1,4 +1,119 @@
-.pagetitle {
+/*  subpage.component.css  */ 
+
+.container-fluid {
+    width: 100%;
+    max-width: 2400px;
+    margin-left: 10px;
+    margin-right: 0px;
+    padding-right: 0px;
+    align-content: center;
+  }
+  
+  
+  /* Navigation bar */
+  .navbar {
+    border-style: solid;
+    border-width: thin;
+    border-color:#002a5f;
+    padding: 1px;
+    margin-left: 0px;
+    margin-right: 0px;
+    width: auto;
+  }
+  
+  .page {
+    background: #ffffff;
+  }
+  
+  
+  .search {
+    font-weight: bold;
+    color: #fff;
+    background: #d1462c;
+    padding-top:10px;
+    padding-bottom: 10px;
+  }
+  
+  .searchbar {
+    display: inline-block;
+    width: 80%;
+    max-width: 400px;
+    height: 80%;
+  }
+  
+  .blank {
+    background-color: #d1462c;
+  }
+  
+  .leftnavbar {
+    text-align: right;
+    top: 10px;
+    float: right;
+    color: #fff;
+    height: 100%;
+  }
+  
+  
+  .btn-primary {
+    text-decoration: none;
+    background-color: #d1462c;
+    top: -10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    bottom: -20px;
+    height: 100%;
+    display: inline-block;
+    font-weight: bold;
+  }
+  
+  .btn .active .btn:hover {
+    background-color: #ab2724;
+  }
+  
+  
+  
+  /* Main page */
+  
+  .row {
+    margin-left:0px;
+    margin-right:0px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  
+  .even {
+    background-color: #ffffff;
+  }
+  
+  .odd {
+    background-color: #ececec;
+  }
+  
+  .boxtitle {
+    color: #d8613c;
+    font-size: 18pt;
+    font-weight: bold;
+  }
+  
+  .boxcategory {
+    color: #666;
+    font-size: 18pt;
+    font-weight: 600;
+  }
+  
+  .box {
+    padding-top: 50px;
+    padding-bottom: 10px;
+    color: #000;
+    text-align: center;
+    align-content: center;
+    width: 400px;
+    height: 100%;
+  }
+  
+  
+  
+  .pagetitle {
     height: 100%;
     width: 100%;
     margin: 0;
