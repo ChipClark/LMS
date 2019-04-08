@@ -5,7 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MessagesComponent } from './messages/messages.component';
-import { SearchPipe, TagPipe, TagsArrayPipe } from './pipes/search.pipe';
+import { SearchPipe, SearchSubPagePipe, TagPipe, TagsArrayPipe } from './pipes/search.pipe';
 
 import { AppComponent } from './app.component';
 import { PageComponent } from './page/page.component';
@@ -23,6 +23,7 @@ import { SubpageComponent } from './subpage/subpage.component';
     NavigationComponent,
     HeaderComponent,
     SearchPipe,
+    SearchSubPagePipe,
     TagPipe,
     TagsArrayPipe,
     FooterComponent,
