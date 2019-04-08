@@ -26,9 +26,9 @@ import { debugOutputAstAsTypeScript } from '@angular/compiler';
 
 export class PageComponent implements OnInit {
 
-  public pageURL = '../assets/temppage.json';
-  public tagsURL = '../assets/temptags.json';
-  public subpageURL = '../assets/tempsubpage.json';
+  public pageURL = 'http://marketing/utils/LMS/lms_page_svc.asp'; // '../assets/temppage.json';
+  public tagsURL = 'http://marketing/utils/LMS/lms_tag_svc.asp'; //'../assets/temptags.json';
+  public subpageURL = 'http://marketing/utils/LMS/lms_subpage_svc.asp'; // '../assets/tempsubpage.json';
   public connectionURL = '../assets/tempconnections.json';
 
   // Filters
