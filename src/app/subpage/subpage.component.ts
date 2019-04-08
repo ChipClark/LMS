@@ -42,9 +42,7 @@ export class SubpageComponent implements OnInit {
 
   url: string;
   top_page: Page[];
-  tags: Tags[];
   subpage: SubPage[];
-  connect_tags: assoc_top_tag[];
 
   
   //completePerson: PersonPage[];
@@ -76,11 +74,6 @@ export class SubpageComponent implements OnInit {
     this.staffService.getSubpageData(this.subpageURL)
       .subscribe(subpage => {
         this.subpage = subpage;
-      });
-    this.staffService.getConnectTags(this.connectionURL)
-      .subscribe(connect_tags => {
-        this.connect_tags = connect_tags;
-        //console.log(connect_tags);
       });
   }
 
@@ -122,6 +115,4 @@ export class SubpageComponent implements OnInit {
   clearFilters() {
     this.searchSubpageTerm = null;
   }
-
-
 }

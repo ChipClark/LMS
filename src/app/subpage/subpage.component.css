@@ -26,7 +26,7 @@
   }
   
   
-  .search {
+  .searchsub {
     font-weight: bold;
     color: #fff;
     background: #d1462c;
@@ -34,7 +34,7 @@
     padding-bottom: 10px;
   }
   
-  .searchbar {
+  .searchsubbar {
     display: inline-block;
     width: 80%;
     max-width: 400px;

@@ -22,16 +22,16 @@ export class SearchPipe implements PipeTransform {
 }
 
 @Pipe({
-    name: 'searchsubpage'
+    name: 'searchsub'
 })
 export class SearchSubPagePipe implements PipeTransform {
 
-    transform(items: any[], searchsubpage: string): any {
+    transform(items: any[], search: string): any {
 
-        if (!items || !searchsubpage) {
+        if (!items || !search) {
             return items;
         }
-        const regExp = new RegExp(searchsubpage, 'gi');
+        const regExp = new RegExp(search, 'gi');
         const check = p => {
             return regExp.test(p.title) ||
                 regExp.test(p.description) ;
