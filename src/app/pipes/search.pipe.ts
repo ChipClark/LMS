@@ -41,7 +41,8 @@ export class SearchPipe implements PipeTransform {
   
 
 @Pipe({
-    name: 'tags'
+    name: 'tags',
+    pure: false
 })
 
 export class TagPipe implements PipeTransform {
@@ -52,23 +53,16 @@ export class TagPipe implements PipeTransform {
             return items;
         }
 
-        var filtertags: any[];
+        var filtertags: any[] = [];
 
         for (let i = 0; i < items.length; i++) {
-            console.log(items[i].tags);
-            for (let j = 0; j < items[i].tags.length; i++) {
+            for (let j = 0; j < items[i].tags.length; j++) {
                 if (tag == items[i].tags[j]) {
-                    console.log(items[i]);
-                    return items[i];
+                    filtertags.push(items[i]);
                 }
             }
-            
         }
-        
-        console.log("end of transform");
-        console.log(filtertags);
         return filtertags;
-
     }
 
 }
