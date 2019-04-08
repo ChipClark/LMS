@@ -34,17 +34,13 @@ export class SubpageComponent implements OnInit {
   //includes
 
   @ViewChildren('nGForArray') filtered;
-  public tag: any;
   public searchTerm = null;
-  public tagname: any;
 
   public topTitle;
 
   url: string;
   top_page: Page[];
-  tags: Tags[];
   subpage: SubPage[];
-  connect_tags: assoc_top_tag[];
 
   
   //completePerson: PersonPage[];
@@ -70,19 +66,9 @@ export class SubpageComponent implements OnInit {
       .subscribe(top_page => {
         this.top_page = top_page;
       });
-    this.staffService.getTagData(this.tagsURL)
-      .subscribe(tag => {
-        this.tag = tag;
-      });
-    
     this.staffService.getSubpageData(this.subpageURL)
       .subscribe(subpage => {
         this.subpage = subpage;
-      });
-    this.staffService.getConnectTags(this.connectionURL)
-      .subscribe(connect_tags => {
-        this.connect_tags = connect_tags;
-        //console.log(connect_tags);
       });
   }
 
@@ -98,61 +84,29 @@ export class SubpageComponent implements OnInit {
   getParams(): void {
     this.route.queryParamMap.subscribe(params => {
       const queryStrings: any = this.route.queryParamMap;
-      this.executeQueryParams(queryStrings.source.value);
+      this.executeSubQuery(queryStrings.source.value);
     });
     
 
   }
 
-  addQueryParams(query): void {
+  addSubQuery(query): void {
     const keys = Object.keys(query);
     const values = Object.values(query);
-    for (let i = 0; i < keys.length; i++) {
-      switch (keys[i]) {
-        case 'tag':
-          this.tag= values[0];
-          break;
-      }
+    if (query === "") {
+      query = null;
     }
-    if (keys[0] === 'tag') {
-      this._router.navigate([''], {
+    this._router.navigate([''], {
         queryParams: {
           ...query
-        }
+        },
+        queryParamsHandling: 'merge',
       });
-    } else {
-      if (query === "") {
-        query = null;
-      }
-      this._router.navigate([''], {
-          queryParams: {
-            ...query
-          },
-          queryParamsHandling: 'merge',
-        });
-    }
   }
 
-  executeQueryParams(queryStrings): void {
+  executeSubQuery(queryStrings): void {
     const queries = Object.entries(queryStrings);
-    this.clearFilters();
-    for (const q of queries) {
-      switch (q[0]) {
-        case 'tag':
-          this.tag = q[1];
-          break;
-        case 'search':
-          this.searchTerm = q[1];
-          break;
-
-      }
-    }
-  }
-
-  clearFilters() {
     this.searchTerm = null;
-    this.tags = null;
+    this.searchTerm = queries[1];
   }
-
-
 }

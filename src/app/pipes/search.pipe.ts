@@ -18,6 +18,25 @@ export class SearchPipe implements PipeTransform {
                 regExp.test(p.sidebar) ;
         };
         return items.filter(check);
+    }
+}
+
+@Pipe({
+    name: 'searchsub'
+})
+export class SearchSubPipe implements PipeTransform {
+
+    transform(items: any[], searchsub: string): any {
+
+        if (!items || !searchsub) {
+            return items;
+        }
+        const regExp = new RegExp(searchsub, 'gi');
+        const check = p => {
+            return regExp.test(p.title) ||
+                regExp.test(p.description) ;
+        };
+        return items.filter(check);
 
     }
 

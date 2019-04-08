@@ -5,16 +5,16 @@
               <div [innerHTML]="getTopTitle()"></div>
             </div>
             
-            <div class="search col-8">
-                SEARCH &nbsp;&nbsp;<input  class="form-control searchbar" id="SearchBar" placeholder="" value="" autofocus
-                [(ngModel)]="searchTerm" (input)="searchTerm ? addQueryParams({search: searchTerm}) : addQueryParams({search: null})">
+            <div class="searchsub col-8">
+                SEARCH &nbsp;&nbsp;<input  class="form-control searchsubbar" id="subSearchBar" placeholder="" value="" autofocus
+                [(ngModel)]="subsearchTerm" (input)="subsearchTerm ? addSubQuery({searchsub: subsearchTerm}) : addSubQuery({searchsub: null})">
             </div>
             
         </div>
     </nav>
     <div class="container-fluid">
         <div class="row">
-            <span *ngFor="let subpage of subpage | search: searchTerm | tags: tagname  ; let odd = odd; let even = even;
+            <span *ngFor="let subpage of subpage | searchsub: subsearchTerm  ; let odd = odd; let even = even;
             let i = index;"
             #nGForArray>
                 <div class="box odd col-4" *ngIf="odd" [routerLink]="['courses/']">
