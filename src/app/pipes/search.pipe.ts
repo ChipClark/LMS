@@ -26,38 +26,21 @@ export class SearchPipe implements PipeTransform {
 })
 export class SearchSubPagePipe implements PipeTransform {
 
-    transform(items: any[], search: string): any {
+    transform(items: any[], searchsubpage: string): any {
 
-        if (!items || !search) {
+        if (!items || !searchsubpage) {
             return items;
         }
-        const regExp = new RegExp(search, 'gi');
+        const regExp = new RegExp(searchsubpage, 'gi');
         const check = p => {
             return regExp.test(p.title) ||
                 regExp.test(p.description) ;
         };
         return items.filter(check);
-
     }
-
 }
 
-@Pipe({
-    name: 'tagsArray',
-    pure: false
-  })
-  export class TagsArrayPipe implements PipeTransform {
-  
-    transform(items: any[], tagsArr: any[]): any {
-      //console.log(tagsArr);
-      if (!items || !tagsArr) {
-          return items;
-      }
-     return items.filter(item => tagsArr.some(c => c === item.tags));
-    }
-  
-  }
-  
+
 
 @Pipe({
     name: 'tags',

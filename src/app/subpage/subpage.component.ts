@@ -34,7 +34,7 @@ export class SubpageComponent implements OnInit {
   //includes
 
   @ViewChildren('nGForArray') filtered;
-  public searchSubpageTerm = null;
+  public subsearchTerm = null;
   public topTitle;
   public queryStrings;
 
@@ -121,10 +121,10 @@ export class SubpageComponent implements OnInit {
 
   executeSubQuery(queryStrings): void {
     const queries = Object.entries(queryStrings);
-    this.searchSubpageTerm = queries[1];
+    this.subsearchTerm = queries[1];
   }
 
   clearFilters() {
-    this.searchSubpageTerm = null;
+    this.subsearchTerm = null;
   }
 }
