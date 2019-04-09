@@ -114,7 +114,6 @@ export class PageComponent implements OnInit {
       switch (keys[i]) {
         case 'tag':
           this.tag = values[0];
-          console.log(this.tag);
           break;
       }
     }
@@ -159,5 +158,6 @@ export class PageComponent implements OnInit {
     this.tags = null;
   }
 
-
 }
+
+

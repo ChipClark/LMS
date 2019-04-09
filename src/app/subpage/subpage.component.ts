@@ -1,9 +1,9 @@
 // page.components.ts
 
 import { Component, OnInit, Input, ViewChild, ViewChildren } from '@angular/core';
-import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl, SafeValue } from '@angular/platform-browser';
-import { Page, Tags, assoc_top_tag, SubPage } from '../datatables/page';
-import { HttpClient, HttpHeaders, HttpHandler, HttpRequest } from '@angular/common/http';
+import { DomSanitizer,  } from '@angular/platform-browser';
+import { Page, SubPage } from '../datatables/page';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { APIService } from '../api.service';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
@@ -25,24 +25,24 @@ import { PageComponent } from '../page/page.component';
 export class SubpageComponent implements OnInit {
 
   public pageURL = '../assets/temppage.json';
-  public tagsURL = '../assets/temptags.json';
+  //public tagsURL = '../assets/temptags.json';
   public subpageURL = '../assets/tempsubpage.json';
-  public connectionURL = '../assets/tempconnections.json';
+  //public connectionURL = '../assets/tempconnections.json';
 
   // Filters
   
   //includes
 
   @ViewChildren('nGForArray') filtered;
-  public tag: any;
   public searchSubpageTerm = null;
-  public tagname: any;
-
   public topTitle;
+  public queryStrings;
 
   url: string;
   top_page: Page[];
+  top_category: Page;
   subpage: SubPage[];
+  subpageitems: SubPage[];
 
   
   //completePerson: PersonPage[];
@@ -58,48 +58,60 @@ export class SubpageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getData();
     this.getParams();
+    this.getData();
+    
   }
 
   getData(): any {
     this.staffService.getPageData(this.pageURL)
       .subscribe(top_page => {
         this.top_page = top_page;
-      });
-    this.staffService.getTagData(this.tagsURL)
-      .subscribe(tag => {
-        this.tag = tag;
+        this.getTopTitle();
+        this.top_category = this.top_page.find( p => {
+          return p.title === this.topTitle[0]
+        });
+        console.log("top category = ");
+        console.log(this.top_category);
       });
     this.staffService.getSubpageData(this.subpageURL)
       .subscribe(subpage => {
         this.subpage = subpage;
+        console.log("Subpage = ");
+        console.log(this.subpage);
+        this.subpageitems = [];
+        for ( let i = 0; i < this.subpage.length; i++ ) {
+          if (this.subpage[i].top_id == this.top_category.id) {
+            this.subpageitems.push(this.subpage[i]);
+          }
+        }
+          
       });
   }
 
-  getTopTitle(): string {
+  getTopTitle(): void {
     let obj;
     this.route.queryParams.subscribe(p => {
       obj = p;
     });
     this.topTitle = Object.values(obj);
-    return this.topTitle;
   }
 
   getParams(): void {
     this.route.queryParamMap.subscribe(params => {
-      const queryStrings: any = this.route.queryParamMap;
-      this.executeSubQuery(queryStrings.source.value);
+      this.queryStrings = this.route.queryParamMap;
+      // this.executeSubQuery(this.queryStrings.source.value);
     });
   }
 
   addSubQuery(query): void {
     const keys = Object.keys(query);
     const values = Object.values(query);
+    console.log(values);
     if (query === "") {
       query = null;
     }
-    this._router.navigate([''], {
+    this._router.navigate(['course'], {
         queryParams: {
           ...query
         },

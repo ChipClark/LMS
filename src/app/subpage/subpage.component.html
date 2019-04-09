@@ -14,20 +14,18 @@
     </nav>
     <div class="container-fluid">
         <div class="row">
-            <span *ngFor="let subpage of subpage | searchsub: subsearchTerm  ; let odd = odd; let even = even;
+            <span *ngFor="let subpageitems of subpageitems | searchsub: subsearchTerm  ; let odd = odd; let even = even;
             let i = index;"
             #nGForArray>
-                <div class="box odd col-4" *ngIf="odd" [routerLink]="['courses/']">
-                    <h1 class="{{subpage.icon}} pe-5x pe-va"></h1>
-                    <span class="boxtitle">{{subpage.title}}</span><br>
-                    <p>{{subpage.description}}</p>
-                    <span class="boxfilter">{{subpage.tags}}</span>
+                <div class="box odd col-4" *ngIf="odd" [routerLink]="['/']">
+                    <h1 class="{{subpageitems.icon}} pe-5x pe-va"></h1>
+                    <span class="boxtitle">{{subpageitems.title}}</span><br>
+                    <p>{{subpageitems.description}}</p>
                 </div>
-                <div class="box even col-4" *ngIf="even" [routerLink]="['courses/']">
-                        <h1 class="{{subpage.icon}} pe-5x pe-va"></h1>
-                        <span class="boxtitle">{{subpage.title}}</span><br>
-                        <p>{{subpage.description}}</p>
-                        <span class="boxfilter">{{subpage.tags}}</span>
+                <div class="box even col-4" *ngIf="even" [routerLink]="['/']">
+                        <h1 class="{{subpageitems.icon}} pe-5x pe-va"></h1>
+                        <span class="boxtitle">{{subpageitems.title}}</span><br>
+                        <p>{{subpageitemsdescription}}</p>
                 </div>
                     
             
