@@ -26,17 +26,8 @@ import { debugOutputAstAsTypeScript } from '@angular/compiler';
 
 export class PageComponent implements OnInit {
 
-  // public pageURL = 'http://marketing/utils/LMS/lms_page_svc.asp';  
-  // public tagsURL = 'http://marketing/utils/LMS/lms_tag_svc.asp'; 
-  // public subpageURL = 'http://marketing/utils/LMS/lms_subpage_svc.asp';  
-  // public connectionURL = '../assets/tempconnections.json';
-
-  public pageURL = '../assets/temppage.json';
-  public tagsURL = '../assets/temptags.json';
-  public subpageURL = '../assets/tempsubpage.json';
-  public connectionURL = '../assets/tempconnections.json';
-
-  // Filters
+  public internal = true;    // change to false to use external db
+  public external = false;
   
   //includes
 
@@ -76,11 +67,11 @@ export class PageComponent implements OnInit {
 
   getData(): any {
     //console.log(this.baseURL);
-    this.staffService.getPageData(this.pageURL)
+    this.staffService.getPageData(this.internal)
       .subscribe(top_page => {
         this.top_page = top_page;
       });
-    this.staffService.getTagData(this.tagsURL)
+    this.staffService.getTagData(this.internal)
       .subscribe(tagArray => {
         this.tagsArray = tagArray;
 
@@ -89,11 +80,11 @@ export class PageComponent implements OnInit {
         // }
       });
     
-    this.staffService.getSubpageData(this.subpageURL)
+    this.staffService.getSubpageData(this.internal)
       .subscribe(subpage => {
         this.subpage = subpage;
       });
-    this.staffService.getConnectTags(this.connectionURL)
+    this.staffService.getConnectTags(this.internal)
       .subscribe(connect_tags => {
         this.connect_tags = connect_tags;
         //console.log(connect_tags);

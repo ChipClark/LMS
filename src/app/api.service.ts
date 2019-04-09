@@ -18,10 +18,18 @@ const httpOptions = {
 
 export class APIService {
 
-  private skip;
-  private limit = 20;
-  private lastRecord;
-  private headers;
+  public externalPageURL = 'http://marketing/utils/LMS/lms_page_svc.asp';  
+  public externalTagsURL = 'http://marketing/utils/LMS/lms_tag_svc.asp'; 
+  public externalSubpageURL = 'http://marketing/utils/LMS/lms_subpage_svc.asp';  
+  public externalConnectionURL = '../assets/tempconnections.json';
+
+  public internalPageURL = '../assets/temppage.json';
+  public internalTagsURL = '../assets/temptags.json';
+  public internalSubpageURL = '../assets/tempsubpage.json';
+  public internalConnectionURL = '../assets/tempconnections.json';
+
+  private internal = true;
+  
   top_page: Page[];
   tags: Tags[];
   subpage: SubPage[];
@@ -31,28 +39,44 @@ export class APIService {
   constructor(
     private http: HttpClient,
     private messageService: MessageService){ }
+
+  
  
   getPageData (url): Observable<Page[]> {
-    return this.http.get<Page[]>(url)
-      .pipe( );
+    if ( url == this.internal ) {
+      return this.http.get<Page[]>(this.internalPageURL).pipe( );
+    }
+    else {
+      return this.http.get<Page[]>(this.externalPageURL).pipe( );
+    }
+      
   }
 
   getTagData (url): Observable<Tags[]> {
-    return this.http.get<Tags[]>(url)
-      .pipe( );
+    if ( url == this.internal ) {
+      return this.http.get<Tags[]>(this.internalTagsURL).pipe( );
+    }
+    else {
+      return this.http.get<Tags[]>(this.externalTagsURL).pipe( );
+    }
   }
 
   getSubpageData (url): Observable<SubPage[]> {
-    return this.http.get<SubPage[]>(url)
-      .pipe( 
-        //tap(subpage => this.log(this.limit + " people returned")),
-        //catchError(this.handleError('getPeople', [])),
-      );
+    if ( url == this.internal ) {
+      return this.http.get<SubPage[]>(this.internalSubpageURL).pipe( );
+    }
+    else {
+      return this.http.get<SubPage[]>(this.externalSubpageURL).pipe( );
+    }
   }
 
   getConnectTags (url): Observable<assoc_top_tag[]> {
-    return this.http.get<assoc_top_tag[]>(url)
-      .pipe( );
+    if ( url == this.internal ) {
+      return this.http.get<assoc_top_tag[]>(this.internalConnectionURL).pipe( );
+    }
+    else {
+      return this.http.get<assoc_top_tag[]>(this.externalConnectionURL).pipe( );
+    }
   }
 
 

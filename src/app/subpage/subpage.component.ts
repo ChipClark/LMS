@@ -24,10 +24,8 @@ import { PageComponent } from '../page/page.component';
 
 export class SubpageComponent implements OnInit {
 
-  public pageURL = '../assets/temppage.json';
-  //public tagsURL = '../assets/temptags.json';
-  public subpageURL = '../assets/tempsubpage.json';
-  //public connectionURL = '../assets/tempconnections.json';
+  public internal = true;   /// Change to false to use external db
+  public external = false;
 
   // Filters
   
@@ -64,7 +62,7 @@ export class SubpageComponent implements OnInit {
   }
 
   getData(): any {
-    this.staffService.getPageData(this.pageURL)
+    this.staffService.getPageData(this.internal)
       .subscribe(top_page => {
         this.top_page = top_page;
         this.getTopTitle();
@@ -74,7 +72,7 @@ export class SubpageComponent implements OnInit {
         console.log("top category = ");
         console.log(this.top_category);
       });
-    this.staffService.getSubpageData(this.subpageURL)
+    this.staffService.getSubpageData(this.internal)
       .subscribe(subpage => {
         this.subpage = subpage;
         console.log("Subpage = ");
