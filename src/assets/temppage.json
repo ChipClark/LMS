@@ -53,6 +53,24 @@
         "isactive" : "Yes" 
     }, 
     { 
+        "id" : 8, 
+        "title" : "Home Improvements", 
+        "description" : "Integre inciderint te vis. Ne option albucius sit.", 
+        "icon" : "pe-7s-tools", 
+        "sidebar" : "", 
+        "tags" : [""], 
+        "isactive" : "Yes" 
+    }, 
+    { 
+        "id" : 9, 
+        "title" : "Azure Programming", 
+        "description" : "Although, you'd have to be crazy to want to take these courses.", 
+        "icon" : "pe-7s-pendrive", 
+        "sidebar" : "", 
+        "tags" : ["Computer"], 
+        "isactive" : "Yes" 
+    }, 
+    { 
         "id" : "5", 
         "title" : "Time and Billing", 
         "description" : "Sea ei zril consul putant. Nam affert iriure insolens ut, patrioque efficiendi inciderint sea id.", 

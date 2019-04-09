@@ -14,24 +14,13 @@
                         <input type="radio" name="options" id="option0" class="generalbtn" [(ngModel)]="tag" [value]=""
                             value="null" (click)="addQueryParams({tag: null, page: null})">&nbsp;ALL&nbsp;
                     </label>&nbsp;
-                        <label class="btn blur" [class.active]="tag == 'CLE'" id="CLE">
-                            <input type="radio" name="options" id="optionCLE" class="generalbtn" [(ngModel)]="tag"
-                                value="CLE" [value]="CLE" 
-                                (click)="addQueryParams({tag: 'CLE', page: null})">&nbsp;CLE&nbsp;
+                    <div *ngFor="let tagsArray of tagsArray" class="btn-group">
+                        <label class="btn blur" [class.active]="tag == tagsArray.tagname" id="{{tagsArray.tagname}}">
+                            <input type="radio" name="options" id="option{{tagsArray.tagname}}" class="generalbtn" 
+                            [(ngModel)]="tag" value="{{tagsArray.tagname}}" [value]="tagsArray.tagname" >&nbsp;{{tagsArray.tagname}}&nbsp;
                         </label>&nbsp;
-
-                        <label class="btn blur" [class.active]="tag == 'HR'" id="HR">
-                            <input type="radio" name="options" id="optionHR" class="generalbtn" [(ngModel)]="tag"
-                                value="HR" [value]="HR"
-                                (click)="addQueryParams({tag: 'HR', page: null})">&nbsp;HR&nbsp;
-                        </label>&nbsp;
-
-                        <label class="btn blur" [class.active]="tag == 'Skills'" id="Skills">
-                            <input type="radio" name="options" id="optionSkills" class="generalbtn" [(ngModel)]="tag"
-                                value="Skills" [value]="Skills"
-                                (click)="addQueryParams({tag: 'Skills', page: null})">&nbsp;Skills&nbsp;
-                        </label>&nbsp;
-
+                        
+                    </div>
                 </div>
             </div>
             

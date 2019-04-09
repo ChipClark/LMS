@@ -98,6 +98,10 @@ export class PageComponent implements OnInit {
     });
   }
 
+  clickTag(tag: string): void {
+    console.log(tag);
+  }
+
   addQueryParams(query): void {
     const keys = Object.keys(query);
     const values = Object.values(query);

@@ -65,8 +65,16 @@
   font-weight: bold;
 }
 
-.btn .active .btn:hover {
-  background-color: #ab2724;
+.btn {
+  top: 2px;
+}
+
+.active {
+  background: #ab2724;
+}
+
+.btn:hover {
+    background: #ab2724;
 }
 
 
