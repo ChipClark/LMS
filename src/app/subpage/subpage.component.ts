@@ -108,7 +108,6 @@ export class SubpageComponent implements OnInit {
   addSubQuery(query): void {
     const keys = Object.keys(query);
     const values = Object.values(query);
-    console.log(values);
     if (query === "") {
       query = null;
     }
