@@ -65,21 +65,24 @@ export class SubpageComponent implements OnInit {
     this.staffService.getPageData(this.internal)
       .subscribe(top_page => {
         this.top_page = top_page;
+        for ( let i = 0; i < this.top_page.length; i++ ) {
+          this.top_page[i].intid = parseInt(this.top_page[i].id);
+        }
         this.getTopTitle();
         this.top_category = this.top_page.find( p => {
           return p.title === this.topTitle[0]
         });
-        console.log("top category = ");
-        console.log(this.top_category);
       });
     this.staffService.getSubpageData(this.internal)
       .subscribe(subpage => {
         this.subpage = subpage;
-        console.log("Subpage = ");
-        console.log(this.subpage);
+        for ( let i = 0; i < this.subpage.length; i++ ) {
+          this.subpage[i].intid = parseInt(this.subpage[i].id);
+          this.subpage[i].top_id = parseInt(this.subpage[i].pageid);
+        }
         this.subpageitems = [];
         for ( let i = 0; i < this.subpage.length; i++ ) {
-          if (this.subpage[i].top_id == this.top_category.id) {
+          if (this.subpage[i].top_id == this.top_category.intid) {
             this.subpageitems.push(this.subpage[i]);
           }
         }

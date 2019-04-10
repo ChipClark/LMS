@@ -70,10 +70,16 @@ export class PageComponent implements OnInit {
     this.staffService.getPageData(this.internal)
       .subscribe(top_page => {
         this.top_page = top_page;
+        for ( let i = 0; i < this.top_page.length; i++ ) {
+          this.top_page[i].intid = parseInt(this.top_page[i].id);
+        }
       });
     this.staffService.getTagData(this.internal)
       .subscribe(tagArray => {
         this.tagsArray = tagArray;
+        for ( let i = 0; i < this.tagsArray.length; i++ ) {
+          this.tagsArray[i].intid = parseInt(this.tagsArray[i].id);
+        }
 
         // for (let i = 0; i < filtertags.length; i++) {
          
@@ -83,6 +89,9 @@ export class PageComponent implements OnInit {
     this.staffService.getSubpageData(this.internal)
       .subscribe(subpage => {
         this.subpage = subpage;
+        for ( let i = 0; i < this.subpage.length; i++ ) {
+          this.subpage[i].intid = parseInt(this.subpage[i].id);
+        }
       });
     this.staffService.getConnectTags(this.internal)
       .subscribe(connect_tags => {

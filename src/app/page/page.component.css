@@ -120,5 +120,11 @@
   height: 100%;
 }
 
+.box:hover {
+  cursor: pointer;
+}
+
+
+
 
 

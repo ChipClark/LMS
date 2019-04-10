@@ -69,8 +69,18 @@
   .btn .active .btn:hover {
     background-color: #ab2724;
   }
+
+  .courselink {
+     text-decoration: none;
+     text-decoration: inherit;
+     color: #333;
+  }
   
-  
+  .courselink:hover {
+    cursor: pointer;
+    text-decoration: none;
+ }
+ 
   
   /* Main page */
   

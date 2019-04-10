@@ -1,5 +1,6 @@
 export class Page {
-  id: number;
+  id: string;
+  intid: number;
   title: string;
   description: string;
   icon: string;
@@ -9,7 +10,8 @@ export class Page {
 }
 
 export class Tags {
-  id: number;
+  id: string;
+  intid: number;
   tagname: string;
 }
 
@@ -21,7 +23,9 @@ export class assoc_top_tag {
 }
 
 export class SubPage {
-  id: number;
+  id: string;
+  intid: number;
+  pageid: string;
   top_id: number;
   title: string;
   description: string;
