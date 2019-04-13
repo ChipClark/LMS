@@ -8,6 +8,8 @@ import { Injectable } from '@angular/core';
 import { APIService } from '../api.service';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { AppComponent } from '../app.component';
+
 import { PageComponent } from '../page/page.component';
 
 // datatables 
@@ -23,13 +25,6 @@ import { PageComponent } from '../page/page.component';
 })
 
 export class SubpageComponent implements OnInit {
-
-  public internal = true;   /// Change to false to use external db
-  public external = false;
-
-  // Filters
-  
-  //includes
 
   @ViewChildren('nGForArray') filtered;
   public subsearchTerm = null;
@@ -48,6 +43,7 @@ export class SubpageComponent implements OnInit {
 
   constructor(
     private staffService: APIService,
+    private mainApp: AppComponent,
     private http: HttpClient,
     protected sanitizer: DomSanitizer,
     private route: ActivatedRoute,
@@ -62,32 +58,25 @@ export class SubpageComponent implements OnInit {
   }
 
   getData(): any {
-    this.staffService.getPageData(this.internal)
+    this.staffService.getPageData(this.mainApp.internal_db)
       .subscribe(top_page => {
         this.top_page = top_page;
-        for ( let i = 0; i < this.top_page.length; i++ ) {
-          this.top_page[i].intid = parseInt(this.top_page[i].id);
-        }
         this.getTopTitle();
         this.top_category = this.top_page.find( p => {
           return p.title === this.topTitle[0]
         });
       });
-    this.staffService.getSubpageData(this.internal)
+    this.staffService.getSubpageData(this.mainApp.internal_db)
       .subscribe(subpage => {
         this.subpage = subpage;
-        for ( let i = 0; i < this.subpage.length; i++ ) {
-          this.subpage[i].intid = parseInt(this.subpage[i].id);
-          this.subpage[i].top_id = parseInt(this.subpage[i].pageid);
-        }
         this.subpageitems = [];
         for ( let i = 0; i < this.subpage.length; i++ ) {
-          if (this.subpage[i].top_id == this.top_category.intid) {
-            this.subpageitems.push(this.subpage[i]);
-          }
+          if (this.subpage[i].top_id == this.top_category.id) {
+              this.subpageitems.push(this.subpage[i]);
+            }
         }
-          
       });
+      this.getTopTitle();
   }
 
   getTopTitle(): void {

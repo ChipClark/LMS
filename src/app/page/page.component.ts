@@ -6,6 +6,7 @@ import { Page, Tags, assoc_top_tag, SubPage } from '../datatables/page';
 import { HttpClient, HttpHeaders, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { APIService } from '../api.service';
+import { AppComponent } from '../app.component';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { debugOutputAstAsTypeScript } from '@angular/compiler';
@@ -53,6 +54,7 @@ export class PageComponent implements OnInit {
 
   constructor(
     private staffService: APIService,
+    private mainApp: AppComponent,
     private http: HttpClient,
     protected sanitizer: DomSanitizer,
     private route: ActivatedRoute,
@@ -67,33 +69,20 @@ export class PageComponent implements OnInit {
 
   getData(): any {
     //console.log(this.baseURL);
-    this.staffService.getPageData(this.internal)
+    this.staffService.getPageData(this.mainApp.internal_db)
       .subscribe(top_page => {
         this.top_page = top_page;
-        for ( let i = 0; i < this.top_page.length; i++ ) {
-          this.top_page[i].intid = parseInt(this.top_page[i].id);
-        }
       });
-    this.staffService.getTagData(this.internal)
+    this.staffService.getTagData(this.mainApp.internal_db)
       .subscribe(tagArray => {
         this.tagsArray = tagArray;
-        for ( let i = 0; i < this.tagsArray.length; i++ ) {
-          this.tagsArray[i].intid = parseInt(this.tagsArray[i].id);
-        }
-
-        // for (let i = 0; i < filtertags.length; i++) {
-         
-        // }
       });
     
-    this.staffService.getSubpageData(this.internal)
+    this.staffService.getSubpageData(this.mainApp.internal_db)
       .subscribe(subpage => {
         this.subpage = subpage;
-        for ( let i = 0; i < this.subpage.length; i++ ) {
-          this.subpage[i].intid = parseInt(this.subpage[i].id);
-        }
       });
-    this.staffService.getConnectTags(this.internal)
+    this.staffService.getConnectTags(this.mainApp.internal_db)
       .subscribe(connect_tags => {
         this.connect_tags = connect_tags;
         //console.log(connect_tags);

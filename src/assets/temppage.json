@@ -1,5 +1,5 @@
     [ { 
-        "id" : "4", 
+        "id" : 4, 
         "title" : "Collaborating with Others", 
         "description" : "Lorem ipsum dolor sit amet, simul pericula urbanitas ad est,", 
         "icon" : "pe-7s-film", 
@@ -8,7 +8,7 @@
         "isactive" : "Yes" 
         }, 
     { 
-        "id" : "2", 
+        "id" : 2, 
         "title" : "Legal Documents", 
         "description" : "Velit audiam has in. Autem luptatum verterem vim ea, eos in veniam repudiare evertitur.", 
         "icon" : "pe-7s-hammer", 
@@ -17,7 +17,7 @@
         "isactive" : "Yes" 
         }, 
     { 
-        "id" : "3", 
+        "id" : 3, 
         "title" : "Managing Documents and Emails", 
         "description" : "Ea eam lorem delicatissimi, est et clita numquam moderatius.", 
         "icon" : "pe-7s-copy-file", 
@@ -26,7 +26,7 @@
         "isactive" : "Yes" 
         }, 
     { 
-        "id" : "1", 
+        "id" : 1, 
         "title" : "Professional Development", 
         "description" : "At minimum maiestatis eum, ex sea iudico incorrupte.", 
         "icon" : "pe-7s-box1", 
@@ -35,7 +35,7 @@
         "isactive" : "Yes" 
         }, 
     { 
-        "id" : "6", 
+        "id" : 6, 
         "title" : "Road Warriors", 
         "description" : "Graecis civibus interesset vix no, vero quidam dicunt ei nam.", 
         "icon" : "pe-7s-car", 
@@ -44,7 +44,7 @@
         "isactive" : "Yes" 
         }, 
     { 
-        "id" : "7", 
+        "id" : 7, 
         "title" : "Security", 
         "description" : "Integre inciderint te vis. Ne option albucius sit.", 
         "icon" : "pe-7s-unlock", 
@@ -53,7 +53,7 @@
         "isactive" : "Yes" 
     }, 
     { 
-        "id" : "8", 
+        "id" : 8, 
         "title" : "Home Improvements", 
         "description" : "Integre inciderint te vis. Ne option albucius sit.", 
         "icon" : "pe-7s-tools", 
@@ -62,7 +62,7 @@
         "isactive" : "Yes" 
     }, 
     { 
-        "id" : "9", 
+        "id" : 9, 
         "title" : "Azure Programming", 
         "description" : "Although, you'd have to be crazy to want to take these courses.", 
         "icon" : "pe-7s-pendrive", 
@@ -71,7 +71,7 @@
         "isactive" : "Yes" 
     }, 
     { 
-        "id" : "5", 
+        "id" : 5, 
         "title" : "Time and Billing", 
         "description" : "Sea ei zril consul putant. Nam affert iriure insolens ut, patrioque efficiendi inciderint sea id.", 
         "icon" : "pe-7s-hourglass", 

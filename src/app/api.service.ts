@@ -18,10 +18,10 @@ const httpOptions = {
 
 export class APIService {
 
-  public externalPageURL = 'http://marketing/utils/LMS/lms_page_svc.asp';  
-  public externalTagsURL = 'http://marketing/utils/LMS/lms_tag_svc.asp'; 
-  public externalSubpageURL = 'http://marketing/utils/LMS/lms_subpage_svc.asp';  
-  public externalConnectionURL = '../assets/tempconnections.json';
+  public externalPageURL = 'http://am-web05:3035/api/v1/page';  
+  public externalTagsURL = 'http://am-web05:3035/api/v1/tags'; 
+  public externalSubpageURL = 'http://am-web05:3035/api/v1/subpage';  
+  public externalConnectionURL = 'http://am-web05:3035/api/v1/assocpagetags';
 
   public internalPageURL = '../assets/temppage.json';
   public internalTagsURL = '../assets/temptags.json';
