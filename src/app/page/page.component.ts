@@ -35,7 +35,6 @@ export class PageComponent implements OnInit {
   @ViewChildren('nGForArray')filtered;
   public tags: any;
   public tag = null;
-  public tagArray = ['CLE', 'HR', 'Skills'];
   public searchTerm = null;
   public tagname: any;
   public CLE = 'CLE';
@@ -72,6 +71,7 @@ export class PageComponent implements OnInit {
     this.staffService.getPageData(this.mainApp.internal_db)
       .subscribe(top_page => {
         this.top_page = top_page;
+        //console.log(this.top_page);
       });
     this.staffService.getTagData(this.mainApp.internal_db)
       .subscribe(tagArray => {
@@ -94,6 +94,19 @@ export class PageComponent implements OnInit {
       const queryStrings: any = this.route.queryParamMap;
       this.executeQueryParams(queryStrings.source.value);
     });
+  }
+
+  getTags(page): string {
+    var pagetags = "";
+    if (page.tags) {
+      for (let i = 0; i < page.tags.length; i++) {
+        pagetags = pagetags + (page.tags[i].tag);
+        if (page.tags[i + 1]) {
+          pagetags = pagetags + ", ";
+        }
+      }
+    }
+    return pagetags;
   }
 
   clickTag(tag: string): void {

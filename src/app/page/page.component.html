@@ -15,9 +15,9 @@
                             value="null" (click)="addQueryParams({tag: null, page: null})">&nbsp;ALL&nbsp;
                     </label>&nbsp;
                     <div *ngFor="let tagsArray of tagsArray" class="btn-group">
-                        <label class="btn blur" [class.active]="tag == tagsArray.tagname" id="{{tagsArray.tagname}}">
-                            <input type="radio" name="options" id="option{{tagsArray.tagname}}" class="generalbtn" 
-                            [(ngModel)]="tag" value="{{tagsArray.tagname}}" [value]="tagsArray.tagname" >&nbsp;{{tagsArray.tagname}}&nbsp;
+                        <label class="btn blur" [class.active]="tag == tagsArray.tag" id="{{tagsArray.tag}}">
+                            <input type="radio" name="options" id="option{{tagsArray.tag}}" class="generalbtn" 
+                            [(ngModel)]="tag" value="{{tagsArray.tag}}" [value]="tagsArray.tag" >&nbsp;{{tagsArray.tag}}&nbsp;
                         </label>&nbsp;
                         
                     </div>
@@ -28,20 +28,21 @@
     </nav>
     <div class="container-fluid">
         <div class="row">
-            <span *ngFor="let top_page of top_page | search: searchTerm | tags: tag  ; let odd = odd; let even = even;
+            <span *ngFor="let top_page of top_page | search: searchTerm | tagsPipe: tag  ; let odd = odd; let even = even;
             let i = index;"
             #nGForArray>
                 <div class="box odd col-4" *ngIf="odd" [routerLink]="['/course']" [queryParams]="{category: top_page.title}" >
                     <h1 class="{{top_page.icon}} pe-5x pe-va"></h1>
                     <span class="boxtitle">{{top_page.title}}</span><br>
                     <p>{{top_page.description}}</p>
-                    <span class="boxfilter">{{top_page.tags}}</span>
+                    <div [innerHTML]="getTags(top_page)"></div>
                 </div>
                 <div class="box even col-4" *ngIf="even" [routerLink]="['/course']" [queryParams]="{category: top_page.title}"  >
                     <h1 class="{{top_page.icon}} pe-5x pe-va"></h1>
                     <span class="boxtitle">{{top_page.title}}</span><br>
                     <p>{{top_page.description}}</p>
-                    <span class="boxfilter">{{top_page.tags}}</span>
+                    <!--<span *ngFor="let tagsArray of tagsArray">{{tagsArray.tag}}&nbsp;</span>-->
+                    <div [innerHTML]="getTags(top_page)"></div>
                 </div>
                     
             

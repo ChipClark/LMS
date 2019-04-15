@@ -43,7 +43,7 @@ export class SearchSubPagePipe implements PipeTransform {
 
 
 @Pipe({
-    name: 'tags',
+    name: 'tagsPipe',
     pure: false
 })
 
@@ -59,7 +59,7 @@ export class TagPipe implements PipeTransform {
 
         for (let i = 0; i < items.length; i++) {
             for (let j = 0; j < items[i].tags.length; j++) {
-                if (tag == items[i].tags[j]) {
+                if (tag == items[i].tags[j].tag) {
                     filtertags.push(items[i]);
                 }
             }

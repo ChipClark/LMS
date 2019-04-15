@@ -1,6 +1,6 @@
-[   {"id": 1, "tagname": "CLE"},
-    {"id": 2, "tagname": "HR"},
-    {"id": 3, "tagname": "Skills"},
-    {"id": 4, "tagname": "Computer"}
+[   {"id": 1, "tag": "CLE"},
+    {"id": 2, "tag": "HR"},
+    {"id": 3, "tag": "Skills"},
+    {"id": 4, "tag": "Computer"}
     ]
 

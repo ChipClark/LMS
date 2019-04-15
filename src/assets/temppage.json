@@ -4,7 +4,7 @@
         "description" : "Lorem ipsum dolor sit amet, simul pericula urbanitas ad est,", 
         "icon" : "pe-7s-film", 
         "sidebar" : "", 
-        "tags" : ["HR", "Skills"], 
+        "tags" : [{"id": 2, "tag": "HR"}, {"id": 3, "tag": "Skills"}], 
         "isactive" : "Yes" 
         }, 
     { 
@@ -13,7 +13,7 @@
         "description" : "Velit audiam has in. Autem luptatum verterem vim ea, eos in veniam repudiare evertitur.", 
         "icon" : "pe-7s-hammer", 
         "sidebar" : "pe-7s-hourglass", 
-        "tags" : ["CLE", "Skills"], 
+        "tags" : [{"id": 1, "tag": "CLE"}, {"id": 3, "tag": "Skills"}],
         "isactive" : "Yes" 
         }, 
     { 
@@ -22,7 +22,7 @@
         "description" : "Ea eam lorem delicatissimi, est et clita numquam moderatius.", 
         "icon" : "pe-7s-copy-file", 
         "sidebar" : "", 
-        "tags" : ["Skills"], 
+        "tags" : [{"id": 3, "tag": "Skills"}],
         "isactive" : "Yes" 
         }, 
     { 
@@ -31,7 +31,7 @@
         "description" : "At minimum maiestatis eum, ex sea iudico incorrupte.", 
         "icon" : "pe-7s-box1", 
         "sidebar" : "Test sidebar text. This should be HTML", 
-        "tags" : ["CLE", "Skills"], 
+        "tags" : [{"id": 1, "tag": "CLE"}, {"id": 3, "tag": "Skills"}],
         "isactive" : "Yes" 
         }, 
     { 
@@ -40,7 +40,7 @@
         "description" : "Graecis civibus interesset vix no, vero quidam dicunt ei nam.", 
         "icon" : "pe-7s-car", 
         "sidebar" : "", 
-        "tags" : ["Skills"], 
+        "tags" : [{"id": 3, "tag": "Skills"}],
         "isactive" : "Yes" 
         }, 
     { 
@@ -49,7 +49,7 @@
         "description" : "Integre inciderint te vis. Ne option albucius sit.", 
         "icon" : "pe-7s-unlock", 
         "sidebar" : "", 
-        "tags" : ["Skills"], 
+        "tags" : [{"id": 3, "tag": "Skills"}],
         "isactive" : "Yes" 
     }, 
     { 
@@ -67,7 +67,7 @@
         "description" : "Although, you'd have to be crazy to want to take these courses.", 
         "icon" : "pe-7s-pendrive", 
         "sidebar" : "", 
-        "tags" : ["Computer"], 
+        "tags" : [{"id": 4, "tag": "Computer"}], 
         "isactive" : "Yes" 
     }, 
     { 
@@ -76,6 +76,6 @@
         "description" : "Sea ei zril consul putant. Nam affert iriure insolens ut, patrioque efficiendi inciderint sea id.", 
         "icon" : "pe-7s-hourglass", 
         "sidebar" : "", 
-        "tags" : ["Skills"], "isactive" : "Yes" 
+        "tags" : [{"id": 3, "tag": "Skills"}], "isactive" : "Yes" 
         } 
 ]
