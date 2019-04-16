@@ -22,7 +22,7 @@ export class assoc_top_tag {
 
 export class SubPage {
   id: number;
-  top_id: number;
+  pageid: number;
   title: string;
   description: string;
   icon: string;

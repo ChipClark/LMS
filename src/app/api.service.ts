@@ -20,7 +20,7 @@ export class APIService {
 
   public externalPageURL = 'http://am-web05:3035/api/v1/pages?filter={"include":["tags"]}';  
   public externalTagsURL = 'http://am-web05:3035/api/v1/tags'; 
-  public externalSubpageURL = 'http://am-web05:3035/api/v1/subpage';  
+  public externalSubpageURL = 'http://am-web05:3035/api/v1/subpages';  
   public externalConnectionURL = 'http://am-web05:3035/api/v1/assocpagetags';
 
   public internalPageURL = '../assets/temppage.json';
