@@ -14,6 +14,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SubpageComponent } from './subpage/subpage.component';
+import { EditpageComponent } from './editpage/editpage.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SubpageComponent } from './subpage/subpage.component';
     SearchSubPagePipe,
     TagPipe,
     FooterComponent,
-    SubpageComponent
+    SubpageComponent,
+    EditpageComponent
   ],
   imports: [
     BrowserModule,

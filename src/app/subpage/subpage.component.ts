@@ -1,4 +1,4 @@
-// page.components.ts
+// subpage.components.ts
 
 import { Component, OnInit, Input, ViewChild, ViewChildren } from '@angular/core';
 import { DomSanitizer,  } from '@angular/platform-browser';

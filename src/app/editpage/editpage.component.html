@@ -1,0 +1,134 @@
+<div class="page">
+  <nav class="navbar">
+      <div class="container-fluid">
+          <div class="search col-7">
+              SEARCH &nbsp;&nbsp; <input  class="form-control searchbar" id="SearchBar" placeholder="" value="" autofocus
+              [(ngModel)]="searchTerm" (input)="searchTerm ? addQueryParams({search: searchTerm}) : addQueryParams({search: null})">
+          </div>
+          
+          <div class="leftnav col-5">
+              
+              <div class="leftnavbar skillfilter btn-group-toggle" data-toggle="locationbuttons">
+                  FILTER:&nbsp;&nbsp;
+                  <label class="btn active blur" [class.active]="!tag" id="filter0">
+                      <input type="radio" name="options" id="option0" class="generalbtn" [(ngModel)]="tag" [value]=""
+                          value="null" (click)="addQueryParams({tag: null, page: null})">&nbsp;ALL&nbsp;
+                  </label>&nbsp;
+                  <div *ngFor="let tagsArray of tagsArray" class="btn-group">
+                      <label class="btn blur" [class.active]="tag == tagsArray.tag" id="{{tagsArray.tag}}">
+                          <input type="radio" name="options" id="option{{tagsArray.tag}}" class="generalbtn" 
+                          [(ngModel)]="tag" value="{{tagsArray.tag}}" [value]="tagsArray.tag" >&nbsp;{{tagsArray.tag}}&nbsp;
+                      </label>&nbsp;
+                      
+                  </div>
+              </div>
+          </div>
+          
+      </div>
+  </nav>
+  <div class="container-fluid">
+      <div class="row">
+        <div class="sections col-12">
+          <h3>Pages</h3>
+          <div class="col-12">
+            <div class="idHead col-1">ID</div>
+            <div class="titleHead col-3">Title</div>
+            <div class="descriptionHead col-5">Description</div>
+            <div class="tagHead col-3">Tags</div>
+          </div>
+          <span *ngFor="let top_page of top_page | search: searchTerm | tagsPipe: tag  ; 
+          let i = index;"
+          #nGForArray class="item-table">
+              <div class="pageid col-1">{{top_page.id}}</div>
+              <div class="pagetitle col-3">{{top_page.title}}</div>
+              <div class="pagedescription col-5">{{top_page.description}}</div>
+              <div class="pagetags col-3"><div [innerHTML]="getTags(top_page)"></div></div><br>
+          </span>
+        </div>
+        <form #f="ngForm" class="col-12">
+          <table class="col-12"> 
+            <tr>
+              <th width="30%">Title</th>
+              <th colspan="2">Description</th>
+            </tr>
+            <tr>
+              <td><input type="text" class="col-10 form-control entry" id="title" [value]="" #pageT></td>
+              <td colspan="2"><textarea rows="3" class="form-control"  [value]=""  #pageD></textarea></td>
+            </tr>
+            <tr>
+              <td>Icon: </td>
+              <td width="30%">Active:</td>
+              <td width="40%">&nbsp;</td>
+            </tr>
+            <tr>
+              <td><input list="iconlist" class="col-10 form-control entry" id="icon"  [value]=""  #pageI></td>
+              <td><input list="activelist" class="col-3 form-control entry" id="isactive" [value]=""  #pageA></td>
+              <td>&nbsp;</td>
+
+            </tr>
+            <tr>
+              <td colspan="3">Sidebar </td>
+            </tr>
+            <tr>
+              <td colspan="3"><textarea rows="5" class="form-control" [value]="" #pageS></textarea></td>
+
+            </tr>
+              
+
+          </table>
+            
+            <datalist id="iconlist">
+                <option value="pe-7s-album">
+                <option value="pe-7s-arc">
+                <option value="pe-7s-back-2">
+                <option value="pe-7s-bandaid">
+                <option value="pe-7s-car">
+                <option value="pe-7s-diamond">
+                <option value="pe-7s-door-lock">
+                <option value="pe-7s-eyedropper">
+                <option value="pe-7s-female">
+                <option value="pe-7s-gym">
+                <option value="pe-7s-hammer">
+                <option value="pe-7s-headphones">
+
+                <option value="pe-7s-helm">
+                <option value="pe-7s-hourglass">
+                <option value="pe-7s-leaf">
+                <option value="pe-7s-magic-wand">
+                <option value="pe-7s-male">
+                <option value="pe-7s-map-2">
+                <option value="pe-7s-next-2">
+                <option value="pe-7s-paint-bucket">
+                <option value="pe-7s-pendrive">
+                <option value="pe-7s-photo">
+                <option value="pe-7s-piggy">
+                <option value="pe-7s-plugin">
+
+            </datalist>
+            <datalist id="activelist">
+                <option value="true">
+                <option value="false">
+            </datalist> 
+
+              <br>
+            <button class="entry" (click)="createRequest(pageT.value, pageD.value, pageI.value, pageS.value, pageA.value)">Add</button>&nbsp;&nbsp;
+            <button class="entry" (click)="clearForm()">Clear</button>
+        </form>
+
+      </div>
+      <div class="row">
+        <div class="sections col-12">
+            <h3>Subpages</h3>
+            <span *ngFor="let subpageitems of subpageitems | search: searchTerm; 
+            let i = index;"
+            #nGForArray class="item-table">
+                <div class="col-12">
+                    <span class="boxtitle">{{subpageitems.title}}</span>
+                    <span class="boxdescription">{{subpageitems.description}}</span>
+                    <span class="edit"></span>
+                </div>
+          </span>
+        </div>
+      </div>
+  </div>
+</div>

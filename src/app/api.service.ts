@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpHandler, HttpRequest } from '@angular/common/http';
-
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap, concat } from 'rxjs/operators';
 
@@ -18,7 +17,8 @@ const httpOptions = {
 
 export class APIService {
 
-  public externalPageURL = 'http://am-web05:3035/api/v1/pages?filter={"include":["tags"]}';  
+  public externalPageURL = 'http://am-web05:3035/api/v1/pages?filter={"include":["tags"]}'; 
+  public externalPagePost = 'http://am-web05:3035/api/v1/pages';
   public externalTagsURL = 'http://am-web05:3035/api/v1/tags'; 
   public externalSubpageURL = 'http://am-web05:3035/api/v1/subpages';  
   public externalConnectionURL = 'http://am-web05:3035/api/v1/assocpagetags';
@@ -77,6 +77,12 @@ export class APIService {
     else {
       return this.http.get<assoc_top_tag[]>(this.externalConnectionURL).pipe( );
     }
+  }
+
+  postPageData (body): Observable<Page[]> {
+    let options = new Headers;
+
+    return this.http.post<Page[]>(this.externalPagePost, body ).pipe( );
   }
 
 
