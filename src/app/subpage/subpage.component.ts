@@ -30,6 +30,19 @@ export class SubpageComponent implements OnInit {
   public subsearchTerm = null;
   public topTitle;
   public queryStrings;
+  public tags: any;
+  public tag = null;
+  public searchTerm = null;
+  public tagname: any;
+  public CLE = 'CLE';
+  public HR = 'HR';
+  public Skills = 'Skills';
+  public title;
+  public description;
+  public icon;
+  public isactive;
+  public urltarget;
+  public pageid;
 
   url: string;
   top_page: Page[];
@@ -70,8 +83,6 @@ export class SubpageComponent implements OnInit {
             }
           });
       });
-    
-      this.getTopTitle();
   }
 
   getTopTitle(): void {
