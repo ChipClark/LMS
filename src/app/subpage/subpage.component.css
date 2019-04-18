@@ -129,4 +129,9 @@
     background: #fff;
     color: #002a5f;
     font-size: 18pt;
-}
+  }
+
+  .iconentry, .icon, .activedisplay, .activeentry, .urlentry {
+    display: inline-block;
+    vertical-align: top;
+  }

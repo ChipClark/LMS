@@ -3,6 +3,7 @@
 import { Component, OnInit, Input, ViewChild, ViewChildren } from '@angular/core';
 import { DomSanitizer,  } from '@angular/platform-browser';
 import { Page, SubPage } from '../datatables/page';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { APIService } from '../api.service';
@@ -34,28 +35,33 @@ export class SubpageComponent implements OnInit {
   public tag = null;
   public searchTerm = null;
   public tagname: any;
-  public CLE = 'CLE';
-  public HR = 'HR';
-  public Skills = 'Skills';
+
+  // subpage structure
+  public id;
   public title;
   public description;
   public icon;
   public isactive;
   public urltarget;
   public pageid;
+  public relatedPage;
+
+  public isCurrent = false;
+  public isPageFormVisible = false;
 
   url: string;
   top_page: Page[];
   top_category: Page;
   subpage: SubPage[];
   subpageitems: SubPage[];
+  formPage: FormGroup; 
 
   
   //completePerson: PersonPage[];
   router: RouterLink;
 
   constructor(
-    private staffService: APIService,
+    private apiService: APIService,
     private mainApp: AppComponent,
     private http: HttpClient,
     protected sanitizer: DomSanitizer,
@@ -67,14 +73,112 @@ export class SubpageComponent implements OnInit {
   ngOnInit() {
     this.getParams();
     this.getData();
+  }
+
+  addSubQuery(query): void {
+    const keys = Object.keys(query);
+    const values = Object.values(query);
+    if (query === "") {
+      query = null;
+    }
+    this._router.navigate(['course'], {
+        queryParams: {
+          ...query
+        },
+        queryParamsHandling: 'merge',
+      });
+  }
+
+  clearFilters() {
+    this.subsearchTerm = null;
+  }
+
+  clearForm(currentForm: Page): void {
+    this.title = "";
+    this.pageid = "";
+    this.description = "";
+    this.icon = "";
+    this.isactive = null;
+    this.url = null;
+    this.urltarget = "";
+    this.id = null;
+  }
+
+  clickTag(tag: string): void {
+    console.log(tag);
+  }
+
+  createRequest(): void {
+    if (this.isactive = "true") {
+      this.isactive = true;
+    }
+    else this.isactive = false;
     
+    const body = {
+      "pageid": this.pageid,
+      "title": this.title,
+      "description": this.description,
+      "icon": this.icon,
+      "isactive": this.isactive,
+      "url": this.url,
+      "urltarget": this.urltarget
+    };
+
+    this.apiService.postSubpageData(body)
+      .subscribe(
+        (p: any) => {
+          p = this.subpage;
+        }
+      );
+  }
+
+  
+
+  deleteRequest(): void {
+    this.apiService.removeSubpageData(this.id)
+      .subscribe(
+        (p: any) => {
+          p = this.subpage;
+        }
+      );
+
+  }
+
+  executeQueryParams(queryStrings): void {
+    const queries = Object.entries(queryStrings);
+    this.clearFilters();
+    for (const q of queries) {
+      switch (q[0]) {
+        case 'tag':
+          this.tag = q[1];
+          break;
+        case 'search':
+          this.searchTerm = q[1];
+          break;
+
+      }
+    }
+  }
+
+
+  fillform(single_page): void {
+    this.isPageFormVisible = true;
+    this.title = single_page.title;
+    this.description = single_page.description;
+    this.icon = single_page.icon;
+    this.isactive = single_page.isactive;
+    this.pageid = single_page.pageid;
+    this.id = single_page.id
+    this.isCurrent = true;
+    this.relatedPage = this.top_page.find( p => {
+      return p.id === this.pageid}).title
   }
 
   getData(): any {
-    this.staffService.getPageData(this.mainApp.internal_db)
+    this.apiService.getPageData(this.mainApp.internal_db)
       .subscribe(top_page => {
         this.top_page = top_page;
-        this.staffService.getSubpageData(this.mainApp.internal_db)
+        this.apiService.getSubpageData(this.mainApp.internal_db)
           .subscribe(subpage => {
             this.subpage = subpage;
             this.subpageitems = [];
@@ -100,26 +204,29 @@ export class SubpageComponent implements OnInit {
     });
   }
 
-  addSubQuery(query): void {
-    const keys = Object.keys(query);
-    const values = Object.values(query);
-    if (query === "") {
-      query = null;
+  updateRequest(): void {
+    if (this.isactive = "true") {
+      this.isactive = true;
     }
-    this._router.navigate(['course'], {
-        queryParams: {
-          ...query
-        },
-        queryParamsHandling: 'merge',
-      });
-  }
+    else this.isactive = false;
+    
+    const body = {
+      "id": this.id,
+      "pageid": this.pageid,
+      "title": this.title,
+      "description": this.description,
+      "icon": this.icon,
+      "url": this.url,
+      "urltarget": this.urltarget,
+      "isactive": this.isactive,
+    };
 
-  executeSubQuery(queryStrings): void {
-    const queries = Object.entries(queryStrings);
-    this.subsearchTerm = queries[1];
+    this.apiService.updateSubpageData(body)
+      .subscribe(
+        (p: any) => {
+          p = this.subpage;
+        }
+      );
   }
-
-  clearFilters() {
-    this.subsearchTerm = null;
-  }
+  
 }

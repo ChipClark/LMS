@@ -47,7 +47,7 @@ export class PageComponent implements OnInit {
   public sidebar;
   public id;
   
-  private isPageFormVisible = false;
+  public isPageFormVisible = false;
   public isCurrent = false;
 
   url: string;

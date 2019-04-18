@@ -14,12 +14,12 @@
             <span *ngFor="let subpageitems of subpageitems | searchsub: subsearchTerm  ; let odd = odd; let even = even;
             let i = index;"
             #nGForArray>
-                <div class="box odd col-4 courselink" *ngIf="odd" (click)="fillform(top_page)" >
+                <div class="box odd col-4 courselink" *ngIf="odd" (click)="fillform(subpageitems)" >
                     <h1 class="{{subpage.icon}} pe-5x pe-va"></h1>
                     <span class="boxtitle">{{subpageitems.title}}</span><br>
                     <p>{{subpageitems.description}}</p>
                 </div>
-                <div class="box even col-4 courselink" *ngIf="even"  (click)="fillform(top_page)" >
+                <div class="box even col-4 courselink" *ngIf="even"  (click)="fillform(subpageitems)" >
                     <h1 class="{{subpageitems.icon}} pe-5x pe-va"></h1>
                     <span class="boxtitle">{{subpageitems.title}}</span><br>
                     <p>{{subpageitems.description}}</p>
@@ -52,22 +52,33 @@
                                         id="description" [value]="" name="description" #pageDescription="ngModel" ></textarea>
                                 </div>
                                 <div class="col-10">
-                                    <span class="col-6 iconentry">
-                                        <label>Icon:</label>
-                                        <input list="iconlist" class="col-6 form-control" [(ngModel)]="icon"
-                                            id="icon" [value]="" name="icon"  #pageIcon="ngModel" >
-                                            <span id="preview" class="col-4">&nbsp;</span>
-                                    </span>
-                                    <span class="col-6 activeentry">
-                                        <label>Active:</label>
-                                        <input list="activelist" class="col-3 form-control" [(ngModel)]="isactive"
-                                                id="isactive" [value]="" name="isactive" #pageIsactive="ngModel" >
-                                    </span>
+                                    <div class="col-10">
+                                        <span class="col-6 iconentry">
+                                            <label>Icon:</label>
+                                            <input list="iconlist" class="col-6 form-control" [(ngModel)]="icon"
+                                                id="icon" [value]="" name="icon"  #pageIcon="ngModel" >
+                                                <span id="preview" class="col-4">&nbsp;</span>
+                                        </span>
+                                        <span class="col-6 activeentry">
+                                            <label>Active:</label>
+                                            <input list="activelist" class="col-3 form-control" [(ngModel)]="isactive"
+                                                    id="isactive" [value]="" name="isactive" #pageIsactive="ngModel" >
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="col-10">
-                                    <label>Sidebar</label>
-                                    <textarea rows="5" class="form-control" [(ngModel)]="sidebar" 
-                                        id="sidebar" [value]=""  name="sidebar" #pageSidebar="ngModel" ></textarea>
+                                    <span class="col-7 urlentry">
+                                        <label>URL</label>
+                                        <input type="text" class="col-12 form-control" [(ngModel)]="url" 
+                                            id="url" [value]=""  name="url" #pageSidebar="ngModel" >
+                                    </span>
+                                    <span class="col-5 urlentry">
+                                        <label>URL Target</label>
+                                        <input list="targetlist" class="col-8 form-control" [(ngModel)]="urltarget" 
+                                            id="urltarget" [value]=""  name="urltarget" #pageSidebar="ngModel" >
+    
+                                    </span>
+                                    
                                 </div>
                             
                     
@@ -82,6 +93,12 @@
                                     <option value="true">
                                     <option value="false">
                                 </datalist> 
+                                <datalist id="targetlist">
+                                    <option value="_blank">
+                                    <option value="_self">
+                                    <option value="_parent">
+                                    <option value="_top">
+                                </datalist>
                     
                                 <br>
                                 <span *ngIf="!isCurrent">

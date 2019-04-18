@@ -44,7 +44,7 @@ export class EditpageComponent implements OnInit {
   public pageIsactive;
   public pageSidebar;
 
-  private isPageFormVisible = false;
+  public isPageFormVisible = false;
   public isCurrent = false;
 
   url: string;
