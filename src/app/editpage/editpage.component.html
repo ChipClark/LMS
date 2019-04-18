@@ -30,93 +30,103 @@
       <div class="row">
         <div class="sections col-12">
           <h3>Pages</h3>
-          <div class="col-12">
-            <div class="idHead col-1">ID</div>
-            <div class="titleHead col-3">Title</div>
-            <div class="descriptionHead col-5">Description</div>
-            <div class="tagHead col-3">Tags</div>
-          </div>
-          <span *ngFor="let top_page of top_page | search: searchTerm | tagsPipe: tag  ; 
-          let i = index;"
-          #nGForArray class="item-table">
-              <div class="pageid col-1">{{top_page.id}}</div>
-              <div class="pagetitle col-3">{{top_page.title}}</div>
-              <div class="pagedescription col-5">{{top_page.description}}</div>
-              <div class="pagetags col-3"><div [innerHTML]="getTags(top_page)"></div></div><br>
-          </span>
-        </div>
-        <form #f="ngForm" class="col-12">
-          <table class="col-12"> 
-            <tr>
-              <th width="30%">Title</th>
-              <th colspan="2">Description</th>
-            </tr>
-            <tr>
-              <td><input type="text" class="col-10 form-control entry" id="title" [value]="" #pageT></td>
-              <td colspan="2"><textarea rows="3" class="form-control"  [value]=""  #pageD></textarea></td>
-            </tr>
-            <tr>
-              <td>Icon: </td>
-              <td width="30%">Active:</td>
-              <td width="40%">&nbsp;</td>
-            </tr>
-            <tr>
-              <td><input list="iconlist" class="col-10 form-control entry" id="icon"  [value]=""  #pageI></td>
-              <td><input list="activelist" class="col-3 form-control entry" id="isactive" [value]=""  #pageA></td>
-              <td>&nbsp;</td>
-
-            </tr>
-            <tr>
-              <td colspan="3">Sidebar </td>
-            </tr>
-            <tr>
-              <td colspan="3"><textarea rows="5" class="form-control" [value]="" #pageS></textarea></td>
-
-            </tr>
-              
-
-          </table>
+          <div class="col-12" id="page-data">
+            <div id="column titles">
+                <div class="idHead col-1">ID</div>
+                <div class="titleHead col-3">Title</div>
+                <div class="descriptionHead col-5">Description</div>
+                <div class="tagHead col-3">Tags</div>
+            </div>
             
-            <datalist id="iconlist">
-                <option value="pe-7s-album">
-                <option value="pe-7s-arc">
-                <option value="pe-7s-back-2">
-                <option value="pe-7s-bandaid">
-                <option value="pe-7s-car">
-                <option value="pe-7s-diamond">
-                <option value="pe-7s-door-lock">
-                <option value="pe-7s-eyedropper">
-                <option value="pe-7s-female">
-                <option value="pe-7s-gym">
-                <option value="pe-7s-hammer">
-                <option value="pe-7s-headphones">
+            <span *ngFor="let top_page of top_page | search: searchTerm | tagsPipe: tag  ; 
+            let i = index;"
+            #nGForArray class="item-table">
+              <div class="pageitem" (click)="fillform(top_page)">
+                <div class="pageid col-1">{{top_page.id}}&nbsp;<span class="{{top_page.icon}} iconsize pe-7x pe-va"></span></div>
+                <div class="pagetitle col-3">{{top_page.title}}</div>
+                <div class="pagedescription col-5">{{top_page.description}}</div>
+                <div class="pagetags col-3"><div [innerHTML]="getTags(top_page)"></div></div>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div class="col-12" id="page form layout">
+            <button (click)="isPageFormVisible = !isPageFormVisible" *ngIf="!isPageFormVisible">Edit Pages</button>
+            <div id="page_form" *ngIf="isPageFormVisible" class="page_form">
+              <button (click)="isPageFormVisible = !isPageFormVisible" *ngIf="isPageFormVisible">Hide Form</button>
+              <form novalidate #formPage="ngForm"  class="col-12" > 
+                <div class="col-5">
+                    <label>Title</label>
+                    <input type="text" class="form-control" [(ngModel)]="title" 
+                          id="formPageTitle" [value]="" name="title" #pageTitle="ngModel" >
+                </div>
+                <div class="col-10">
+                    <label>Description</label>
+                    <textarea rows="3" class="form-control" [(ngModel)]="description" 
+                          id="description" [value]="" name="description" #pageDescription="ngModel" ></textarea>
+                </div>
+                <div class="col-10">
+                  <span class="col-6 iconentry">
+                      <label>Icon:</label>
+                      <input list="iconlist" class="col-6 form-control" [(ngModel)]="icon"
+                          id="icon" [value]="" name="icon"  #pageIcon="ngModel" >
+                        <span id="preview" class="col-6"></span>
+                  </span>
+                  <span class="col-6 activeentry">
+                      <label>Active:</label>
+                      <input list="activelist" class="col-3 form-control" [(ngModel)]="isactive"
+                            id="isactive" [value]="" name="isactive" #pageIsactive="ngModel" >
+                  </span>
+                </div>
+                <div class="col-10">
+                    <label>Sidebar</label>
+                    <textarea rows="5" class="form-control" [(ngModel)]="sidebar" 
+                          id="sidebar" [value]=""  name="sidebar" #pageSidebar="ngModel" ></textarea>
+                </div>
+              
+      
+            
+                <datalist id="iconlist" ng-controller="iconCtrl">
+                    <option *ngFor="let iOption of iOptions" 
+                            [value]="iOption" ng-change="updatePreview(iOption)" >
+                            {{ iOption }}
+                    </option><span class="iOption"></span>
+                </datalist>
+                <datalist id="activelist">
+                    <option value="true">
+                    <option value="false">
+                </datalist> 
+      
+                      <br>
+                    <span *ngIf="!isCurrent">
+                        <button class="entry" id="add" (click)="createRequest(pageTitle.value, pageDescription.value, pageIcon.value, pageS.value, pageA.value)">Add</button>&nbsp;&nbsp;
+                    </span>
+                    <span *ngIf="isCurrent">
+                      <button class="entry" id="update" (click)="createRequest(pageTitle.value, pageDescription.value, pageIcon.value, pageS.value, pageA.value)">Update</button>&nbsp;&nbsp;
+                      <button class="entry" id="delete" (click)="createRequest(pageTitle.value, pageDescription.value, pageIcon.value, pageS.value, pageA.value)">Delete</button>&nbsp;&nbsp;
+                    </span>
+                    <button class="entry" id="clear" 
+                        (click)="clearForm(formPage.value); isCurrent = false;
+                        ">Clear</button>
+                        <!--
+                          formPage.value.title = null; formPage.value.icon = null; formPage.value.sidebar = null;
+                        formPage.value.description = null; formPage.value.isactive = null;
+                        pageTitle.value = null
+                        -->
+                </form>
+                <p>Title value: {{ pageTitle.value }}</p>
+                <p>Form value: {{ formPage.value | json }}</p>
+    
+              </div>
+            
 
-                <option value="pe-7s-helm">
-                <option value="pe-7s-hourglass">
-                <option value="pe-7s-leaf">
-                <option value="pe-7s-magic-wand">
-                <option value="pe-7s-male">
-                <option value="pe-7s-map-2">
-                <option value="pe-7s-next-2">
-                <option value="pe-7s-paint-bucket">
-                <option value="pe-7s-pendrive">
-                <option value="pe-7s-photo">
-                <option value="pe-7s-piggy">
-                <option value="pe-7s-plugin">
+        </div>
+          
 
-            </datalist>
-            <datalist id="activelist">
-                <option value="true">
-                <option value="false">
-            </datalist> 
-
-              <br>
-            <button class="entry" (click)="createRequest(pageT.value, pageD.value, pageI.value, pageS.value, pageA.value)">Add</button>&nbsp;&nbsp;
-            <button class="entry" (click)="clearForm()">Clear</button>
-        </form>
 
       </div>
-      <div class="row">
+      <div class="row" id="sub pages">
+        <div class="spacer col-12"><hr></div>
         <div class="sections col-12">
             <h3>Subpages</h3>
             <span *ngFor="let subpageitems of subpageitems | search: searchTerm; 

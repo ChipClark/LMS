@@ -124,6 +124,14 @@
   cursor: pointer;
 }
 
+.iconentry, .icon, .activedisplay, .activeentry {
+  display: inline-block;
+  vertical-align: top;
+}
+
+td, th, tr {
+  vertical-align: top;
+}
 
 
 

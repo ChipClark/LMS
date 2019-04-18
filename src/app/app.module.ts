@@ -6,6 +6,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { MessagesComponent } from './messages/messages.component';
 import { SearchPipe, TagPipe, SearchSubPagePipe } from './pipes/search.pipe';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { PageComponent } from './page/page.component';
@@ -34,8 +35,8 @@ import { EditpageComponent } from './editpage/editpage.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
-
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

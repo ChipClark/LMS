@@ -83,11 +83,20 @@
       color: #002a5f;
   }
 
+  .iconsize {
+      font-size: 14pt;
+      color: #000;
+  }
+
   .idHead, .titleHead, .descriptionHead, .tagHead {
       font-size: 14pt;
       font-weight: bold;
       display: inline-block;
       vertical-align: top;
+  }
+
+  .pagetitle {
+      left: -50px;
   }
   
   /* Main page */
@@ -103,9 +112,10 @@
     padding: 0 0 0 0;
     margin: 0 0 0 0;
   }
-  
-  
+
+   
   .pagetitle {
+    cursor: pointer;
     color: #666;
     font-size: 12pt;
     font-weight: bold;
@@ -125,6 +135,7 @@
   
   .iconentry, .icon, .activedisplay, .activeentry {
       display: inline-block;
+      vertical-align: top;
   }
 
   td, th, tr {
@@ -157,6 +168,10 @@
   
   .box:hover {
     cursor: pointer;
+  }
+
+  .page_form {
+      display: none;
   }
   
   

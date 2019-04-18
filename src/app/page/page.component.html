@@ -29,24 +29,106 @@
     <div class="container-fluid">
         <div class="row">
             <span *ngFor="let top_page of top_page | search: searchTerm | tagsPipe: tag  ; let odd = odd; let even = even;
-            let i = index;"
+            let i = index; trackBy: id;" 
             #nGForArray>
-                <div class="box odd col-4" *ngIf="odd" [routerLink]="['/course']" [queryParams]="{category: top_page.title}" >
+                <div class="box odd col-4" *ngIf="odd" (click)="fillform(top_page)" >
+                    <span style="color:#333;">{{top_page.id}}</span>
                     <h1 class="{{top_page.icon}} pe-5x pe-va"></h1>
                     <span class="boxtitle">{{top_page.title}}</span><br>
                     <p>{{top_page.description}}</p>
                     <div [innerHTML]="getTags(top_page)"></div>
                 </div>
-                <div class="box even col-4" *ngIf="even" [routerLink]="['/course']" [queryParams]="{category: top_page.title}"  >
+                <div class="box even col-4" *ngIf="even" (click)="fillform(top_page)"  >
+                    <span style="color:#333;">{{top_page.id}}</span>
                     <h1 class="{{top_page.icon}} pe-5x pe-va"></h1>
                     <span class="boxtitle">{{top_page.title}}</span><br>
                     <p>{{top_page.description}}</p>
-                    <!--<span *ngFor="let tagsArray of tagsArray">{{tagsArray.tag}}&nbsp;</span>-->
                     <div [innerHTML]="getTags(top_page)"></div>
                 </div>
                     
             
             </span>
         </div>
+        <div class="row" id="Form">
+                <div class="col-12" id="page form layout">
+                        <button (click)="isPageFormVisible = !isPageFormVisible" *ngIf="!isPageFormVisible">Edit Pages</button>
+                        <div id="page_form" *ngIf="isPageFormVisible" class="page_form">
+                          <button (click)="isPageFormVisible = !isPageFormVisible; clearForm();" *ngIf="isPageFormVisible">Hide Form</button>
+                            <form novalidate #formPage="ngForm"  class="col-12" > 
+                                <div class="col-5">
+                                    <label>Title</label>
+                                    <input type="text" class="form-control" [(ngModel)]="title" 
+                                        id="formPageTitle" [value]="" name="title" #pageTitle="ngModel" >
+                                </div>
+                                <div class="col-10">
+                                    <label>Description</label>
+                                    <textarea rows="3" class="form-control" [(ngModel)]="description" 
+                                        id="description" [value]="" name="description" #pageDescription="ngModel" ></textarea>
+                                </div>
+                                <div class="col-10">
+                                    <span class="col-6 iconentry">
+                                        <label>Icon:</label>
+                                        <input list="iconlist" class="col-6 form-control" [(ngModel)]="icon"
+                                            id="icon" [value]="" name="icon"  #pageIcon="ngModel" >
+                                            <span id="preview" class="col-4">&nbsp;</span>
+                                    </span>
+                                    <span class="col-6 activeentry">
+                                        <label>Active:</label>
+                                        <input list="activelist" class="col-3 form-control" [(ngModel)]="isactive"
+                                                id="isactive" [value]="" name="isactive" #pageIsactive="ngModel" >
+                                    </span>
+                                </div>
+                                <div class="col-10">
+                                    <label>Sidebar</label>
+                                    <textarea rows="5" class="form-control" [(ngModel)]="sidebar" 
+                                        id="sidebar" [value]=""  name="sidebar" #pageSidebar="ngModel" ></textarea>
+                                </div>
+                                <div class="col-10">
+                                    <label>Tags</label>
+                                    <input list="taglist" class="col-4 form-control" [(ngModel)]="tags" 
+                                        id="tags" [value]=""  name="tags" #pageSidebar="ngModel" >
+                                </div>
+                            
+                    
+                            
+                                <datalist id="iconlist" ng-controller="iconCtrl">
+                                    <option *ngFor="let iOption of iOptions" 
+                                            [value]="iOption" ng-change="updatePreview(iOption)" >
+                                            {{ iOption }}
+                                    </option><span class="iOption"></span>
+                                </datalist>
+                                <datalist id="activelist">
+                                    <option value="true">
+                                    <option value="false">
+                                </datalist> 
+                                <datalist id="taglist">
+                                        <option value="CLE">
+                                        <option value="HR">
+                                        <option value="Skills">
+                                        <option value="Computer">
+                                </datalist> 
+                        
+                                <br>
+                                <span *ngIf="!isCurrent">
+                                    <button class="entry" id="add" (click)="createRequest();clearForm();">Add</button>&nbsp;&nbsp;
+                                </span>
+                                <span *ngIf="isCurrent">
+                                <button class="entry" id="update" (click)="updateRequest();">Update</button>&nbsp;&nbsp;
+                                <button class="entry" id="delete" (click)="deleteRequest(top_id);clearForm();">Delete</button>&nbsp;&nbsp;
+                                </span>
+                                <button class="entry" id="clear" 
+                                    (click)="clearForm(formPage.value); isCurrent = false;
+                                    ">Clear</button>
+                            </form>
+                          </div>
+                        
+            
+                    </div>
+                      
+            
+            
+        </div>
+
+        
     </div>
 </div>

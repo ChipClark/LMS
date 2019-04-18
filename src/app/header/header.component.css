@@ -33,14 +33,19 @@
     margin-top: 40px;
 }
 
-.menu {
-    display: none;
+.menu a {
     color: #666;
-    font-size: 18pt;
+    font-size: 14pt;
     font-weight: 600;
     vertical-align: top;
     text-align: right;
+    text-decoration: none;
     float: right;
+}
+
+.menu a:hover {
+    color: #d8613c;
+
 }
 
 

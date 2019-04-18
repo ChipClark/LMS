@@ -1,11 +1,8 @@
 <div class="page">
     <nav class="navbar">
         <div class="container-fluid">
-            <div class="col-4 pagetitle">
-              {{topTitle}}
-            </div>
             
-            <div class="searchsub col-8">
+            <div class="searchsub col-12">
                 SEARCH &nbsp;&nbsp;<input  class="form-control searchsubbar" id="subSearchBar" placeholder="" value="" autofocus
                 [(ngModel)]="subsearchTerm" (input)="subsearchTerm ? addSubQuery({searchsub: subsearchTerm}) : addSubQuery({searchsub: null})">
             </div>
@@ -17,23 +14,93 @@
             <span *ngFor="let subpageitems of subpageitems | searchsub: subsearchTerm  ; let odd = odd; let even = even;
             let i = index;"
             #nGForArray>
-                <div class="box odd col-4" *ngIf="odd" >
-                    <a class="courselink" href="{{subpage.url}}">
-                        <h1 class="{{subpage.icon}} pe-5x pe-va"></h1>
-                        <span class="boxtitle">{{subpageitems.title}}</span><br>
-                        <p>{{subpageitems.description}}</p>
-                    </a>
+                <div class="box odd col-4 courselink" *ngIf="odd" (click)="fillform(top_page)" >
+                    <h1 class="{{subpage.icon}} pe-5x pe-va"></h1>
+                    <span class="boxtitle">{{subpageitems.title}}</span><br>
+                    <p>{{subpageitems.description}}</p>
                 </div>
-                <div class="box even col-4" *ngIf="even" >
-                    <a class="courselink" href="{{subpageitems.url}}">
-                        <h1 class="{{subpageitems.icon}} pe-5x pe-va"></h1>
-                        <span class="boxtitle">{{subpageitems.title}}</span><br>
-                        <p>{{subpageitems.description}}</p>
-                    </a>
+                <div class="box even col-4 courselink" *ngIf="even"  (click)="fillform(top_page)" >
+                    <h1 class="{{subpageitems.icon}} pe-5x pe-va"></h1>
+                    <span class="boxtitle">{{subpageitems.title}}</span><br>
+                    <p>{{subpageitems.description}}</p>
                 </div>
                     
             
             </span>
         </div>
+        <div class="row" id="Form">
+                <div class="col-12" id="page form layout">
+                        <button (click)="isPageFormVisible = !isPageFormVisible" *ngIf="!isPageFormVisible">Edit Pages</button>
+                        <div id="page_form" *ngIf="isPageFormVisible" class="page_form">
+                          <button (click)="isPageFormVisible = !isPageFormVisible; clearForm();" *ngIf="isPageFormVisible">Hide Form</button>
+                            <form novalidate #formPage="ngForm"  class="col-12" > 
+                                <div class="col-10">
+                                    <span class="col-6 relatedpageentry">
+                                        <label class="">Related Page</label>
+                                        <input list="pagelist" class="col-6 form-control" [(ngModel)]="relatedPage" 
+                                            id="formPageID" [value]="" name="relatedPage" #pageRelatedPage="ngModel" >
+                                    </span>
+                                    <span class="col-6 titlepageentry">
+                                            <label>Title</label>
+                                        <input type="text" class="col-6 form-control" [(ngModel)]="title" 
+                                            id="formPageTitle" [value]="" name="title" #pageTitle="ngModel" >
+                                    </span>
+                                </div>
+                                <div class="col-10">
+                                    <label>Description</label>
+                                    <textarea rows="3" class="form-control" [(ngModel)]="description" 
+                                        id="description" [value]="" name="description" #pageDescription="ngModel" ></textarea>
+                                </div>
+                                <div class="col-10">
+                                    <span class="col-6 iconentry">
+                                        <label>Icon:</label>
+                                        <input list="iconlist" class="col-6 form-control" [(ngModel)]="icon"
+                                            id="icon" [value]="" name="icon"  #pageIcon="ngModel" >
+                                            <span id="preview" class="col-4">&nbsp;</span>
+                                    </span>
+                                    <span class="col-6 activeentry">
+                                        <label>Active:</label>
+                                        <input list="activelist" class="col-3 form-control" [(ngModel)]="isactive"
+                                                id="isactive" [value]="" name="isactive" #pageIsactive="ngModel" >
+                                    </span>
+                                </div>
+                                <div class="col-10">
+                                    <label>Sidebar</label>
+                                    <textarea rows="5" class="form-control" [(ngModel)]="sidebar" 
+                                        id="sidebar" [value]=""  name="sidebar" #pageSidebar="ngModel" ></textarea>
+                                </div>
+                            
+                    
+                            
+                                <datalist id="pagelist" ng-controller="relatedpageCtrl">
+                                    <option *ngFor="let page of pageid" 
+                                            [value]="page" ng-change="updatePreview(page)" >
+                                            {{ page }}
+                                    </option><span class="iOption"></span>
+                                </datalist>
+                                <datalist id="activelist">
+                                    <option value="true">
+                                    <option value="false">
+                                </datalist> 
+                    
+                                <br>
+                                <span *ngIf="!isCurrent">
+                                    <button class="entry" id="add" (click)="createRequest(title.value, description.value, icon.value, subpage.value, isactive.value)">Add</button>&nbsp;&nbsp;
+                                </span>
+                                <span *ngIf="isCurrent">
+                                <button class="entry" id="update" (click)="createRequest(title.value, description.value, icon.value, subpage.value, isactive.value)">Update</button>&nbsp;&nbsp;
+                                <button class="entry" id="delete" (click)="deleteRequest(top_id.value)">Delete</button>&nbsp;&nbsp;
+                                </span>
+                                <button class="entry" id="clear" 
+                                    (click)="clearForm(formPage.value); isCurrent = false;
+                                    ">Clear</button>
+                            </form>
+                          </div>
+                        
+            
+                    </div>
+                      
+            
+
     </div>
 </div>

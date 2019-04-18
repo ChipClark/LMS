@@ -12,9 +12,7 @@
   
   /* Navigation bar */
   .navbar {
-    border-style: solid;
-    border-width: thin;
-    border-color:#002a5f;
+    background-color: #d1462c;
     padding: 1px;
     margin-left: 0px;
     margin-right: 0px;

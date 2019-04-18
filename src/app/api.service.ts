@@ -5,6 +5,7 @@ import { catchError, map, tap, concat } from 'rxjs/operators';
 
 import { Page, Tags, assoc_top_tag, SubPage } from './datatables/page';
 import { MessageService } from './message.service';
+import { identifierModuleUrl } from '@angular/compiler';
 
 
 const httpOptions = {
@@ -81,10 +82,39 @@ export class APIService {
 
   postPageData (body): Observable<Page[]> {
     let options = new Headers;
+    console.log(body);
 
     return this.http.post<Page[]>(this.externalPagePost, body ).pipe( );
   }
 
+  postSubpageData (body): Observable<SubPage[]> {
+    let options = new Headers;
+    console.log(body);
 
+    return this.http.post<SubPage[]>(this.externalSubpageURL, body ).pipe( );
+  }
+
+  removePageData (id: string): Observable<Page[]> {
+    var delRecord = this.externalPagePost + "/" + id;
+    return this.http.delete<Page[]>(delRecord).pipe();
+  }
+
+  removeSubpageData (id: string):Observable<SubPage[]> {
+    var delRecord = this.externalSubpageURL + "/" + id;
+    return this.http.delete<SubPage[]>(delRecord).pipe();
+  }
+
+  updatePageData (body): Observable<Page[]> {
+    let options = new Headers;
+    console.log(body);
+    return this.http.put<Page[]>(this.externalPagePost, body ).pipe( );
+  }
+
+  updateSubpageData (body): Observable<SubPage[]> {
+    let options = new Headers;
+    console.log(body);
+
+    return this.http.put<SubPage[]>(this.externalSubpageURL, body ).pipe( );
+  }
 
 }
