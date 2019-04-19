@@ -27,7 +27,7 @@
         </div>
     </nav>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row" id="top_page_item_layout">
             <span *ngFor="let top_page of top_page | search: searchTerm | tagsPipe: tag  ; let odd = odd; let even = even;
             let i = index; trackBy: id;" 
             #nGForArray>
@@ -66,13 +66,16 @@
                                         id="description" [value]="" name="description" #pageDescription="ngModel" ></textarea>
                                 </div>
                                 <div class="col-10">
-                                    <span class="col-6 iconentry">
+                                    <span class="col-4 iconentry">
                                         <label>Icon:</label>
-                                        <input list="iconlist" class="col-6 form-control" [(ngModel)]="icon"
+                                        <input list="iconlist" class="col-12 form-control" [(ngModel)]="icon"
                                             id="icon" [value]="" name="icon"  #pageIcon="ngModel" >
-                                            <span id="preview" class="col-4">&nbsp;</span>
+                                            
                                     </span>
-                                    <span class="col-6 activeentry">
+                                    <span id="preview" class="col-2 examples">
+                                            <button (click)="openWindow()">Icon Examples</button>
+                                    </span>
+                                    <span class="col-4 activeentry">
                                         <label>Active:</label>
                                         <input list="activelist" class="col-3 form-control" [(ngModel)]="isactive"
                                                 id="isactive" [value]="" name="isactive" #pageIsactive="ngModel" >
@@ -84,7 +87,13 @@
                                         id="sidebar" [value]=""  name="sidebar" #pageSidebar="ngModel" ></textarea>
                                 </div>
                                 <div class="col-10">
-                                    <label>Tags</label>
+                                    <label>Tags</label>&nbsp;
+                                    <span *ngFor="let tagsSelect of tagsSelect" class="">
+                                            <label class="checkbox-inline" [class.active]="tag == tagsSelect.tag" id="{{tagsSelect.tag}}">
+                                                <input type="checkbox" name="options" id="option{{tagsSelect.tag}}"  
+                                                [(ngModel)]="tagsSelect.tag" value="{{tagsSelect.tag}}" [value]="tagsSelect.tag" >&nbsp;{{tagsSelect.tag}}&nbsp;
+                                            </label>&nbsp;
+                                        </span>
                                     <input list="taglist" class="col-4 form-control" [(ngModel)]="tags" 
                                         id="tags" [value]=""  name="tags" #pageSidebar="ngModel" >
                                 </div>

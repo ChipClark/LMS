@@ -2,7 +2,7 @@
 
 import { Component, OnInit, Input, ViewChild, ViewChildren } from '@angular/core';
 import { DomSanitizer,  } from '@angular/platform-browser';
-import { Page, SubPage } from '../datatables/page';
+import { Page, SubPage, RelatedPages } from '../datatables/page';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -50,6 +50,7 @@ export class SubpageComponent implements OnInit {
   public isPageFormVisible = false;
 
   url: string;
+  relatedPages: RelatedPages[];
   top_page: Page[];
   top_category: Page;
   subpage: SubPage[];
@@ -132,8 +133,6 @@ export class SubpageComponent implements OnInit {
       );
   }
 
-  
-
   deleteRequest(): void {
     this.apiService.removeSubpageData(this.id)
       .subscribe(
@@ -142,6 +141,23 @@ export class SubpageComponent implements OnInit {
         }
       );
 
+  }
+
+  editPages(): void {
+    
+
+    for (let i = 0; i < this.top_page.length; i++) {
+      console.log(this.top_page);
+      break;
+      if (!this.top_page[i]) {
+        break;
+      }
+      
+      this.title = (this.top_page[i].title);
+      console.log(this.title);
+      this.relatedPages.push(this.title);
+    }
+    console.log(this.relatedPages);
   }
 
   executeQueryParams(queryStrings): void {
@@ -178,6 +194,7 @@ export class SubpageComponent implements OnInit {
     this.apiService.getPageData(this.mainApp.internal_db)
       .subscribe(top_page => {
         this.top_page = top_page;
+        
         this.apiService.getSubpageData(this.mainApp.internal_db)
           .subscribe(subpage => {
             this.subpage = subpage;

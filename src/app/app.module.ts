@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MessagesComponent } from './messages/messages.component';
@@ -15,7 +16,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SubpageComponent } from './subpage/subpage.component';
-import { EditpageComponent } from './editpage/editpage.component';
+// import { DialogWindow, IconsDialog } from './opendialog/opendialog.component';
 
 @NgModule({
   declarations: [
@@ -29,13 +30,15 @@ import { EditpageComponent } from './editpage/editpage.component';
     TagPipe,
     FooterComponent,
     SubpageComponent,
-    EditpageComponent
+    // DialogWindow, MatDialog, MatDialogRef,
+    // IconsDialog
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    // MatDialog, MatDialogRef, 
     ReactiveFormsModule
   ],
   providers: [],

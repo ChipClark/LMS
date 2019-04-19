@@ -129,6 +129,10 @@
   vertical-align: top;
 }
 
+.examples {
+  top: 40px;
+}
+
 td, th, tr {
   vertical-align: top;
 }

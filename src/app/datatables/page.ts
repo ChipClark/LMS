@@ -32,5 +32,9 @@ export class SubPage {
   is_active: boolean;
 }
 
+export class RelatedPages {
+  relatedPage: string;
+}
+
 
 

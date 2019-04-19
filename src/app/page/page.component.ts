@@ -3,6 +3,7 @@
 import { Component, OnInit, Input, ViewChild, ViewChildren } from '@angular/core';
 import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl, SafeValue } from '@angular/platform-browser';
 import { Page, Tags, assoc_top_tag, SubPage } from '../datatables/page';
+// import { DialogWindow } from '../opendialog/opendialog.component'
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -10,7 +11,6 @@ import { APIService } from '../api.service';
 import { AppComponent } from '../app.component';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { debugOutputAstAsTypeScript } from '@angular/compiler';
 
 // datatables 
 
@@ -53,6 +53,7 @@ export class PageComponent implements OnInit {
   url: string;
   top_page: Page[];
   tagsArray: Tags[];
+  tagsSelect: Tags[];
   subpage: SubPage[];
   connect_tags: assoc_top_tag[];
   formPage: FormGroup; 
@@ -97,6 +98,7 @@ export class PageComponent implements OnInit {
     protected sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private _router: Router,
+    // private dialog: DialogWindow,
     private location: Location
   ) { }
 
@@ -228,6 +230,8 @@ export class PageComponent implements OnInit {
     this.apiService.getTagData(this.mainApp.internal_db)
       .subscribe(tagArray => {
         this.tagsArray = tagArray;
+        this.tagsSelect = this.tagsArray;
+        // console.log(this.tagsArray);
       });
     
     this.apiService.getSubpageData(this.mainApp.internal_db)
@@ -261,6 +265,11 @@ export class PageComponent implements OnInit {
     return pagetags;
   }
 
+  openWindow(): void {
+    console.log("open dialog window");
+    // this.dialog.openDialog();
+  }
+
   updateRequest(): void {
     if (this.isactive = "true") {
       this.isactive = true;
@@ -286,8 +295,5 @@ export class PageComponent implements OnInit {
         }
       );
   }
-  
 
 }
-
-

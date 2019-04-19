@@ -3,15 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { PageComponent }      from './page/page.component';
 import { SubpageComponent } from './subpage/subpage.component';
-import { EditpageComponent } from './editpage/editpage.component';
+// import { DialogWindow } from './opendialog/opendialog.component';
 //import { homedir } from 'os';
 
 
 const routes: Routes = [
   { path: 'root', component: PageComponent },
   { path: '', component: PageComponent, pathMatch: 'full' },
-  { path: 'editSubpage', component: SubpageComponent},
-  { path: 'editPage', component: PageComponent}
+  { path: 'Subpage_Editor', component: SubpageComponent},
+  // { path: 'icons', component: DialogWindow }
 ];
 
 @NgModule({
