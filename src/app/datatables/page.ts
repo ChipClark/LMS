@@ -11,12 +11,13 @@ export class Page {
 export class Tags {
   id: number;
   tagname: string;
+  isChecked: boolean;
 }
 
 export class assoc_top_tag {
   id: number;
-  top_id: number;
-  tag_id: number;
+  pageid: number;
+  tagid: number;
   is_active: boolean;
 }
 

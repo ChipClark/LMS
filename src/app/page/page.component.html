@@ -29,7 +29,7 @@
     <div class="container-fluid">
         <div class="row" id="top_page_item_layout">
             <span *ngFor="let top_page of top_page | search: searchTerm | tagsPipe: tag  ; let odd = odd; let even = even;
-            let i = index; trackBy: id;" 
+            let i = index; " 
             #nGForArray>
                 <div class="box odd col-4" *ngIf="odd" (click)="fillform(top_page)" >
                     <span style="color:#333;">{{top_page.id}}</span>
@@ -88,14 +88,15 @@
                                 </div>
                                 <div class="col-10">
                                     <label>Tags</label>&nbsp;
-                                    <span *ngFor="let tagsSelect of tagsSelect" class="">
-                                            <label class="checkbox-inline" [class.active]="tag == tagsSelect.tag" id="{{tagsSelect.tag}}">
-                                                <input type="checkbox" name="options" id="option{{tagsSelect.tag}}"  
-                                                [(ngModel)]="tagsSelect.tag" value="{{tagsSelect.tag}}" [value]="tagsSelect.tag" >&nbsp;{{tagsSelect.tag}}&nbsp;
+                                    <span *ngFor="let tagsArray of tagsArray; let i = index" class="">
+                                            <label class="checkbox-inline" [class.active]="tag == tagsArray.tag" id="{{tagsArray.tag}}">
+                                                <input type="checkbox" name="options" id="option{{tagsArray.tag}}"
+                                                [checked]="tagsArray.isChecked" value="{{tagsArray.tag}}" [value]="tagsArray.tag" >&nbsp;{{tagsArray.tag}}&nbsp;
                                             </label>&nbsp;
                                         </span>
-                                    <input list="taglist" class="col-4 form-control" [(ngModel)]="tags" 
+                                    <!--<input list="taglist" class="col-4 form-control" [(ngModel)]="tags" 
                                         id="tags" [value]=""  name="tags" #pageSidebar="ngModel" >
+                                    -->
                                 </div>
                             
                     

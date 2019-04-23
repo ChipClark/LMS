@@ -4,13 +4,15 @@ import { Component, OnInit, Input, ViewChild, ViewChildren } from '@angular/core
 import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl, SafeValue } from '@angular/platform-browser';
 import { Page, Tags, assoc_top_tag, SubPage } from '../datatables/page';
 // import { DialogWindow } from '../opendialog/opendialog.component'
-import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormArray, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { APIService } from '../api.service';
 import { AppComponent } from '../app.component';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+// import { AnyARecord } from 'dns';
+// import { MdCheckboxModule } from '@angular/material';
 
 // datatables 
 
@@ -53,7 +55,7 @@ export class PageComponent implements OnInit {
   url: string;
   top_page: Page[];
   tagsArray: Tags[];
-  tagsSelect: Tags[];
+  tagsSelect: Array<Tags> = [];
   subpage: SubPage[];
   connect_tags: assoc_top_tag[];
   formPage: FormGroup; 
@@ -149,6 +151,13 @@ export class PageComponent implements OnInit {
     this.isactive = null;
     this.sidebar = null;
     this.id = null;
+    this.clearCheckedTags()
+  }
+
+  clearCheckedTags(): void {
+    for(let i = 0; i < this.tagsArray.length; i++) {
+      this.tagsArray[i].isChecked = false;
+    }
   }
 
   clickTag(tag: string): void {
@@ -210,6 +219,7 @@ export class PageComponent implements OnInit {
 
 
   fillform(single_page): void {
+    this.clearCheckedTags()
     this.isPageFormVisible = true;
     this.title = single_page.title;
     this.description = single_page.description;
@@ -218,6 +228,16 @@ export class PageComponent implements OnInit {
     this.sidebar = single_page.sidebar;
     this.id = single_page.id
     this.isCurrent = true;
+    this.tagsSelect = single_page.tags;
+    var i;
+
+    for (i = 0; i < this.tagsSelect.length; i++) {
+      for (let j = 0; j < this.tagsArray.length; j++) {
+        if (this.tagsSelect[i].id == this.tagsArray[j].id) {
+          this.tagsArray[j].isChecked = true;
+        }
+      }
+    }
   }
 
   getData(): any {
@@ -230,8 +250,6 @@ export class PageComponent implements OnInit {
     this.apiService.getTagData(this.mainApp.internal_db)
       .subscribe(tagArray => {
         this.tagsArray = tagArray;
-        this.tagsSelect = this.tagsArray;
-        // console.log(this.tagsArray);
       });
     
     this.apiService.getSubpageData(this.mainApp.internal_db)
@@ -271,11 +289,20 @@ export class PageComponent implements OnInit {
   }
 
   updateRequest(): void {
+    var tID;
     if (this.isactive = "true") {
       this.isactive = true;
     }
     else this.isactive = false;
-    
+
+    this.tagsSelect = [];
+
+    for (let i = 0; i < this.tagsArray.length; i++) {
+      if (this.tagsArray[i].isChecked == true) {
+        this.tagsSelect.push(this.tagsArray[i])
+      }
+    }
+
     const body = {
       "id": this.id,
       "title": this.title,
@@ -285,15 +312,80 @@ export class PageComponent implements OnInit {
       "isactive": this.isactive,
     };
 
-    console.log(body);
-    
+    // this.apiService.updatePageData(body)
+    //   .subscribe(
+    //     (p: any) => {
+    //       p = this.top_page;
+    //     }
+    //   );
+    var i;
+    var j;
 
-    this.apiService.updatePageData(body)
-      .subscribe(
-        (p: any) => {
-          p = this.top_page;
-        }
-      );
+    console.log(this.connect_tags);
+    
+    for (i = 0; i < this.tagsSelect.length; i++) {
+      console.log(" i is " + i);
+      for (j = 0; j < this.connect_tags.length; j++) {
+        console.log(" j is " + j);
+
+          if (this.connect_tags[j].pageid == this.id && this.connect_tags[j].tagid == this.tagsSelect[i].id) {
+            console.log('do nothing  connect_tag pageid: ' + this.connect_tags[j].pageid  + " tagsSelect tagid = " + this.tagsSelect[i].id);
+            // break;
+          }
+          else if (this.connect_tags[j].pageid == this.id && this.connect_tags[j].tagid != this.tagsSelect[i].id) {
+            const tagBody = {
+                "id": this.connect_tags[j].id,
+                "pageid": this.id,
+                "tagid": this.connect_tags[j].tagid
+              }
+            console.log('delete connect_tag pageid: ' + this.connect_tags[j].pageid  + " tagsSelect tagid = " + this.tagsSelect[i].id + " connect_tags id " + this.connect_tags[j].id);
+            // break;
+          }
+          else {
+            const tagBody = {
+                "id": this.connect_tags.length + 1,
+                "pageid": this.id,
+                "tagid": this.tagsSelect[i].id
+                }
+            console.log('write new record  connect_tag pageid: ' + this.connect_tags[j].pageid  + " tagsSelect tagid = " + this.tagsSelect[i].id);
+          }
+      }
+    }
+      
+        // if (this.connect_tags[j].pageid == this.id) {
+        //   if (this.connect_tags[j].tagid == this.tagsSelect[i].id) {
+        //     console.log("do NOT WRITE");
+        //     console.log("connect_tags: " + j + "   tagsSelect: " + i);
+        //     break;
+        //   }
+        //   // console.log("in the first if with i: " + i)          
+          
+        // }
+        
+
+      // console.log("no MATCH, create new");
+      // console.log("connect_tags: " + j + "   tagsSelect: " + i);
+
+
+      // const tagBody = {
+      //   "id": this.connect_tags.length + 1,
+      //   "pageid": this.id,
+      //   "tagid": this.tagsSelect[j].id
+      //   }
+      // console.log("no MATCH, create new");
+      // console.log(tagBody);
+      // const tagBody = {
+      //   "id": this.connect_tags[i].id,
+      //   "pageid": this.id,
+      //   "tagid": this.tagsSelect[j].id
+      // }
+
+    // this.apiService.updateConnectTags(tagBody)
+    //   .subscribe(
+    //     (c: any) => {
+    //     c = this.connect_tags;
+    //     //console.log(connect_tags);
+    //   });
   }
 
 }

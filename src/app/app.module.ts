@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MessagesComponent } from './messages/messages.component';
@@ -16,7 +16,9 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SubpageComponent } from './subpage/subpage.component';
-// import { DialogWindow, IconsDialog } from './opendialog/opendialog.component';
+import { MAT_CHECKBOX_CLICK_ACTION } from '@angular/material'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCheckboxModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -29,8 +31,7 @@ import { SubpageComponent } from './subpage/subpage.component';
     SearchSubPagePipe,
     TagPipe,
     FooterComponent,
-    SubpageComponent,
-    // DialogWindow, MatDialog, MatDialogRef,
+    SubpageComponent
     // IconsDialog
   ],
   imports: [
@@ -38,10 +39,12 @@ import { SubpageComponent } from './subpage/subpage.component';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    // MatDialog, MatDialogRef, 
+    BrowserAnimationsModule, 
+    MatCheckboxModule,
     ReactiveFormsModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [{provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'check'}],
+  bootstrap: [AppComponent],
+  
 })
 export class AppModule { }
