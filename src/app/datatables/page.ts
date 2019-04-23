@@ -10,7 +10,7 @@ export class Page {
 
 export class Tags {
   id: number;
-  tagname: string;
+  tag: string;
   isChecked: boolean;
 }
 
@@ -19,6 +19,7 @@ export class assoc_top_tag {
   pageid: number;
   tagid: number;
   is_active: boolean;
+  update: boolean;
 }
 
 export class SubPage {

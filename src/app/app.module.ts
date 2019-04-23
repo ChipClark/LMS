@@ -18,7 +18,7 @@ import { FooterComponent } from './footer/footer.component';
 import { SubpageComponent } from './subpage/subpage.component';
 import { MAT_CHECKBOX_CLICK_ACTION } from '@angular/material'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCheckboxModule } from '@angular/material';
+// import { MatCheckboxModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -40,10 +40,11 @@ import { MatCheckboxModule } from '@angular/material';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule, 
-    MatCheckboxModule,
+    // MatCheckboxModule,
     ReactiveFormsModule
   ],
-  providers: [{provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'check'}],
+  // providers: [{provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'check'}],
+  providers: [],
   bootstrap: [AppComponent],
   
 })

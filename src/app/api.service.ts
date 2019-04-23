@@ -80,6 +80,10 @@ export class APIService {
     }
   }
 
+  postConnectTags(body):  Observable<assoc_top_tag[]>{
+    return this.http.put<assoc_top_tag[]>(this.externalPagePost, body ).pipe( );
+  }
+
   postPageData (body): Observable<Page[]> {
     let options = new Headers;
     console.log(body);
@@ -94,6 +98,11 @@ export class APIService {
     return this.http.post<SubPage[]>(this.externalSubpageURL, body ).pipe( );
   }
 
+  removeConnectTags(id: number): Observable<assoc_top_tag[]> {
+    var delRecord = this.externalPagePost + "/" + id;
+    return this.http.delete<assoc_top_tag[]>(delRecord).pipe();
+  }
+
   removePageData (id: string): Observable<Page[]> {
     var delRecord = this.externalPagePost + "/" + id;
     return this.http.delete<Page[]>(delRecord).pipe();
@@ -104,9 +113,11 @@ export class APIService {
     return this.http.delete<SubPage[]>(delRecord).pipe();
   }
 
+  updateConnectTags(body):  Observable<assoc_top_tag[]>{
+    return this.http.put<assoc_top_tag[]>(this.externalPagePost, body ).pipe( );
+  }
+
   updatePageData (body): Observable<Page[]> {
-    let options = new Headers;
-    console.log(body);
     return this.http.put<Page[]>(this.externalPagePost, body ).pipe( );
   }
 

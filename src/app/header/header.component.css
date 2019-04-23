@@ -48,6 +48,10 @@
 
 }
 
+ul {
+    list-style-type: none;
+}
+
 
 .rightcol {
     top:10px;

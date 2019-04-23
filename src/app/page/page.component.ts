@@ -11,6 +11,7 @@ import { APIService } from '../api.service';
 import { AppComponent } from '../app.component';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { ParseSourceSpan } from '@angular/compiler';
 // import { AnyARecord } from 'dns';
 // import { MdCheckboxModule } from '@angular/material';
 
@@ -144,7 +145,7 @@ export class PageComponent implements OnInit {
     this.tags = null;
   }
 
-  clearForm(currentForm: Page): void {
+  clearForm(): void {
     this.title = "";
     this.description = "";
     this.icon = "";
@@ -178,18 +179,16 @@ export class PageComponent implements OnInit {
       "isactive": this.isactive,
     };
 
-    console.log(body);
-
-
     this.apiService.postPageData(body)
       .subscribe(
         (p: any) => {
           p = this.top_page;
         }
       );
+    
+    this.updateTags();
+    this.clearForm();
   }
-
-  
 
   deleteRequest(): void {
     this.apiService.removePageData(this.id)
@@ -198,6 +197,16 @@ export class PageComponent implements OnInit {
           p = this.top_page;
         }
       );
+    var tempTag: assoc_top_tag[];
+  
+    tempTag = this.connect_tags.filter( t => {
+      return t.pageid === this.id
+    });                                                   //  These are the existing tags for the page
+
+    for (let i = 0; i < tempTag.length; i++) {
+      this.apiService.removeConnectTags(tempTag[i].id)
+    }
+    
 
   }
 
@@ -288,20 +297,21 @@ export class PageComponent implements OnInit {
     // this.dialog.openDialog();
   }
 
+  tagChecked(tag: string): void {
+    for(let i = 0; i < this.tagsArray.length; i++) {
+      if (this.tagsArray[i].tag == tag) {
+        this.tagsArray[i].isChecked = !this.tagsArray[i].isChecked;
+      }
+    }
+    console.log(this.tagsArray);
+  }
+
   updateRequest(): void {
     var tID;
     if (this.isactive = "true") {
       this.isactive = true;
     }
     else this.isactive = false;
-
-    this.tagsSelect = [];
-
-    for (let i = 0; i < this.tagsArray.length; i++) {
-      if (this.tagsArray[i].isChecked == true) {
-        this.tagsSelect.push(this.tagsArray[i])
-      }
-    }
 
     const body = {
       "id": this.id,
@@ -312,80 +322,70 @@ export class PageComponent implements OnInit {
       "isactive": this.isactive,
     };
 
-    // this.apiService.updatePageData(body)
-    //   .subscribe(
-    //     (p: any) => {
-    //       p = this.top_page;
-    //     }
-    //   );
-    var i;
-    var j;
+    this.apiService.updatePageData(body)
+      .subscribe(
+        (p: any) => {
+          p = this.top_page;
+        }
+      );
+    this.updateTags();
+  
+  }
 
-    console.log(this.connect_tags);
+  updateTags(): void {
+    var i, j;
+    var tempTag: assoc_top_tag[];
     
-    for (i = 0; i < this.tagsSelect.length; i++) {
-      console.log(" i is " + i);
-      for (j = 0; j < this.connect_tags.length; j++) {
-        console.log(" j is " + j);
+    tempTag = this.connect_tags.filter( t => {
+      return t.pageid === this.id
+    });                                                   //  These are the existing tags for the page
 
-          if (this.connect_tags[j].pageid == this.id && this.connect_tags[j].tagid == this.tagsSelect[i].id) {
-            console.log('do nothing  connect_tag pageid: ' + this.connect_tags[j].pageid  + " tagsSelect tagid = " + this.tagsSelect[i].id);
-            // break;
-          }
-          else if (this.connect_tags[j].pageid == this.id && this.connect_tags[j].tagid != this.tagsSelect[i].id) {
-            const tagBody = {
-                "id": this.connect_tags[j].id,
-                "pageid": this.id,
-                "tagid": this.connect_tags[j].tagid
-              }
-            console.log('delete connect_tag pageid: ' + this.connect_tags[j].pageid  + " tagsSelect tagid = " + this.tagsSelect[i].id + " connect_tags id " + this.connect_tags[j].id);
-            // break;
-          }
-          else {
-            const tagBody = {
-                "id": this.connect_tags.length + 1,
-                "pageid": this.id,
-                "tagid": this.tagsSelect[i].id
-                }
-            console.log('write new record  connect_tag pageid: ' + this.connect_tags[j].pageid  + " tagsSelect tagid = " + this.tagsSelect[i].id);
-          }
+    for (i = 0; i < tempTag.length; i++ ) {               //  Sets the tag update status as true (yes, it is up-to-date)
+      tempTag[i].update = true;
+    }                                                     
+
+    this.tagsSelect = [];                                 // clear the array 
+    for (let i = 0; i < this.tagsArray.length; i++) {
+      if (this.tagsArray[i].isChecked == true) {
+        this.tagsSelect.push(this.tagsArray[i])
+      } 
+    }                                                     //  These are all the tags to be updated
+
+    for (i = 0; i < this.tagsSelect.length; i++) {
+      for (j = 0; j < tempTag.length; j++) {
+        if (this.tagsSelect[i].id == tempTag[j].tagid) {
+          this.tagsSelect[i].isChecked = false;           //  No need to update if page and tagid already exist 
+          tempTag[j].update = false;                      //  No need to update if page and tagid already exist 
+        }
       }
     }
-      
-        // if (this.connect_tags[j].pageid == this.id) {
-        //   if (this.connect_tags[j].tagid == this.tagsSelect[i].id) {
-        //     console.log("do NOT WRITE");
-        //     console.log("connect_tags: " + j + "   tagsSelect: " + i);
-        //     break;
-        //   }
-        //   // console.log("in the first if with i: " + i)          
-          
-        // }
-        
+    
+    for (i = 0; i < tempTag.length; i++) {
+        if (tempTag[i].update == true) {
+          const tagBody = {
+              '"id"': tempTag[i].id,
+              '"pageid"': this.id,
+              '"tagid"': tempTag[i].tagid
+            }
+          console.log("updating tempTag " + i);
+          console.log(tagBody);
+          this.apiService.postConnectTags(tagBody);
+        }
+        if (tempTag[i].update == false) {
+           this.apiService.removeConnectTags(tempTag[i].id);
+        }
+    }
 
-      // console.log("no MATCH, create new");
-      // console.log("connect_tags: " + j + "   tagsSelect: " + i);
-
-
-      // const tagBody = {
-      //   "id": this.connect_tags.length + 1,
-      //   "pageid": this.id,
-      //   "tagid": this.tagsSelect[j].id
-      //   }
-      // console.log("no MATCH, create new");
-      // console.log(tagBody);
-      // const tagBody = {
-      //   "id": this.connect_tags[i].id,
-      //   "pageid": this.id,
-      //   "tagid": this.tagsSelect[j].id
-      // }
-
-    // this.apiService.updateConnectTags(tagBody)
-    //   .subscribe(
-    //     (c: any) => {
-    //     c = this.connect_tags;
-    //     //console.log(connect_tags);
-    //   });
+    for (i = 0; i < this.tagsSelect.length; i++) {
+      if (this.tagsSelect[i].isChecked == true) {
+        const tagBody = {
+              '"id"': this.connect_tags.length + 1,
+              '"pageid"': this.id,
+              '"tagid"': this.tagsSelect[i].id
+          }
+        this.apiService.postConnectTags(tagBody);
+      }
+    }
   }
 
 }

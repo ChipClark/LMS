@@ -32,14 +32,14 @@
             let i = index; " 
             #nGForArray>
                 <div class="box odd col-4" *ngIf="odd" (click)="fillform(top_page)" >
-                    <span style="color:#333;">{{top_page.id}}</span>
+                    <span style="color:#333; font-weight: bold;">{{top_page.id}}</span>
                     <h1 class="{{top_page.icon}} pe-5x pe-va"></h1>
                     <span class="boxtitle">{{top_page.title}}</span><br>
                     <p>{{top_page.description}}</p>
                     <div [innerHTML]="getTags(top_page)"></div>
                 </div>
                 <div class="box even col-4" *ngIf="even" (click)="fillform(top_page)"  >
-                    <span style="color:#333;">{{top_page.id}}</span>
+                    <span style="color:#333; font-weight: bold;">{{top_page.id}}</span>
                     <h1 class="{{top_page.icon}} pe-5x pe-va"></h1>
                     <span class="boxtitle">{{top_page.title}}</span><br>
                     <p>{{top_page.description}}</p>
@@ -90,7 +90,7 @@
                                     <label>Tags</label>&nbsp;
                                     <span *ngFor="let tagsArray of tagsArray; let i = index" class="">
                                             <label class="checkbox-inline" [class.active]="tag == tagsArray.tag" id="{{tagsArray.tag}}">
-                                                <input type="checkbox" name="options" id="option{{tagsArray.tag}}"
+                                                <input type="checkbox" name="options" id="option{{tagsArray.tag}}"  (change)="tagChecked(tagsArray.tag)"
                                                 [checked]="tagsArray.isChecked" value="{{tagsArray.tag}}" [value]="tagsArray.tag" >&nbsp;{{tagsArray.tag}}&nbsp;
                                             </label>&nbsp;
                                         </span>
@@ -120,11 +120,11 @@
                         
                                 <br>
                                 <span *ngIf="!isCurrent">
-                                    <button class="entry" id="add" (click)="createRequest();clearForm();">Add</button>&nbsp;&nbsp;
+                                    <button class="entry" id="add" (click)="createRequest();">Add</button>&nbsp;&nbsp;
                                 </span>
                                 <span *ngIf="isCurrent">
                                 <button class="entry" id="update" (click)="updateRequest();">Update</button>&nbsp;&nbsp;
-                                <button class="entry" id="delete" (click)="deleteRequest(top_id);clearForm();">Delete</button>&nbsp;&nbsp;
+                                <button class="entry" id="delete" (click)="deleteRequest(top_id);">Delete</button>&nbsp;&nbsp;
                                 </span>
                                 <button class="entry" id="clear" 
                                     (click)="clearForm(formPage.value); isCurrent = false;
