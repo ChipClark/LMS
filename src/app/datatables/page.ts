@@ -38,5 +38,9 @@ export class RelatedPages {
   relatedPage: string;
 }
 
+export class Thumbnails {
+  icon_name: string;
+}
+
 
 

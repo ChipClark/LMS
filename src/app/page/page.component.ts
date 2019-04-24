@@ -1,8 +1,8 @@
 // page.components.ts
 
-import { Component, OnInit, Input, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation, ViewChildren } from '@angular/core';
 import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl, SafeValue } from '@angular/platform-browser';
-import { Page, Tags, assoc_top_tag, SubPage } from '../datatables/page';
+import { Page, Tags, assoc_top_tag, SubPage, Thumbnails } from '../datatables/page';
 // import { DialogWindow } from '../opendialog/opendialog.component'
 import { FormGroup, FormArray, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders, HttpHandler, HttpRequest } from '@angular/common/http';
@@ -11,7 +11,9 @@ import { APIService } from '../api.service';
 import { AppComponent } from '../app.component';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ParseSourceSpan } from '@angular/compiler';
+import { getTreeNoValidDataSourceError } from '@angular/cdk/tree';
 // import { AnyARecord } from 'dns';
 // import { MdCheckboxModule } from '@angular/material';
 
@@ -21,6 +23,7 @@ import { ParseSourceSpan } from '@angular/compiler';
 @Component({
   selector: 'app-page',
   templateUrl: './page.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./page.component.css'],
 })
 
@@ -55,39 +58,13 @@ export class PageComponent implements OnInit {
 
   url: string;
   top_page: Page[];
+  currentPage: any[];
   tagsArray: Tags[];
   tagsSelect: Array<Tags> = [];
   subpage: SubPage[];
   connect_tags: assoc_top_tag[];
   formPage: FormGroup; 
-  iOptions: string[] = [
-    "pe-7s-album",
-    "pe-7s-arc",
-    "pe-7s-back-2",
-    "pe-7s-bandaid",
-    "pe-7s-car",
-    "pe-7s-diamond",
-    "pe-7s-door-lock",
-    "pe-7s-eyedropper",
-    "pe-7s-female",
-    "pe-7s-gym",
-    "pe-7s-hammer",
-    "pe-7s-headphones",
-    "pe-7s-helm",
-    "pe-7s-hourglass",
-    "pe-7s-leaf",
-    "pe-7s-magic-wand",
-    "pe-7s-male",
-    "pe-7s-map-2",
-    "pe-7s-next-2",
-    "pe-7s-paint-bucket",
-    "pe-7s-pendrive",
-    "pe-7s-photo",
-    "pe-7s-piggy",
-    "pe-7s-plugin"
-    
-  ];
-
+  thumbnails: Thumbnails[];
   
 
   
@@ -96,6 +73,7 @@ export class PageComponent implements OnInit {
 
   constructor(
     private apiService: APIService,
+    private modalService: NgbModal,
     private mainApp: AppComponent,
     private http: HttpClient,
     protected sanitizer: DomSanitizer,
@@ -181,9 +159,9 @@ export class PageComponent implements OnInit {
 
     this.apiService.postPageData(body)
       .subscribe(
-        (p: any) => {
-          p = this.top_page;
-        }
+        res => console.log('HTTP response', res),
+        err => console.log('HTTP Error', err),
+        () => console.log('HTTP request completed.'),
       );
     
     this.updateTags();
@@ -249,6 +227,10 @@ export class PageComponent implements OnInit {
     }
   }
 
+  fillIcon(icon: string): void {
+    this.icon = icon;
+  }
+
   getData(): any {
     //console.log(this.baseURL);
     this.apiService.getPageData(this.mainApp.internal_db)
@@ -268,7 +250,11 @@ export class PageComponent implements OnInit {
     this.apiService.getConnectTags(this.mainApp.internal_db)
       .subscribe(connect_tags => {
         this.connect_tags = connect_tags;
-        //console.log(connect_tags);
+      });
+
+    this.apiService.getIcons()
+      .subscribe(thumbnails => {
+        this.thumbnails = thumbnails;
       });
   }
 
@@ -292,9 +278,8 @@ export class PageComponent implements OnInit {
     return pagetags;
   }
 
-  openWindow(): void {
-    console.log("open dialog window");
-    // this.dialog.openDialog();
+  openWindow(content): void {
+    this.modalService.open(content);
   }
 
   tagChecked(tag: string): void {
@@ -303,7 +288,6 @@ export class PageComponent implements OnInit {
         this.tagsArray[i].isChecked = !this.tagsArray[i].isChecked;
       }
     }
-    console.log(this.tagsArray);
   }
 
   updateRequest(): void {
@@ -324,10 +308,9 @@ export class PageComponent implements OnInit {
 
     this.apiService.updatePageData(body)
       .subscribe(
-        (p: any) => {
-          p = this.top_page;
-        }
-      );
+        (p: any) => { p = this.top_page; }
+      )
+
     this.updateTags();
   
   }
@@ -363,27 +346,46 @@ export class PageComponent implements OnInit {
     for (i = 0; i < tempTag.length; i++) {
         if (tempTag[i].update == true) {
           const tagBody = {
-              '"id"': tempTag[i].id,
               '"pageid"': this.id,
               '"tagid"': tempTag[i].tagid
             }
-          console.log("updating tempTag " + i);
           console.log(tagBody);
-          this.apiService.postConnectTags(tagBody);
+          this.apiService.postConnectTags(tagBody)
+            .subscribe(
+              res => console.log('HTTP response', res),
+              err => console.log('HTTP Error', err),
+              () => console.log('HTTP request completed.')
+            );
         }
         if (tempTag[i].update == false) {
-           this.apiService.removeConnectTags(tempTag[i].id);
+          const tagBody = {
+            '"delete"': "disconnect the following",
+            '"pageid"': this.id,
+            '"tagid"': tempTag[i].tagid
+            }
+            console.log(tagBody);
+          this.apiService.removeConnectTags(tempTag[i].id)
+            .subscribe(
+              res => console.log('HTTP response', res),
+              err => console.log('HTTP Error', err),
+              () => console.log('HTTP request completed.')
+            );
         }
     }
 
     for (i = 0; i < this.tagsSelect.length; i++) {
       if (this.tagsSelect[i].isChecked == true) {
         const tagBody = {
-              '"id"': this.connect_tags.length + 1,
               '"pageid"': this.id,
               '"tagid"': this.tagsSelect[i].id
           }
-        this.apiService.postConnectTags(tagBody);
+        console.log(tagBody);
+        this.apiService.postConnectTags(tagBody)
+          .subscribe(
+            res => console.log('HTTP response', res),
+            err => console.log('HTTP Error', err),
+            () => console.log('HTTP request completed.')
+          );
       }
     }
   }

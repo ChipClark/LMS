@@ -137,6 +137,38 @@ td, th, tr {
   vertical-align: top;
 }
 
+/*  Modal Content  */
+
+.modal-content {
+  background-color: #fff;
+  color: #333;
+  align-content: center;
+}
+
+.close {
+  color: #666;
+}
+
+.largeicon {
+  font-size: 42px;
+  align-content: center;
+}
+
+.normalfont {
+  font-size: 14pt;
+  font-weight: 400;
+}
+
+.smallfont {
+  font-size: 11px;
+  font-weight: 200;
+}
+
+.iconbox {
+  align-content: center;
+  text-align: center;
+  padding-bottom: 10px;
+}
 
 
 

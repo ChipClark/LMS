@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpHandler, HttpRequest } from 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap, concat } from 'rxjs/operators';
 
-import { Page, Tags, assoc_top_tag, SubPage } from './datatables/page';
+import { Page, Tags, assoc_top_tag, SubPage, Thumbnails } from './datatables/page';
 import { MessageService } from './message.service';
 import { identifierModuleUrl } from '@angular/compiler';
 
@@ -28,6 +28,7 @@ export class APIService {
   public internalTagsURL = '../assets/temptags.json';
   public internalSubpageURL = '../assets/tempsubpage.json';
   public internalConnectionURL = '../assets/tempconnections.json';
+  public iconthumbnails = '../assets/icon-thumbnails.json';
 
   private internal = true;
   
@@ -35,6 +36,7 @@ export class APIService {
   tags: Tags[];
   subpage: SubPage[];
   connect_tags: assoc_top_tag[];
+  thumbnails: Thumbnails[];
   
  
   constructor(
@@ -80,14 +82,17 @@ export class APIService {
     }
   }
 
+  getIcons ():  Observable<Thumbnails[]> {
+    return this.http.get<Thumbnails[]>(this.iconthumbnails).pipe( );
+  }
+
   postConnectTags(body):  Observable<assoc_top_tag[]>{
-    return this.http.put<assoc_top_tag[]>(this.externalPagePost, body ).pipe( );
+    return this.http.put<assoc_top_tag[]>(this.externalPagePost, body ).pipe(
+      
+     );
   }
 
   postPageData (body): Observable<Page[]> {
-    let options = new Headers;
-    console.log(body);
-
     return this.http.post<Page[]>(this.externalPagePost, body ).pipe( );
   }
 

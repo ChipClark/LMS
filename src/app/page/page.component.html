@@ -27,6 +27,8 @@
         </div>
     </nav>
     <div class="container-fluid">
+
+        <!--   TOP SECTION - display of the items on the page -->
         <div class="row" id="top_page_item_layout">
             <span *ngFor="let top_page of top_page | search: searchTerm | tagsPipe: tag  ; let odd = odd; let even = even;
             let i = index; " 
@@ -49,6 +51,8 @@
             
             </span>
         </div>
+
+        <!--   FORM SECTION - form to fillout new records/edit existing records -->
         <div class="row" id="Form">
                 <div class="col-12" id="page form layout">
                         <button (click)="isPageFormVisible = !isPageFormVisible" *ngIf="!isPageFormVisible">Edit Pages</button>
@@ -73,7 +77,7 @@
                                             
                                     </span>
                                     <span id="preview" class="col-2 examples">
-                                            <button (click)="openWindow()">Icon Examples</button>
+                                            <button (click)="openWindow(content)">Icon Examples</button>
                                     </span>
                                     <span class="col-4 activeentry">
                                         <label>Active:</label>
@@ -102,9 +106,9 @@
                     
                             
                                 <datalist id="iconlist" ng-controller="iconCtrl">
-                                    <option *ngFor="let iOption of iOptions" 
-                                            [value]="iOption" ng-change="updatePreview(iOption)" >
-                                            {{ iOption }}
+                                    <option *ngFor="let thumbnails of thumbnails" 
+                                            [value]="thumbnails.icon_name" ng-change="updatePreview(thumbnails.icon_name)" >
+                                            {{ thumbnails.icon_name }}
                                     </option><span class="iOption"></span>
                                 </datalist>
                                 <datalist id="activelist">
@@ -142,3 +146,38 @@
         
     </div>
 </div>
+
+
+<!--   MODAL WINDOW - popup for icons -->
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+    <h4 class="modal-title">Icons</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <section id="content">
+                <div class="container">
+                    <div id="all-icons" class="row">
+                        <div *ngFor="let thumbnails of thumbnails; 
+                                let odd = odd; let even = even; let i = index; " class="iconbox col-4">
+                            <div class="even"  *ngIf="even" (click)="fillIcon(thumbnails.icon_name); modal.dismiss('Cross click')" >
+                                <div class="{{thumbnails.icon_name}} largeicon"></div>
+                                <div class="font-icon-name smallfont">{{thumbnails.icon_name}}</div>
+                            </div>
+                            <div class="odd"  *ngIf="odd" (click)="fillIcon(thumbnails.icon_name); modal.dismiss('Cross click')" >
+                                    <div class="{{thumbnails.icon_name}} largeicon"></div>
+                                    <div class="font-icon-name smallfont">{{thumbnails.icon_name}}</div>
+                                </div>
+                            </div>    
+                    </div>
+                </div>
+        </section>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>
+  
