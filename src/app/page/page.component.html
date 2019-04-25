@@ -70,15 +70,17 @@
                                         id="description" [value]="" name="description" #pageDescription="ngModel" ></textarea>
                                 </div>
                                 <div class="col-10">
-                                    <span class="col-4 iconentry">
+                                    <span class="col-3 iconentry">
                                         <label>Icon:</label>
                                         <input list="iconlist" class="col-12 form-control" [(ngModel)]="icon"
                                             id="icon" [value]="" name="icon"  #pageIcon="ngModel" >
+                                        <span class="col-4 icon"></span>
                                             
                                     </span>
                                     <span id="preview" class="col-2 examples">
-                                            <button (click)="openWindow(content)">Icon Examples</button>
+                                            <button (click)="openLGWindow(content)">Icon Examples</button>
                                     </span>
+                                    <span class="spacer col-2">&nbsp;</span>
                                     <span class="col-4 activeentry">
                                         <label>Active:</label>
                                         <input list="activelist" class="col-3 form-control" [(ngModel)]="isactive"
@@ -109,7 +111,7 @@
                                     <option *ngFor="let thumbnails of thumbnails" 
                                             [value]="thumbnails.icon_name" ng-change="updatePreview(thumbnails.icon_name)" >
                                             {{ thumbnails.icon_name }}
-                                    </option><span class="iOption"></span>
+                                    </option><span class="{{ thumbnails.icon_name }}"></span>
                                 </datalist>
                                 <datalist id="activelist">
                                     <option value="true">
@@ -124,11 +126,11 @@
                         
                                 <br>
                                 <span *ngIf="!isCurrent">
-                                    <button class="entry" id="add" (click)="createRequest();">Add</button>&nbsp;&nbsp;
+                                    <button class="entry" id="add" (click)="openProofWindow(proof, 'add');">Add</button>&nbsp;&nbsp;
                                 </span>
                                 <span *ngIf="isCurrent">
-                                <button class="entry" id="update" (click)="updateRequest();">Update</button>&nbsp;&nbsp;
-                                <button class="entry" id="delete" (click)="deleteRequest(top_id);">Delete</button>&nbsp;&nbsp;
+                                <button class="entry" id="update" (click)="openProofWindow(proof, 'update');">Update</button>&nbsp;&nbsp; <!--updateRequest();-->
+                                <button class="entry" id="delete" (click)="openProofWindow(proof, 'delete');">Delete</button>&nbsp;&nbsp;
                                 </span>
                                 <button class="entry" id="clear" 
                                     (click)="clearForm(formPage.value); isCurrent = false;
@@ -153,16 +155,16 @@
 <ng-template #content let-modal>
     <div class="modal-header">
     <h4 class="modal-title">Icons</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-    </button>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('click close')">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     <div class="modal-body">
         <section id="content">
                 <div class="container">
                     <div id="all-icons" class="row">
                         <div *ngFor="let thumbnails of thumbnails; 
-                                let odd = odd; let even = even; let i = index; " class="iconbox col-4">
+                                let odd = odd; let even = even; let i = index; " class="iconbox col-2">
                             <div class="even"  *ngIf="even" (click)="fillIcon(thumbnails.icon_name); modal.dismiss('Cross click')" >
                                 <div class="{{thumbnails.icon_name}} largeicon"></div>
                                 <div class="font-icon-name smallfont">{{thumbnails.icon_name}}</div>
@@ -172,6 +174,38 @@
                                     <div class="font-icon-name smallfont">{{thumbnails.icon_name}}</div>
                                 </div>
                             </div>    
+                    </div>
+                </div>
+        </section>
+    </div>
+</ng-template>
+
+
+<!--   MODAL WINDOW - PROOF -->
+
+<ng-template #proof let-modal>
+    <div class="modal-header container">
+        <div class="row">
+            <h4 class="modal-title col-7">Proof Copy</h4>
+            <button type="button" class="btn col-2 btn-modal" aria-label="Close" (click)="modal.dismiss('cancel click')">
+                    <span aria-hidden="true">No</span>
+                </button>
+            <button type="button" class="btn col-2 btn-modal" aria-label="Close" ngbAutofocus (click)="modal.close('Ok click')">
+                <span aria-hidden="true">Ok</span>
+            </button>
+        </div>
+    </div>
+    <div class="modal-body">
+        <section id="content">
+                <div class="container">
+                    <div id="all-icons" class="row">
+                        <div class="box border"  >
+                                <span style="color:#333; font-weight: bold;">{{currentPage.id}}</span>
+                                <h1 class="{{currentPage.icon}} pe-5x pe-va"></h1>
+                                <span class="boxtitle">{{currentPage.title}}</span><br>
+                                <p>{{currentPage.description}}</p>
+                                <div [innerHTML]="getTags(currentPage)"></div>
+                        </div>
                     </div>
                 </div>
         </section>

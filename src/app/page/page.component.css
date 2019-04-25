@@ -145,6 +145,28 @@ td, th, tr {
   align-content: center;
 }
 
+.btn-modal {
+  text-decoration: none;
+  background-color: #fff;
+  top: -10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  bottom: -20px;
+  height: 100%;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.btn-modal:hover {
+  background-color: #ddd;
+}
+
+.border {
+  border-style: solid;
+  border-width: thin;
+  padding: 15px;
+}
+
 .close {
   color: #666;
 }

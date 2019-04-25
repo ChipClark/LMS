@@ -52,6 +52,8 @@ export class PageComponent implements OnInit {
   public isactive;
   public sidebar;
   public id;
+  public updatePage: Page;
+
   
   public isPageFormVisible = false;
   public isCurrent = false;
@@ -208,14 +210,24 @@ export class PageComponent implements OnInit {
   fillform(single_page): void {
     this.clearCheckedTags()
     this.isPageFormVisible = true;
+    this.id = single_page.id
     this.title = single_page.title;
     this.description = single_page.description;
     this.icon = single_page.icon;
     this.isactive = single_page.isactive;
     this.sidebar = single_page.sidebar;
-    this.id = single_page.id
     this.isCurrent = true;
     this.tagsSelect = single_page.tags;
+
+    const body = {
+      "id": this.id,
+      "title": this.title,
+      "description": this.description,
+      "icon": this.icon,
+      "isactive": this.isactive,
+      "sidebar": this.sidebar,
+    };
+
     var i;
 
     for (i = 0; i < this.tagsSelect.length; i++) {
@@ -225,6 +237,9 @@ export class PageComponent implements OnInit {
         }
       }
     }
+
+    this.currentPage = single_page;
+    console.log(this.currentPage);
   }
 
   fillIcon(icon: string): void {
@@ -278,8 +293,45 @@ export class PageComponent implements OnInit {
     return pagetags;
   }
 
-  openWindow(content): void {
-    this.modalService.open(content);
+  openProofWindow(content, target): void {
+    let checkDo = this.modalService.open(content);
+    console.log(this.currentPage);
+
+    console.log(checkDo);
+    return;
+
+    if (false == true) {
+      switch (target) {
+        case "add": {
+          this.createRequest();
+          break;
+        }
+        case "delete": {
+          this.deleteRequest();
+          break;
+        }
+        case "update": {
+          this.updateRequest();
+          break;
+        }
+      }
+    }
+
+    
+  }
+
+  openLGWindow(content): void {
+    this.modalService.open(content, { size: 'lg' });
+  }
+  setUpdatePage(): void {
+    this.updatePage = this.top_page[0];   // initialize array
+    this.updatePage.id = null;            // then clear it
+    this.updatePage.title = null;
+    this.updatePage.description = null;
+    this.updatePage.icon = null;
+    this.updatePage.is_active = false;
+    this.updatePage.sidebar = null;
+    this.updatePage.tags = null;
   }
 
   tagChecked(tag: string): void {
