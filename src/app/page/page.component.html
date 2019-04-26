@@ -55,25 +55,25 @@
         <!--   FORM SECTION - form to fillout new records/edit existing records -->
         <div class="row" id="Form">
                 <div class="col-12" id="page form layout">
-                        <button (click)="isPageFormVisible = !isPageFormVisible" *ngIf="!isPageFormVisible">Edit Pages</button>
+                        <button (click)="isPageFormVisible = !isPageFormVisible; " *ngIf="!isPageFormVisible">Edit Pages</button>
                         <div id="page_form" *ngIf="isPageFormVisible" class="page_form">
                           <button (click)="isPageFormVisible = !isPageFormVisible; clearForm();" *ngIf="isPageFormVisible">Hide Form</button>
                             <form novalidate #formPage="ngForm"  class="col-12" > 
                                 <div class="col-5">
                                     <label>Title</label>
                                     <input type="text" class="form-control" [(ngModel)]="title" 
-                                        id="formPageTitle" [value]="" name="title" #pageTitle="ngModel" >
+                                        id="title" [value]="" name="title" #pageTitle="ngModel" (change)="setElement('title', title)" >
                                 </div>
                                 <div class="col-10">
                                     <label>Description</label>
                                     <textarea rows="3" class="form-control" [(ngModel)]="description" 
-                                        id="description" [value]="" name="description" #pageDescription="ngModel" ></textarea>
+                                        id="description" [value]="" name="description" #pageDescription="ngModel" (change)="setElement('description', description)" ></textarea>
                                 </div>
                                 <div class="col-10">
                                     <span class="col-3 iconentry">
                                         <label>Icon:</label>
                                         <input list="iconlist" class="col-12 form-control" [(ngModel)]="icon"
-                                            id="icon" [value]="" name="icon"  #pageIcon="ngModel" >
+                                            id="icon" [value]="" name="icon"  #pageIcon="ngModel"  (change)="setElement('icon', icon)" >
                                         <span class="col-4 icon"></span>
                                             
                                     </span>
@@ -84,19 +84,19 @@
                                     <span class="col-4 activeentry">
                                         <label>Active:</label>
                                         <input list="activelist" class="col-3 form-control" [(ngModel)]="isactive"
-                                                id="isactive" [value]="" name="isactive" #pageIsactive="ngModel" >
+                                                id="isactive" [value]="" name="isactive" #pageIsactive="ngModel" (change)="setElement('is_active', value)">
                                     </span>
                                 </div>
                                 <div class="col-10">
                                     <label>Sidebar</label>
                                     <textarea rows="5" class="form-control" [(ngModel)]="sidebar" 
-                                        id="sidebar" [value]=""  name="sidebar" #pageSidebar="ngModel" ></textarea>
+                                        id="sidebar" [value]=""  name="sidebar" #pageSidebar="ngModel" (change)="setElement('sidebar', value)" ></textarea>
                                 </div>
                                 <div class="col-10">
                                     <label>Tags</label>&nbsp;
                                     <span *ngFor="let tagsArray of tagsArray; let i = index" class="">
                                             <label class="checkbox-inline" [class.active]="tag == tagsArray.tag" id="{{tagsArray.tag}}">
-                                                <input type="checkbox" name="options" id="option{{tagsArray.tag}}"  (change)="tagChecked(tagsArray.tag)"
+                                                <input type="checkbox" name="options" id="option{{tagsArray.tag}}"  (change)="tagChecked(tag)"
                                                 [checked]="tagsArray.isChecked" value="{{tagsArray.tag}}" [value]="tagsArray.tag" >&nbsp;{{tagsArray.tag}}&nbsp;
                                             </label>&nbsp;
                                         </span>
@@ -129,8 +129,8 @@
                                     <button class="entry" id="add" (click)="openProofWindow(proof, 'add');">Add</button>&nbsp;&nbsp;
                                 </span>
                                 <span *ngIf="isCurrent">
-                                <button class="entry" id="update" (click)="openProofWindow(proof, 'update');">Update</button>&nbsp;&nbsp; <!--updateRequest();-->
-                                <button class="entry" id="delete" (click)="openProofWindow(proof, 'delete');">Delete</button>&nbsp;&nbsp;
+                                    <button class="entry" id="update" (click)="openProofWindow(proof, 'update');">Update</button>&nbsp;&nbsp; <!--updateRequest();-->
+                                    <button class="entry" id="delete" (click)="openProofWindow(proof, 'delete');">Delete</button>&nbsp;&nbsp;
                                 </span>
                                 <button class="entry" id="clear" 
                                     (click)="clearForm(formPage.value); isCurrent = false;
@@ -187,10 +187,10 @@
     <div class="modal-header container">
         <div class="row">
             <h4 class="modal-title col-7">Proof Copy</h4>
-            <button type="button" class="btn col-2 btn-modal" aria-label="Close" (click)="modal.dismiss('cancel click')">
+            <button type="button" class="btn col-2 btn-modal" aria-label="no" (click)="modal.dismiss('cancel click')">
                     <span aria-hidden="true">No</span>
                 </button>
-            <button type="button" class="btn col-2 btn-modal" aria-label="Close" ngbAutofocus (click)="modal.close('Ok click')">
+            <button type="button" class="btn col-2 btn-modal btn-success" aria-label="ok" ngbAutofocus (click)="confirmedEdits();modal.close('Ok click');">
                 <span aria-hidden="true">Ok</span>
             </button>
         </div>
@@ -200,11 +200,11 @@
                 <div class="container">
                     <div id="all-icons" class="row">
                         <div class="box border"  >
-                                <span style="color:#333; font-weight: bold;">{{currentPage.id}}</span>
-                                <h1 class="{{currentPage.icon}} pe-5x pe-va"></h1>
-                                <span class="boxtitle">{{currentPage.title}}</span><br>
-                                <p>{{currentPage.description}}</p>
-                                <div [innerHTML]="getTags(currentPage)"></div>
+                                <!--<span style="color:#333; font-weight: bold;">{{editPage.id}}</span>-->
+                                <h1 class="{{editPage.icon}} pe-5x pe-va"></h1>
+                                <span class="boxtitle">{{editPage.title}}</span><br>
+                                <p>{{editPage.description}}</p>
+                                <div [innerHTML]="getTags(editPage)"></div>
                         </div>
                     </div>
                 </div>

@@ -53,6 +53,8 @@ export class PageComponent implements OnInit {
   public sidebar;
   public id;
   public updatePage: Page;
+  public updateType: string;
+  public existingData: boolean;
 
   
   public isPageFormVisible = false;
@@ -67,6 +69,17 @@ export class PageComponent implements OnInit {
   connect_tags: assoc_top_tag[];
   formPage: FormGroup; 
   thumbnails: Thumbnails[];
+
+  editPage = {
+    title: null,
+    description: null,
+    icon: null,
+    is_active: null,
+    sidebar: null,
+    id: null,
+    tags: null
+  }
+
   
 
   
@@ -81,7 +94,6 @@ export class PageComponent implements OnInit {
     protected sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private _router: Router,
-    // private dialog: DialogWindow,
     private location: Location
   ) { }
 
@@ -141,8 +153,21 @@ export class PageComponent implements OnInit {
     }
   }
 
-  clickTag(tag: string): void {
-    console.log(tag);
+  confirmedEdits(): void {
+    switch (this.updateType) {
+      case 'add': {
+        this.createRequest();
+        break;
+      }
+      case 'delete': {
+        this.deleteRequest();
+        break;
+      }
+      case 'update': {
+        this.updateRequest();
+        break;
+      }
+    }
   }
 
   createRequest(): void {
@@ -165,29 +190,30 @@ export class PageComponent implements OnInit {
         err => console.log('HTTP Error', err),
         () => console.log('HTTP request completed.'),
       );
-    
+
+    this.updateDb();
     this.updateTags();
     this.clearForm();
   }
 
   deleteRequest(): void {
-    this.apiService.removePageData(this.id)
-      .subscribe(
-        (p: any) => {
-          p = this.top_page;
-        }
-      );
+    // this.apiService.removePageData(this.id)
+    //   .subscribe(
+    //     (p: any) => {
+    //       p = this.top_page;
+    //     }
+    //   );
     var tempTag: assoc_top_tag[];
   
     tempTag = this.connect_tags.filter( t => {
       return t.pageid === this.id
     });                                                   //  These are the existing tags for the page
 
-    for (let i = 0; i < tempTag.length; i++) {
-      this.apiService.removeConnectTags(tempTag[i].id)
-    }
-    
+    console.log(tempTag);
 
+    // for (let i = 0; i < tempTag.length; i++) {
+    //   this.apiService.removeConnectTags(tempTag[i].id)
+    // }
   }
 
   executeQueryParams(queryStrings): void {
@@ -237,13 +263,14 @@ export class PageComponent implements OnInit {
         }
       }
     }
+    this.editPage = single_page;
 
-    this.currentPage = single_page;
-    console.log(this.currentPage);
+    console.log(this.tagsSelect);
   }
 
   fillIcon(icon: string): void {
     this.icon = icon;
+    this.setElement("icon", icon);
   }
 
   getData(): any {
@@ -294,35 +321,40 @@ export class PageComponent implements OnInit {
   }
 
   openProofWindow(content, target): void {
-    let checkDo = this.modalService.open(content);
-    console.log(this.currentPage);
-
-    console.log(checkDo);
-    return;
-
-    if (false == true) {
-      switch (target) {
-        case "add": {
-          this.createRequest();
-          break;
-        }
-        case "delete": {
-          this.deleteRequest();
-          break;
-        }
-        case "update": {
-          this.updateRequest();
-          break;
-        }
-      }
-    }
-
-    
+    this.updateType = target;
+    this.modalService.open(content);
   }
 
   openLGWindow(content): void {
     this.modalService.open(content, { size: 'lg' });
   }
+
+  setElement(field: string, newValue: string): void {
+    switch (field) {
+      case 'title': {
+        this.editPage.title = newValue;
+        break;
+      }
+      case 'description': {
+        this.editPage.description = newValue;
+        break;
+      }
+      case 'icon': {
+        this.editPage.icon = newValue;
+        break;
+      }
+      case 'is_active': {
+        if (newValue == "true")
+        this.editPage.is_active = true;
+        break;
+      }
+      case 'sidebar': {
+        this.editPage.sidebar = newValue;
+        break;
+      }
+    }
+  }
+
   setUpdatePage(): void {
     this.updatePage = this.top_page[0];   // initialize array
     this.updatePage.id = null;            // then clear it
@@ -334,16 +366,33 @@ export class PageComponent implements OnInit {
     this.updatePage.tags = null;
   }
 
-  tagChecked(tag: string): void {
-    for(let i = 0; i < this.tagsArray.length; i++) {
-      if (this.tagsArray[i].tag == tag) {
-        this.tagsArray[i].isChecked = !this.tagsArray[i].isChecked;
+  tagChecked(t: string): void {
+    console.log(t);
+    let junk = this.tagsSelect.filter( tempT => {
+      return tempT.tag = t
+    })
+    for(let i = 0; i < junk.length; i++) {
+      console.log(junk[i]);
+    }
+    for(let i = 0; i < this.tagsSelect.length; i++) {
+      if (this.tagsSelect[i].tag == t) {
+        this.tagsSelect[i].isChecked = !this.tagsSelect[i].isChecked;
       }
     }
+    this.editPage.tags = this.tagsArray;
+    console.log(this.tagsArray);
+    console.log(this.tagsSelect);
+    console.log(this.editPage);
+  }
+
+  updateDb(): void {
+    this.apiService.getPageData(this.mainApp.internal_db)
+      .subscribe(top_page => {
+        this.top_page = top_page;
+      });
   }
 
   updateRequest(): void {
-    var tID;
     if (this.isactive = "true") {
       this.isactive = true;
     }
@@ -363,6 +412,8 @@ export class PageComponent implements OnInit {
         (p: any) => { p = this.top_page; }
       )
 
+    this.updateDb();
+
     this.updateTags();
   
   }
@@ -370,7 +421,11 @@ export class PageComponent implements OnInit {
   updateTags(): void {
     var i, j;
     var tempTag: assoc_top_tag[];
-    
+
+    let tempPage = this.top_page.find( p => {
+      return p.id === this.id
+    })
+
     tempTag = this.connect_tags.filter( t => {
       return t.pageid === this.id
     });                                                   //  These are the existing tags for the page
@@ -401,13 +456,13 @@ export class PageComponent implements OnInit {
               '"pageid"': this.id,
               '"tagid"': tempTag[i].tagid
             }
-          console.log(tagBody);
-          this.apiService.postConnectTags(tagBody)
-            .subscribe(
-              res => console.log('HTTP response', res),
-              err => console.log('HTTP Error', err),
-              () => console.log('HTTP request completed.')
-            );
+          console.log("Post to tags array: " + tagBody);
+          // this.apiService.postConnectTags(tagBody)
+          //   .subscribe(
+          //     res => console.log('HTTP response', res),
+          //     err => console.log('HTTP Error', err),
+          //     () => console.log('HTTP request completed.')
+          //   );
         }
         if (tempTag[i].update == false) {
           const tagBody = {
@@ -415,13 +470,13 @@ export class PageComponent implements OnInit {
             '"pageid"': this.id,
             '"tagid"': tempTag[i].tagid
             }
-            console.log(tagBody);
-          this.apiService.removeConnectTags(tempTag[i].id)
-            .subscribe(
-              res => console.log('HTTP response', res),
-              err => console.log('HTTP Error', err),
-              () => console.log('HTTP request completed.')
-            );
+            console.log("Remove from tags array: " + tagBody);
+          // this.apiService.removeConnectTags(tempTag[i].id)
+          //   .subscribe(
+          //     res => console.log('HTTP response', res),
+          //     err => console.log('HTTP Error', err),
+          //     () => console.log('HTTP request completed.')
+          //   );
         }
     }
 
@@ -431,13 +486,13 @@ export class PageComponent implements OnInit {
               '"pageid"': this.id,
               '"tagid"': this.tagsSelect[i].id
           }
-        console.log(tagBody);
-        this.apiService.postConnectTags(tagBody)
-          .subscribe(
-            res => console.log('HTTP response', res),
-            err => console.log('HTTP Error', err),
-            () => console.log('HTTP request completed.')
-          );
+        console.log("Post to tags array: " + tagBody);
+        // this.apiService.postConnectTags(tagBody)
+        //   .subscribe(
+        //     res => console.log('HTTP response', res),
+        //     err => console.log('HTTP Error', err),
+        //     () => console.log('HTTP request completed.')
+        //   );
       }
     }
   }
