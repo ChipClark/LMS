@@ -188,7 +188,12 @@ export class PageComponent implements OnInit {
       result => {
         let dumpme = result;
         console.log(result);
-        this.updateTags(null);
+        this.apiService.getPageData(this.mainApp.working_db).toPromise().then(
+          p => {
+            this.top_page = p;
+            this.updateTags(this.top_page[this.top_page.length - 1].id);
+          }
+        )
       }
     );
 
@@ -455,6 +460,8 @@ export class PageComponent implements OnInit {
       console.log('in the updatePageID');
       this.title = this.editPage.title;
       console.log('the title is ' + this.title);
+      console.log(this.top_page);
+      return;
       this.pageID = this.top_page.find( p=> {
         return p.title === this.title
       }).id
@@ -488,8 +495,6 @@ export class PageComponent implements OnInit {
 
   updateTags(id: number): void {
     this.pageID = id;
-    console.log("Page ID is " + this.pageID);
-
     this.updatePageID();
 
     console.log("Page ID is " + this.pageID);
