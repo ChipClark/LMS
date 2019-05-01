@@ -39,9 +39,10 @@ export class PageComponent implements OnInit {
   @ViewChildren('nGForArray')filtered;
   @ViewChildren('formPage') formValues;
 
-  public tags: any;
+  public tags: Tags[];
   public tag = null;
   public newTag = false;
+  public newPage = false;
   public searchTerm = null;
   public tagname: any;
   public title;
@@ -50,9 +51,10 @@ export class PageComponent implements OnInit {
   public isactive;
   public sidebar;
   public id;
+  public pageID: number;
   public updatePage: Page;
   public updateType: string;
-  public existingData: boolean;
+  public existingData: Promise<boolean>;
 
   
   public isPageFormVisible = false;
@@ -169,7 +171,7 @@ export class PageComponent implements OnInit {
   }
 
   createRequest(): void {
-    if (this.isactive = "true") {
+    if (this.isactive == "true") {
       this.isactive = true;
     }
     else this.isactive = false;
@@ -182,15 +184,14 @@ export class PageComponent implements OnInit {
       "isactive": this.isactive,
     };
 
-    this.apiService.postPageData(body)
-      .subscribe(
-        res => console.log('HTTP response', res),
-        err => console.log('HTTP Error', err),
-        () => console.log('HTTP request completed.'),
-      );
+    this.apiService.postPageData(body).toPromise().then(
+      result => {
+        let dumpme = result;
+        console.log(result);
+        this.updateTags(null);
+      }
+    );
 
-    this.updateDb();
-    this.updateTags(null);
     this.clearForm();
   }
 
@@ -207,8 +208,6 @@ export class PageComponent implements OnInit {
     tempTag = this.connect_tags.filter( t => {
       return t.pageid === this.id
     });                                                   //  These are the existing tags for the page
-
-    console.log(tempTag);
 
     for (let i = 0; i < tempTag.length; i++) {
       this.apiService.removeConnectTags(tempTag[i].id)
@@ -274,21 +273,21 @@ export class PageComponent implements OnInit {
 
   getData(): any {
     //console.log(this.baseURL);
-    this.apiService.getPageData(this.mainApp.internal_db)
+    this.apiService.getPageData(this.mainApp.working_db)
       .subscribe(top_page => {
         this.top_page = top_page;
         //console.log(this.top_page);
       });
-    this.apiService.getTagData(this.mainApp.internal_db)
+    this.apiService.getTagData(this.mainApp.working_db)
       .subscribe(tagArray => {
         this.tagsArray = tagArray;
       });
     
-    this.apiService.getSubpageData(this.mainApp.internal_db)
+    this.apiService.getSubpageData(this.mainApp.working_db)
       .subscribe(subpage => {
         this.subpage = subpage;
       });
-    this.apiService.getConnectTags(this.mainApp.internal_db)
+    this.apiService.getConnectTags(this.mainApp.working_db)
       .subscribe(connect_tags => {
         this.connect_tags = connect_tags;
       });
@@ -307,6 +306,7 @@ export class PageComponent implements OnInit {
   }
 
   getFormTags(page): string {
+    // console.log(page);
     var pagetags = "";
     if (page.tags) {
       for (let i = 0; i < page.tags.length; i++) {
@@ -383,6 +383,7 @@ export class PageComponent implements OnInit {
 
   tagChecked(t: string): void {
     this.newTag = true;
+    this.newPage = true;
     let tempTag = this.tagsArray.find( t1 => {
       return t1.tag === t
     });
@@ -390,20 +391,22 @@ export class PageComponent implements OnInit {
     tempTag.isChecked = !tempTag.isChecked;
 
     for (let i = 0; i < this.top_page.length; i++) {
-      if (this.top_page[i].title == this.editPage.title) {
+      if (this.top_page[i].title == this.editPage.title ) {
+        this.newPage = false;
         for (let j = 0; j < this.top_page[i].tags.length; j++) {
           if (this.top_page[i].tags[j].tag == t) {
             this.top_page[i].tags[j].isChecked = !this.top_page[i].tags[j].isChecked;
             this.top_page[i].tags[j].update = true;
             this.newTag = false;
+            this.editPage = this.top_page[i];
           }
         }
         if (this.newTag == true) {
           let tempT = this.tagsArray.find( q => {
             return q.tag === t
           })
-    
-          this.top_page[i].tags.push( {
+
+          this.editPage.tags[this.editPage.tags.length] = ( {
             "id": tempT.id,
             "tag": t,
             "isChecked": true,
@@ -412,13 +415,50 @@ export class PageComponent implements OnInit {
         }
       }
     }
+
+    if (this.newPage == true) {
+      let tempT = this.tagsArray.find( q => {
+        return q.tag === t
+      })
+
+      if (!this.editPage.tags) {
+        this.editPage.tags = ( [{
+          "id": tempT.id,
+          "tag": t,
+          "isChecked": true,
+          "update": true
+        }])
+      }
+      else {
+        this.editPage.tags[this.editPage.tags.length] = ( {
+          "id": tempT.id,
+          "tag": t,
+          "isChecked": true,
+          "update": true
+        })
+      }
+    }
   }
 
   updateDb(): void {
-    this.apiService.getPageData(this.mainApp.internal_db)
+    this.apiService.getPageData(this.mainApp.working_db)
       .subscribe(top_page => {
         this.top_page = top_page;
       });
+    console.log("in updateDb");
+    console.log(this.top_page);
+    this.pageID = this.top_page[this.top_page.length].id;
+  }
+
+  updatePageID(): void {
+    if (!this.pageID) {
+      console.log('in the updatePageID');
+      this.title = this.editPage.title;
+      console.log('the title is ' + this.title);
+      this.pageID = this.top_page.find( p=> {
+        return p.title === this.title
+      }).id
+    }
   }
 
   updateRequest(): void {
@@ -436,54 +476,58 @@ export class PageComponent implements OnInit {
       "isactive": this.isactive,
     };
 
-    this.apiService.updatePageData(body)
-      .subscribe(
-        res => console.log('HTTP response', res),
-        err => console.log('HTTP Error', err),
-        () => console.log('HTTP request completed.')
-      )
 
-    this.updateDb();
-    this.updateTags(this.id);
+    this.apiService.updatePageData(body).toPromise().then(
+      result => {
+        let dumpme = result;
+        console.log(result);
+        this.updateTags(this.id);
+      }
+    );
   }
 
-  updateTags(pageID: number): void {
-    if (!pageID) {
-      pageID = this.top_page.find( p=> {
-        return p.title === this.title
-      }).id
-    }
+  updateTags(id: number): void {
+    this.pageID = id;
+    console.log("Page ID is " + this.pageID);
+
+    this.updatePageID();
+
+    console.log("Page ID is " + this.pageID);
 
     for (let i = 0; i < this.editPage.tags.length; i++) {
       if (!this.editPage.tags[i].update || this.editPage.tags[i].update == false) {
       }
       else if (this.editPage.tags[i].update == true && this.editPage.tags[i].isChecked == true) {
+        
+        console.log("Page ID is " + this.pageID);
+    
         const tagBody = {
-          "pageid": pageID,
+          "pageid": this.pageID,
           "tagid": this.editPage.tags[i].id,
           "isActive": true
         }
-        this.apiService.postConnectTags(tagBody)
-          .subscribe(
-            res => console.log('HTTP response', res),
-            err => console.log('HTTP Error', err),
-            () => console.log('HTTP request completed.')
-          );
+        this.apiService.postConnectTags(tagBody).toPromise().then(
+          result => {
+            let dumpme = result;
+            console.log(result);
+          }
+        )
       }
 
       else if (this.editPage.tags[i].update == true && this.editPage.tags[i].isChecked == false) {
+        console.log("Page ID is " + this.pageID);
         let tempAssocID = this.connect_tags.find( t => {
-          return t.pageid === pageID && t.tagid === this.editPage.tags[i].id
+          return t.pageid === this.pageID && t.tagid === this.editPage.tags[i].id
         })
         const tagBody = {
           'id': tempAssocID.id
         }
-        this.apiService.removeConnectTags(tempAssocID.id)
-          .subscribe(
-            res => console.log('HTTP response', res),
-            err => console.log('HTTP Error', err),
-            () => console.log('HTTP request completed.')
-          );
+        this.apiService.removeConnectTags(tempAssocID.id).toPromise().then(
+          result => {
+            let dumpme = result;
+            console.log(result);
+          }
+        );
       }
     }
   }

@@ -19,7 +19,7 @@ import { FooterComponent } from './footer/footer.component';
 import { SubpageComponent } from './subpage/subpage.component';
 import { MAT_CHECKBOX_CLICK_ACTION } from '@angular/material'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbdModalOptions } from './page/modalwindow';
+// import { NgbdModalOptions } from './page/modalwindow';
 // import { MatCheckboxModule } from '@angular/material';
 
 @NgModule({

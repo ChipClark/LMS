@@ -15,7 +15,7 @@ export class AppComponent {
   private postRslt: string = '';
   private postBack: string = 'grey';
 
-  public internal_db = false;  // switch to false to use external db
+  public working_db = false;  // false = external db
 
   constructor (
     private http: HttpClient
