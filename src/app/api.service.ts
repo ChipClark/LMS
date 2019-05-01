@@ -75,36 +75,34 @@ export class APIService {
 
   getConnectTags (url): Observable<assoc_top_tag[]> {
     if ( url == this.internal ) {
-      return this.http.get<assoc_top_tag[]>(this.internalConnectionURL).pipe( );
+      return this.http.get<assoc_top_tag[]>(this.internalConnectionURL).pipe();
     }
     else {
-      return this.http.get<assoc_top_tag[]>(this.externalConnectionURL).pipe( );
+      return this.http.get<assoc_top_tag[]>(this.externalConnectionURL).pipe();
     }
   }
 
   getIcons ():  Observable<Thumbnails[]> {
-    return this.http.get<Thumbnails[]>(this.iconthumbnails).pipe( );
+    return this.http.get<Thumbnails[]>(this.iconthumbnails).pipe();
   }
 
   postConnectTags(body):  Observable<assoc_top_tag[]>{
-    return this.http.put<assoc_top_tag[]>(this.externalPagePost, body ).pipe(
-      
-     );
+    return this.http.put<assoc_top_tag[]>(this.externalConnectionURL, body ).pipe();
   }
 
   postPageData (body): Observable<Page[]> {
-    return this.http.post<Page[]>(this.externalPagePost, body ).pipe( );
+    return this.http.post<Page[]>(this.externalPagePost, body ).pipe();
   }
 
   postSubpageData (body): Observable<SubPage[]> {
     let options = new Headers;
     console.log(body);
 
-    return this.http.post<SubPage[]>(this.externalSubpageURL, body ).pipe( );
+    return this.http.post<SubPage[]>(this.externalSubpageURL, body ).pipe();
   }
 
   removeConnectTags(id: number): Observable<assoc_top_tag[]> {
-    var delRecord = this.externalPagePost + "/" + id;
+    var delRecord = this.externalConnectionURL + "/" + id;
     return this.http.delete<assoc_top_tag[]>(delRecord).pipe();
   }
 
@@ -119,7 +117,7 @@ export class APIService {
   }
 
   updateConnectTags(body):  Observable<assoc_top_tag[]>{
-    return this.http.put<assoc_top_tag[]>(this.externalPagePost, body ).pipe( );
+    return this.http.put<assoc_top_tag[]>(this.externalConnectionURL, body ).pipe( );
   }
 
   updatePageData (body): Observable<Page[]> {

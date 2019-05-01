@@ -96,7 +96,7 @@
                                     <label>Tags</label>&nbsp;
                                     <span *ngFor="let tagsArray of tagsArray; let i = index" class="">
                                             <label class="checkbox-inline" [class.active]="tag == tagsArray.tag" id="{{tagsArray.tag}}">
-                                                <input type="checkbox" name="options" id="option{{tagsArray.tag}}"  (change)="tagChecked(tag)"
+                                                <input type="checkbox" name="options" id="option{{tagsArray.tag}}"  (change)="tagChecked(tagsArray.tag)"
                                                 [checked]="tagsArray.isChecked" value="{{tagsArray.tag}}" [value]="tagsArray.tag" >&nbsp;{{tagsArray.tag}}&nbsp;
                                             </label>&nbsp;
                                         </span>
@@ -204,7 +204,7 @@
                                 <h1 class="{{editPage.icon}} pe-5x pe-va"></h1>
                                 <span class="boxtitle">{{editPage.title}}</span><br>
                                 <p>{{editPage.description}}</p>
-                                <div [innerHTML]="getTags(editPage)"></div>
+                                <div [innerHTML]="getFormTags(editPage)"></div>
                         </div>
                     </div>
                 </div>
