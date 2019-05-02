@@ -114,7 +114,7 @@ export class PageComponent implements OnInit {
     }
     if (keys[0] === 'tag') {
 
-      this._router.navigate(['edit'], {
+      this._router.navigate([''], {
         queryParams: {
           ...query
         }
@@ -123,7 +123,7 @@ export class PageComponent implements OnInit {
       if (query === "") {
         query = null;
       }
-      this._router.navigate(['edit'], {
+      this._router.navigate([''], {
           queryParams: {
             ...query
           },
