@@ -15,11 +15,13 @@
             let i = index;"
             #nGForArray>
                 <div class="box odd col-4 courselink" *ngIf="odd" (click)="fillform(subpageitems)" >
+                    <!--<span style="color:#333; font-weight: bold;">{{subpageitems.id}}</span>-->
                     <h1 class="{{subpageitems.icon}} pe-5x pe-va"></h1>
                     <span class="boxtitle">{{subpageitems.title}}</span><br>
                     <p>{{subpageitems.description}}</p>
                 </div>
                 <div class="box even col-4 courselink" *ngIf="even"  (click)="fillform(subpageitems)" >
+                    <!--<span style="color:#333; font-weight: bold;">{{subpageitems.id}}</span>-->
                     <h1 class="{{subpageitems.icon}} pe-5x pe-va"></h1>
                     <span class="boxtitle">{{subpageitems.title}}</span><br>
                     <p>{{subpageitems.description}}</p>
@@ -35,6 +37,9 @@
                           <button (click)="isPageFormVisible = !isPageFormVisible; clearForm();" *ngIf="isPageFormVisible">Hide Form</button>
                             <form novalidate #formPage="ngForm"  class="col-12" > 
                                 <div class="col-10">
+                                    <span class="col-2 pageID">
+                                        <span style="color:#333; font-weight: bold;">ID: {{this.id}}</span>
+                                    </span>
                                     <span class="col-6 relatedpageentry">
                                         <label class="">Related Page</label>
                                         <input list="pagelist" class="col-6 form-control" [(ngModel)]="relatedPage" 
@@ -53,15 +58,19 @@
                                 </div>
                                 <div class="col-10">
                                     <div class="col-10">
-                                        <span class="col-6 iconentry">
+                                        <span class="col-3 iconentry">
                                             <label>Icon:</label>
-                                            <input list="iconlist" class="col-6 form-control" [(ngModel)]="icon"
+                                            <input list="iconlist" class="col-12 form-control" [(ngModel)]="icon"
                                                 id="icon" [value]="" name="icon"  #pageIcon="ngModel" >
-                                                <span id="preview" class="col-4">&nbsp;</span>
+                                                
                                         </span>
-                                        <span class="col-6 activeentry">
+                                        <span id="preview" class="col-2 examples">
+                                            <button (click)="openLGWindow(content)">Icon Examples</button>
+                                        </span>
+                                        <span class="spacer col-2">&nbsp;</span>
+                                        <span class="col-4 activeentry">
                                             <label>Active:</label>
-                                            <input list="activelist" class="col-3 form-control" [(ngModel)]="isactive"
+                                            <input list="activelist" class="col-6 form-control" [(ngModel)]="isactive"
                                                     id="isactive" [value]="" name="isactive" #pageIsactive="ngModel" >
                                         </span>
                                     </div>
@@ -89,6 +98,12 @@
                                             {{ relatedPage }}
                                     </option>
                                 </datalist>
+                                <datalist id="iconlist" ng-controller="iconCtrl">
+                                    <option *ngFor="let thumbnails of thumbnails" 
+                                            [value]="thumbnails.icon_name" ng-change="updatePreview(thumbnails.icon_name)" >
+                                            {{ thumbnails.icon_name }}
+                                    </option><span class="{{ thumbnails.icon_name }}"></span>
+                                </datalist>
                                 <datalist id="activelist">
                                     <option value="true">
                                     <option value="false">
@@ -102,11 +117,11 @@
                     
                                 <br>
                                 <span *ngIf="!isCurrent">
-                                    <button class="entry" id="add" (click)="createRequest(title.value, description.value, icon.value, subpage.value, isactive.value)">Add</button>&nbsp;&nbsp;
+                                    <button class="entry" id="add" (click)="openProofWindow(proof, 'add');">Add</button>&nbsp;&nbsp;
                                 </span>
                                 <span *ngIf="isCurrent">
-                                <button class="entry" id="update" (click)="createRequest(title.value, description.value, icon.value, subpage.value, isactive.value)">Update</button>&nbsp;&nbsp;
-                                <button class="entry" id="delete" (click)="deleteRequest(top_id.value)">Delete</button>&nbsp;&nbsp;
+                                <button class="entry" id="update" (click)="openProofWindow(proof, 'update');">Update</button>&nbsp;&nbsp;
+                                <button class="entry" id="delete" (click)="openProofWindow(proof, 'delete');">Delete</button>&nbsp;&nbsp;
                                 </span>
                                 <button class="entry" id="clear" 
                                     (click)="clearForm(formPage.value); isCurrent = false;
@@ -121,3 +136,67 @@
 
     </div>
 </div>
+
+<!--   MODAL WINDOW - popup for icons -->
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+    <h4 class="modal-title">Icons</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('click close')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <section id="content">
+                <div class="container">
+                    <div id="all-icons" class="row">
+                        <div *ngFor="let thumbnails of thumbnails; 
+                                let odd = odd; let even = even; let i = index; " class="iconbox col-2">
+                            <div class="even"  *ngIf="even" (click)="fillIcon(thumbnails.icon_name); modal.dismiss('Cross click')" >
+                                <div class="{{thumbnails.icon_name}} largeicon"></div>
+                                <div class="font-icon-name smallfont">{{thumbnails.icon_name}}</div>
+                            </div>
+                            <div class="odd"  *ngIf="odd" (click)="fillIcon(thumbnails.icon_name); modal.dismiss('Cross click')" >
+                                    <div class="{{thumbnails.icon_name}} largeicon"></div>
+                                    <div class="font-icon-name smallfont">{{thumbnails.icon_name}}</div>
+                                </div>
+                            </div>    
+                    </div>
+                </div>
+        </section>
+    </div>
+</ng-template>
+
+
+<!--   MODAL WINDOW - PROOF -->
+
+<ng-template #proof let-modal>
+    <div class="modal-header container">
+        <div class="row">
+            <h4 class="modal-title col-7">Proof Copy</h4>
+            <button type="button" class="btn col-2 btn-modal" aria-label="no" (click)="modal.dismiss('cancel click')">
+                    <span aria-hidden="true">No</span>
+                </button>
+            <button type="button" class="btn col-2 btn-modal btn-success" aria-label="ok" ngbAutofocus (click)="confirmedEdits();modal.close('Ok click');">
+                <span aria-hidden="true">Ok</span>
+            </button>
+        </div>
+    </div>
+    <div class="modal-body">
+        <section id="content">
+                <div class="container">
+                    <div id="all-icons" class="row">
+                        <div class="box border"  >
+                                <!--<span style="color:#333; font-weight: bold;">{{editPage.id}}</span>-->
+                                <h1 class="{{editPage.icon}} pe-5x pe-va"></h1>
+                                <span class="boxtitle">{{editPage.title}}</span><br>
+                                <p>{{editPage.description}}</p>
+                        </div>
+                        <p><strong>Additional Content:</strong><br>
+                        Related Page: {{editPage.relatedPage}}<br>
+                        URL: {{editPage.url}}</p>
+                    </div>
+                </div>
+        </section>
+    </div>
+</ng-template>

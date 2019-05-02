@@ -1,23 +1,22 @@
 // subpage.components.ts
 
-import { Component, OnInit, Input, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation, ViewChildren } from '@angular/core';
 import { DomSanitizer,  } from '@angular/platform-browser';
-import { Page, SubPage, RelatedPages } from '../datatables/page';
+import { Page, Tags, assoc_top_tag, SubPage, Thumbnails } from '../datatables/page';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { APIService } from '../api.service';
+import { AppComponent } from '../app.component';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { AppComponent } from '../app.component';
-
-import { PageComponent } from '../page/page.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 // datatables 
 
 @Component({
   selector: 'app-page',
   templateUrl: './subpage.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./subpage.component.css'],
 })
 
@@ -28,6 +27,8 @@ import { PageComponent } from '../page/page.component';
 export class SubpageComponent implements OnInit {
 
   @ViewChildren('nGForArray') filtered;
+  @ViewChildren('formPage') formValues;
+
   public subsearchTerm = null;
   public topTitle;
   public queryStrings;
@@ -44,27 +45,42 @@ export class SubpageComponent implements OnInit {
   public isactive;
   public urltarget;
   public pageid;
-  public relatedPage;
 
+  public updatePage: SubPage;
+  public updateType: string;
+  
   public isCurrent = false;
   public isPageFormVisible = false;
 
+  public relatedPage: string;
   url: string;
-  relatedPages: RelatedPages[];
   top_page: Page[];
   top_category: Page;
   subpage: SubPage[];
   subpageitems: SubPage[];
   formPage: FormGroup; 
+  thumbnails: Thumbnails[];
 
+  relatedPages: string[];
+
+  editPage = {
+    id: null,
+    pageid: null,
+    relatedPage: null,
+    title: null,
+    description: null,
+    icon: null,
+    isactive: null,
+    url: null,
+    urltarget: null
+  }
   
-  //completePerson: PersonPage[];
   router: RouterLink;
 
   constructor(
     private apiService: APIService,
+    private modalService: NgbModal,
     private mainApp: AppComponent,
-    private http: HttpClient,
     protected sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private _router: Router,
@@ -82,7 +98,7 @@ export class SubpageComponent implements OnInit {
     if (query === "") {
       query = null;
     }
-    this._router.navigate(['course'], {
+    this._router.navigate(['Subpage_Editor'], {
         queryParams: {
           ...query
         },
@@ -94,7 +110,8 @@ export class SubpageComponent implements OnInit {
     this.subsearchTerm = null;
   }
 
-  clearForm(currentForm: Page): void {
+  clearForm(): void {
+    this.relatedPage = "";
     this.title = "";
     this.pageid = "";
     this.description = "";
@@ -109,12 +126,31 @@ export class SubpageComponent implements OnInit {
     console.log(tag);
   }
 
+  confirmedEdits(): void {
+    switch (this.updateType) {
+      case 'add': {
+        this.createRequest();
+        break;
+      }
+      case 'delete': {
+        this.deleteRequest();
+        break;
+      }
+      case 'update': {
+        this.updateRequest();
+        break;
+      }
+    }
+  }
+
   createRequest(): void {
     if (this.isactive = "true") {
       this.isactive = true;
     }
     else this.isactive = false;
-    
+
+    this.findPageID();
+
     const body = {
       "pageid": this.pageid,
       "title": this.title,
@@ -124,13 +160,13 @@ export class SubpageComponent implements OnInit {
       "url": this.url,
       "urltarget": this.urltarget
     };
-
     this.apiService.postSubpageData(body)
       .subscribe(
         (p: any) => {
           p = this.subpage;
         }
       );
+    this.clearForm();
   }
 
   deleteRequest(): void {
@@ -140,24 +176,11 @@ export class SubpageComponent implements OnInit {
           p = this.subpage;
         }
       );
-
+    // console.log(this.id);
+    this.clearForm();
   }
 
   editPages(): void {
-    
-
-    for (let i = 0; i < this.top_page.length; i++) {
-      console.log(this.top_page);
-      break;
-      if (!this.top_page[i]) {
-        break;
-      }
-      
-      this.title = (this.top_page[i].title);
-      console.log(this.title);
-      this.relatedPages.push(this.title);
-    }
-    console.log(this.relatedPages);
   }
 
   executeQueryParams(queryStrings): void {
@@ -178,6 +201,7 @@ export class SubpageComponent implements OnInit {
 
 
   fillform(single_page): void {
+    console.log(single_page);
     this.isPageFormVisible = true;
     this.title = single_page.title;
     this.description = single_page.description;
@@ -187,15 +211,38 @@ export class SubpageComponent implements OnInit {
     this.id = single_page.id
     this.isCurrent = true;
     this.relatedPage = this.top_page.find( p => {
-      return p.id === this.pageid}).title
+       return p.id === this.pageid}).title
+    for (let i = 0; i < this.top_page.length; i++) {
+        this.relatedPages[i] = this.top_page[i].title;
+      }
+
+  }
+
+  fillIcon(icon: string): void {
+    this.icon = icon;
+    this.setElement("icon", icon);
+  }
+
+  findPageID(): void {
+    if (!this.pageid) {
+      this.pageid = this.top_page.find( t => {
+        return t.title === this.relatedPage
+      }).id
+    }
+    console.log("the pageid is " + this.pageid);
   }
 
   getData(): any {
-    this.apiService.getPageData(this.mainApp.internal_db)
+    this.apiService.getPageData(this.mainApp.working_db)
       .subscribe(top_page => {
         this.top_page = top_page;
+
+        this.relatedPages = [];
+        for (let i = 0; i < this.top_page.length; i++) {
+          this.relatedPages.push(this.top_page[i].title);
+        }
         
-        this.apiService.getSubpageData(this.mainApp.internal_db)
+        this.apiService.getSubpageData(this.mainApp.working_db)
           .subscribe(subpage => {
             this.subpage = subpage;
             this.subpageitems = [];
@@ -203,6 +250,10 @@ export class SubpageComponent implements OnInit {
                 this.subpageitems.push(this.subpage[i]);
             }
           });
+      });
+    this.apiService.getIcons()
+      .subscribe(thumbnails => {
+        this.thumbnails = thumbnails;
       });
   }
 
@@ -221,12 +272,67 @@ export class SubpageComponent implements OnInit {
     });
   }
 
+  openLGWindow(content): void {
+    this.modalService.open(content, { size: 'lg' });
+  }
+
+  openProofWindow(content, target): void {
+    this.editPage.id = this.id;
+    this.editPage.pageid = this.pageid;
+    this.editPage.relatedPage = this.relatedPage;
+    this.editPage.title = this.title;
+    this.editPage.description = this.description;
+    this.editPage.icon = this.icon;
+    this.editPage.url = this.url;
+    this.editPage.urltarget = this.urltarget;
+    this.editPage.isactive = this.isactive;
+    this.updateType = target;
+    this.modalService.open(content);
+  }
+
+
+  setElement(field: string, newValue: string): void {
+    switch (field) {
+      case 'relatedPage': {
+        this.editPage.relatedPage = newValue;
+        break;
+      }
+      case 'title': {
+        this.editPage.title = newValue;
+        break;
+      }
+      case 'description': {
+        this.editPage.description = newValue;
+        break;
+      }
+      case 'icon': {
+        this.editPage.icon = newValue;
+        break;
+      }
+      case 'isactive': {
+        if (newValue == "true")
+        this.editPage.isactive = true;
+        break;
+      }
+      case 'url': {
+        this.editPage.url = newValue;
+        break;
+      }
+      case 'urltarget': {
+        this.editPage.urltarget = newValue;
+        break;
+      }
+    }
+  }
+
   updateRequest(): void {
     if (this.isactive = "true") {
       this.isactive = true;
     }
     else this.isactive = false;
-    
+
+    this.findPageID();
+
     const body = {
       "id": this.id,
       "pageid": this.pageid,
@@ -237,13 +343,13 @@ export class SubpageComponent implements OnInit {
       "urltarget": this.urltarget,
       "isactive": this.isactive,
     };
-
     this.apiService.updateSubpageData(body)
       .subscribe(
         (p: any) => {
           p = this.subpage;
         }
       );
+    this.clearForm();
   }
   
 }

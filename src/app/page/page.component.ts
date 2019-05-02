@@ -3,7 +3,6 @@
 import { Component, OnInit, Input, ViewEncapsulation, ViewChildren } from '@angular/core';
 import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl, SafeValue } from '@angular/platform-browser';
 import { Page, Tags, assoc_top_tag, SubPage, Thumbnails } from '../datatables/page';
-// import { DialogWindow } from '../opendialog/opendialog.component'
 import { FormGroup, FormArray, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -12,10 +11,6 @@ import { AppComponent } from '../app.component';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ParseSourceSpan } from '@angular/compiler';
-import { getTreeNoValidDataSourceError } from '@angular/cdk/tree';
-// import { AnyARecord } from 'dns';
-// import { MdCheckboxModule } from '@angular/material';
 
 // datatables 
 
@@ -55,7 +50,6 @@ export class PageComponent implements OnInit {
   public updatePage: Page;
   public updateType: string;
   public existingData: Promise<boolean>;
-
   
   public isPageFormVisible = false;
   public isCurrent = false;
@@ -74,7 +68,7 @@ export class PageComponent implements OnInit {
     title: null,
     description: null,
     icon: null,
-    is_active: null,
+    isactive: null,
     sidebar: null,
     id: null,
     tags: null
@@ -90,7 +84,6 @@ export class PageComponent implements OnInit {
     private apiService: APIService,
     private modalService: NgbModal,
     private mainApp: AppComponent,
-    private http: HttpClient,
     protected sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private _router: Router,
@@ -237,6 +230,7 @@ export class PageComponent implements OnInit {
 
 
   fillform(single_page): void {
+    console.log(single_page);
     this.clearCheckedTags()
     this.isPageFormVisible = true;
     this.id = single_page.id
@@ -363,9 +357,9 @@ export class PageComponent implements OnInit {
         this.editPage.icon = newValue;
         break;
       }
-      case 'is_active': {
+      case 'isactive': {
         if (newValue == "true")
-        this.editPage.is_active = true;
+        this.editPage.isactive = true;
         break;
       }
       case 'sidebar': {
@@ -381,7 +375,7 @@ export class PageComponent implements OnInit {
     this.updatePage.title = null;
     this.updatePage.description = null;
     this.updatePage.icon = null;
-    this.updatePage.is_active = false;
+    this.updatePage.isactive = false;
     this.updatePage.sidebar = null;
     this.updatePage.tags = null;
   }

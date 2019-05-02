@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 
@@ -12,15 +12,13 @@ import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { PageComponent } from './page/page.component';
+import { SubpageComponent } from './subpage/subpage.component';
 
 import { NavigationComponent } from './navigation/navigation.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { SubpageComponent } from './subpage/subpage.component';
-import { MAT_CHECKBOX_CLICK_ACTION } from '@angular/material'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { NgbdModalOptions } from './page/modalwindow';
-// import { MatCheckboxModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -34,7 +32,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TagPipe,
     FooterComponent,
     SubpageComponent
-    // IconsDialog
   ],
   imports: [
     BrowserModule,

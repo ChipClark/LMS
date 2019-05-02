@@ -5,7 +5,7 @@ export class Page {
   icon: string;
   sidebar: string;
   tags: any[];
-  is_active: boolean;
+  isactive: boolean;
 }
 
 export class Tags {
@@ -18,7 +18,7 @@ export class assoc_top_tag {
   id: number;
   pageid: number;
   tagid: number;
-  is_active: boolean;
+  isactive: boolean;
   update: boolean;
 }
 
@@ -31,7 +31,7 @@ export class SubPage {
   memo: string;
   url: string;
   url_target: string;
-  is_active: boolean;
+  isactive: boolean;
 }
 
 export class RelatedPages {

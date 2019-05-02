@@ -34,14 +34,14 @@
             let i = index; " 
             #nGForArray>
                 <div class="box odd col-4" *ngIf="odd" (click)="fillform(top_page)" >
-                    <span style="color:#333; font-weight: bold;">{{top_page.id}}</span>
+                    <!--<span style="color:#333; font-weight: bold;">{{top_page.id}}</span>-->
                     <h1 class="{{top_page.icon}} pe-5x pe-va"></h1>
                     <span class="boxtitle">{{top_page.title}}</span><br>
                     <p>{{top_page.description}}</p>
                     <div [innerHTML]="getTags(top_page)"></div>
                 </div>
                 <div class="box even col-4" *ngIf="even" (click)="fillform(top_page)"  >
-                    <span style="color:#333; font-weight: bold;">{{top_page.id}}</span>
+                    <!--<span style="color:#333; font-weight: bold;">{{top_page.id}}</span>-->
                     <h1 class="{{top_page.icon}} pe-5x pe-va"></h1>
                     <span class="boxtitle">{{top_page.title}}</span><br>
                     <p>{{top_page.description}}</p>
@@ -213,34 +213,3 @@
 </ng-template>
 
 
-<!--   MODAL WINDOW - PROOF -->
-
-<ng-template #pagetags let-modal>
-    <div class="modal-header container">
-        <div class="row">
-            <h4 class="modal-title col-7">Verify Tags</h4>
-            <button type="button" class="btn col-2 btn-modal" aria-label="no" (click)="modal.dismiss('cancel click')">
-                    <span aria-hidden="true">No</span>
-                </button>
-            <button type="button" class="btn col-2 btn-modal btn-success" aria-label="ok" ngbAutofocus (click)="updateTags();modal.close('Ok click');">
-                <span aria-hidden="true">Ok</span>
-            </button>
-        </div>
-    </div>
-    <div class="modal-body">
-        <section id="content">
-                <div class="container">
-                    <div id="all-icons" class="row">
-                        <div class="box border"  >
-                                <!--<span style="color:#333; font-weight: bold;">{{editPage.id}}</span>-->
-                                <h1 class="{{editPage.icon}} pe-5x pe-va"></h1>
-                                <span class="boxtitle">{{editPage.title}}</span><br>
-                                <p>{{editPage.description}}</p>
-                                <div [innerHTML]="getFormTags(editPage)"></div>
-                        </div>
-                    </div>
-                </div>
-        </section>
-    </div>
-</ng-template>
-  
