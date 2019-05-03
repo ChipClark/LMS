@@ -10,8 +10,7 @@ import { EditpageComponent } from './editpage/editpage.component';
 const routes: Routes = [
   { path: 'root', component: PageComponent },
   { path: '', component: PageComponent, pathMatch: 'full' },
-  { path: 'course', component: SubpageComponent},
-  { path: 'edit', component: EditpageComponent}
+  { path: 'course', component: SubpageComponent}
 ];
 
 @NgModule({
