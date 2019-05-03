@@ -180,7 +180,6 @@ export class PageComponent implements OnInit {
     this.apiService.postPageData(body).toPromise().then(
       result => {
         let dumpme = result;
-        console.log(result);
         this.apiService.getPageData(this.mainApp.working_db).toPromise().then(
           p => {
             this.top_page = p;
