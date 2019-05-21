@@ -11,7 +11,7 @@ import { AppComponent } from '../app.component';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-// import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 // datatables 
 
@@ -23,15 +23,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./page.component.css'],
 })
 
-// export class MyComponent {
-//     public Editor = ClassicEditor;
-//     // ...
-// }
-
 @Injectable({
   providedIn: 'root'
 })
-
 
 export class PageComponent implements OnInit {
 
@@ -56,6 +50,8 @@ export class PageComponent implements OnInit {
   public updatePage: Page;
   public updateType: string;
   public existingData: Promise<boolean>;
+
+  public Editor = ClassicEditor;
   
   public isPageFormVisible = false;
   public isCurrent = false;

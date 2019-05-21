@@ -38,7 +38,6 @@
                             #nGForArray class="bground">
                                 <div class="box col" (click)="fillform(top_page)" >
                                     <!--<span style="color:#333; font-weight: bold;">{{top_page.id}}</span>-->
-                                    {{i}}
                                     <h1 class="{{top_page.icon}} pe-5x pe-va icon-image"></h1>
                                     <span class="boxtitle">{{top_page.title}}</span><br>
                                     <p>{{top_page.description}}</p>
@@ -53,7 +52,7 @@
 
             </div>
             <div class="col-md-3 sidebar">
-                    sidebar
+                    
             </div>
             
         </div>
@@ -95,9 +94,9 @@
                                 </div>
                                 <div class="col-10">
                                     <label>Sidebar</label>
-                                    <textarea rows="5" class="form-control" [(ngModel)]="sidebar" 
-                                        id="sidebar" [value]=""  name="sidebar" #pageSidebar="ngModel" (change)="setElement('sidebar', value)" ></textarea>
-                                        <!-- <ckeditor [(ngModel)]="model.editorData" [editor]="Editor"></ckeditor> -->
+                                    <!-- <textarea rows="5" class="form-control" [(ngModel)]="sidebar" 
+                                        id="sidebar" [value]=""  name="sidebar" #pageSidebar="ngModel" (change)="setElement('sidebar', value)" ></textarea> -->
+                                        <ckeditor [(ngModel)]="sidebar" name="sidebar" [editor]="Editor" #pageSidebar="ngModel"></ckeditor>
                                 </div>
                                 <div class="col-10">
                                     <label>Tags</label>&nbsp;
