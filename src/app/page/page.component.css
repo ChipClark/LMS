@@ -1,14 +1,5 @@
 /*  page.component.css  */ 
 
-.container-fluid {
-  width: 100%;
-  max-width: 2400px;
-  margin-left: 10px;
-  margin-right: 0px;
-  padding-right: 0px;
-  align-content: center;
-}
-
 
 /* Navigation bar */
 .navbar {
@@ -50,25 +41,6 @@
   float: right;
   color: #fff;
   height: 100%;
-}
-
-
-.btn-primary {
-  text-decoration: none;
-  background-color: #d1462c;
-  top: -10px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  bottom: -20px;
-  height: 100%;
-  display: inline-block;
-  font-weight: bold;
-}
-
-.btn {
-  top: 0px;
-  padding-top: 10px;
-  height: 52px;
 }
 
 .active {

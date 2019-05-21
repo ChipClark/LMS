@@ -11,24 +11,27 @@
     </nav>
     <div class="container-fluid">
         <div class="row">
-            <span *ngFor="let subpageitems of subpageitems | searchsub: subsearchTerm  ; let odd = odd; let even = even;
-            let i = index;"
-            #nGForArray>
-                <div class="box odd col-4 courselink" *ngIf="odd" (click)="fillform(subpageitems)" >
-                    <!--<span style="color:#333; font-weight: bold;">{{subpageitems.id}}</span>-->
-                    <h1 class="{{subpageitems.icon}} pe-5x pe-va"></h1>
-                    <span class="boxtitle">{{subpageitems.title}}</span><br>
-                    <p>{{subpageitems.description}}</p>
+            <div class="col-md-9">
+                <div class="container">
+                    <div class="row">
+                            <span *ngFor="let subpageitems of subpageitems | searchsub: subsearchTerm  ; let odd = odd; let even = even;
+                            let i = index;"
+                            #nGForArray>
+                                <div class="box col-4 courselink" (click)="fillform(subpageitems)" >
+                                    <!--<span style="color:#333; font-weight: bold;">{{subpageitems.id}}</span>-->
+                                    <h1 class="{{subpageitems.icon}} pe-5x pe-va icon-image"></h1>
+                                    <span class="boxtitle">{{subpageitems.title}}</span><br>
+                                    <p>{{subpageitems.description}}</p>
+                                </div>
+                            </span>
+                    </div>
                 </div>
-                <div class="box even col-4 courselink" *ngIf="even"  (click)="fillform(subpageitems)" >
-                    <!--<span style="color:#333; font-weight: bold;">{{subpageitems.id}}</span>-->
-                    <h1 class="{{subpageitems.icon}} pe-5x pe-va"></h1>
-                    <span class="boxtitle">{{subpageitems.title}}</span><br>
-                    <p>{{subpageitems.description}}</p>
-                </div>
-                    
+            </div>
+            <div class="col-md-3 sidebar">
+                    sidebar
+            </div>
             
-            </span>
+            
         </div>
         <div class="row" id="Form">
                 <div class="col-12" id="page form layout">

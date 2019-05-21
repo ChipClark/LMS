@@ -6,37 +6,20 @@ body {
     zoom: .75;
 }
 
-.main-body {
-    font-family: Arial, Helvetica, sans-serif;
-}
-
 .container {
     max-width: 2400px;
     width: 100%;
-    margin-left: 0px;
-    margin-right: 0px;
-    padding-left: 0px;
-    padding-right: 0px;
-}
-
-.container-fluid {
-    width: auto;
-    margin-left: 10px;
-    margin-right: 0px;
-    padding-right: 0px;
+    padding-right: 0;
+    padding-left: 0;
     align-content: center;
 }
 
 .row {
-    margin-left: 0px;
-    margin-right: 0px;
-    width: 100%;
+    align-content: center;
 }
 
-.col-12 {
-    padding-left: 0px;
-    padding-right: 0px;
-    width: 100%;
+.sidebar {
+    background-color: #eee;
 }
 
 .header {
@@ -78,9 +61,32 @@ hr {
     margin: 18px 0;
   }
 
+.icon-image {
+    font-size: 42pt;
+    color: #002A5F;
+}
+
 .align-right {
     float: right;
 }
+
+ {}
+
+
+.box {
+    padding-top: 50px;
+    padding-bottom: 10px;
+    color: #000;
+    text-align: center;
+    align-content: center;
+    min-width: 400px;
+    height: 100%;
+  }
+
+.box:hover {
+    cursor: pointer;
+  }
+
 
 body, input[text], button {
     color: #666666;
@@ -121,98 +127,46 @@ body, input[text], button {
     font-size: 4pt;
 }
 
-.btn {
-    padding: 0;
-    border: none;
-    /*font: inherit;*/
-    color: inherit;
-    background-color: transparent;
-    /* show a hand cursor on hover; some argue that we
-    should keep the default arrow cursor for buttons */
-    cursor: pointer;
-  }
+ 
+.bground:nth-child(1), .bground:nth-child(3), .bground:nth-child(6), .bground:nth-child(8), .bground:nth-child(9), .bground:nth-child(11), .bground:nth-child(14)   {background-color:#ddd;}
+.bground:nth-child(2), .bground:nth-child(4), .bground:nth-child(5), .bground:nth-child(7), .bground:nth-child(10), .bground:nth-child(12), .bground:nth-child(13)  {background-color:#fff;}
 
-  .box {
-    padding-top: 50px;
-    padding-bottom: 10px;
-    color: #000;
-    text-align: center;
-    align-content: center;
-    max-width: 400px;
-    height: 100%;
-  }
-  
+
 /* start of desktop styles */
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1649px) {
     /* start of medium tablet styles */
-        .container-fluid {
-            max-width: 1100px;
-        }
-        .box {
-            max-width: 360px;
-          }
-    
+        .bground:nth-child(odd)  {background-color:#ddd;}
+        .bground:nth-child(even)  {background-color:#fff;}
     }
-  
-    @media screen and (max-width: 880px) {
+    
+
+@media screen and (max-width: 1267px) {
     /* start of medium tablet styles */
-        .container-fluid {
-          max-width: 800px;
-          }
-        .box {
-            max-width: 420px;
-          }
-    
+        .bground:nth-child(1), .bground:nth-child(4), .bground:nth-child(5), .bground:nth-child(8), .bground:nth-child(9), .bground:nth-child(12), .bground:nth-child(13)   {background-color:#ddd;}
+        .bground:nth-child(2), .bground:nth-child(3), .bground:nth-child(6), .bground:nth-child(7), .bground:nth-child(10), .bground:nth-child(11)  {background-color:#fff;}
+          
     }
-    
-    @media screen and (max-width: 768px) {
-        /* start of phone styles */
-        .container-fluid {
-            max-width: 800px;
-        }
-        .box {
-            max-width: 390px;
-          }
+
+@media screen and (max-width: 869px) {
+    /* start of medium tablet styles */
+        .bground:nth-child(odd)  {background-color:#ddd;}
+        .bground:nth-child(even)  {background-color:#fff;}
     }
-  
-    @media screen and (max-width: 607px) {
-        /* start of phone styles */
-        .container-fluid {
-            max-width: 700px;
-        }
-        .box {
-            width: 100%;
-          }
         
-    }
-  
-  
-    @media screen and (max-width: 550px) {
-    /* start of phone styles */
-        .container-fluid {
-            max-width: 600px;
-        }
-  
     
+@media screen and (max-width: 767px) {
+    /* start of medium tablet styles */
+        .bground:nth-child(1), .bground:nth-child(4), .bground:nth-child(5), .bground:nth-child(8), .bground:nth-child(9), .bground:nth-child(12), .bground:nth-child(13)   {background-color:#ddd;}
+        .bground:nth-child(2), .bground:nth-child(3), .bground:nth-child(6), .bground:nth-child(7), .bground:nth-child(10), .bground:nth-child(11)  {background-color:#fff;}
+            
     }
-  
-    @media screen and (max-width: 415px) {
-        /* start of phone styles */
-            .container-fluid {
-                max-width: 475px;
-            }
-  
-     
-        }
-  
-    @media screen and (max-width: 375px) {
-        /* start of phone styles */
-            .container-fluid {
-                max-width: 375px;
-            }
-  
-       }
-  
-  
+    
+@media screen and (max-width: 668px) {
+    /* start of medium tablet styles */
+        .bground:nth-child(odd)  {background-color:#ddd;}
+        .bground:nth-child(even)  {background-color:#fff;}
+    }
+            
+      
   

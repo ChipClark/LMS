@@ -1,12 +1,12 @@
 <div class="page">
     <nav class="navbar">
         <div class="container-fluid">
-            <div class="search col-7">
+            <div class="search col-5">
                 SEARCH &nbsp;&nbsp; <input  class="form-control searchbar" id="SearchBar" placeholder="" value="" autofocus
                 [(ngModel)]="searchTerm" (input)="searchTerm ? addQueryParams({search: searchTerm}) : addQueryParams({search: null})">
             </div>
             
-            <div class="leftnav col-5">
+            <div class="leftnav col-7">
                 
                 <div class="leftnavbar skillfilter btn-group-toggle" data-toggle="locationbuttons">
                     FILTER:&nbsp;&nbsp;
@@ -26,30 +26,36 @@
             
         </div>
     </nav>
-    <div class="container-fluid">
+    <div class="container">
 
         <!--   TOP SECTION - display of the items on the page -->
         <div class="row" id="top_page_item_layout">
-            <span *ngFor="let top_page of top_page | search: searchTerm | tagsPipe: tag  ; let odd = odd; let even = even;
-            let i = index; " 
-            #nGForArray>
-                <div class="box odd col-4" *ngIf="odd" (click)="fillform(top_page)" >
-                    <!--<span style="color:#333; font-weight: bold;">{{top_page.id}}</span>-->
-                    <h1 class="{{top_page.icon}} pe-5x pe-va"></h1>
-                    <span class="boxtitle">{{top_page.title}}</span><br>
-                    <p>{{top_page.description}}</p>
-                    <div [innerHTML]="getTags(top_page)"></div>
+            <div class="col-md-9">
+                <div class="container">
+                    <div class="row">
+                            <span *ngFor="let top_page of top_page | search: searchTerm | tagsPipe: tag  ; let odd = odd; let even = even;
+                            let i = index; " 
+                            #nGForArray class="bground">
+                                <div class="box col" (click)="fillform(top_page)" >
+                                    <!--<span style="color:#333; font-weight: bold;">{{top_page.id}}</span>-->
+                                    {{i}}
+                                    <h1 class="{{top_page.icon}} pe-5x pe-va icon-image"></h1>
+                                    <span class="boxtitle">{{top_page.title}}</span><br>
+                                    <p>{{top_page.description}}</p>
+                                    <div [innerHTML]="getTags(top_page)"></div>
+                                </div>
+                               
+                                    
+                            
+                            </span>
+                    </div>
                 </div>
-                <div class="box even col-4" *ngIf="even" (click)="fillform(top_page)"  >
-                    <!--<span style="color:#333; font-weight: bold;">{{top_page.id}}</span>-->
-                    <h1 class="{{top_page.icon}} pe-5x pe-va"></h1>
-                    <span class="boxtitle">{{top_page.title}}</span><br>
-                    <p>{{top_page.description}}</p>
-                    <div [innerHTML]="getTags(top_page)"></div>
-                </div>
-                    
+
+            </div>
+            <div class="col-md-3 sidebar">
+                    sidebar
+            </div>
             
-            </span>
         </div>
 
         <!--   FORM SECTION - form to fillout new records/edit existing records -->
@@ -91,6 +97,7 @@
                                     <label>Sidebar</label>
                                     <textarea rows="5" class="form-control" [(ngModel)]="sidebar" 
                                         id="sidebar" [value]=""  name="sidebar" #pageSidebar="ngModel" (change)="setElement('sidebar', value)" ></textarea>
+                                        <!-- <ckeditor [(ngModel)]="model.editorData" [editor]="Editor"></ckeditor> -->
                                 </div>
                                 <div class="col-10">
                                     <label>Tags</label>&nbsp;
@@ -154,8 +161,8 @@
 
 <ng-template #content let-modal>
     <div class="modal-header">
-    <h4 class="modal-title">Icons</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('click close')">
+        <h4 class="modal-title">Icons</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('click close')">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
