@@ -14,6 +14,7 @@ body {
     padding-right: 0;
     padding-left: 0;
     align-content: center;
+    
 }
 
 .row {
@@ -72,7 +73,9 @@ hr {
     float: right;
 }
 
- {}
+.align-left {
+    float: left;
+}
 
 
 .box {

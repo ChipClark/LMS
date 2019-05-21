@@ -2,15 +2,14 @@
     background: #fff;
     margin: 0px;
     padding: 0px;
-    /*background-image: url(../../assets/AM-Search.jpg);*/
     text-align: center;
     height: 100px;
 }
 
 .header-image {
     width: 400px;
-    left: 40px;
     padding-bottom: 10px;
+    padding-left: 40px;
     height: auto;
     float: left;
   }
@@ -20,10 +19,6 @@
       padding-left: 10px;
   }
 
-.container-fluid {
-    width: 100%;
-    align-content: center;
-}
 
 .tagline {
     float: left;
