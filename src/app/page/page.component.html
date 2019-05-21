@@ -27,26 +27,26 @@
         </div>
     </nav>
     <div class="container-fluid">
-        <div class="row">
-            <span *ngFor="let top_page of top_page | search: searchTerm | tagsPipe: tag  ; let odd = odd; let even = even;
-            let i = index;"
-            #nGForArray>
-                <div class="box odd col-4" *ngIf="odd" [routerLink]="['/course']" [queryParams]="{category: top_page.title}" >
-                    <h1 class="{{top_page.icon}} pe-5x pe-va"></h1>
-                    <span class="boxtitle">{{top_page.title}}</span><br>
-                    <p>{{top_page.description}}</p>
-                    <div [innerHTML]="getTags(top_page)"></div>
+            <div class="col-md-9">
+                <div class="container">
+                    <div class="row">
+                        <span *ngFor="let top_page of top_page | search: searchTerm | tagsPipe: tag  ; let odd = odd; let even = even;
+                            let i = index;" #nGForArray  class="bground">
+
+                            <div class="box col" [routerLink]="['/course']" [queryParams]="{category: top_page.title}" >
+                                <h1 class="{{top_page.icon}} pe-5x pe-va icon-image"></h1>
+                                <span class="boxtitle">{{top_page.title}}</span><br>
+                                <p>{{top_page.description}}</p>
+                                <div [innerHTML]="getTags(top_page)"></div>
+                            </div>
+                        </span>
+                    </div>
                 </div>
-                <div class="box even col-4" *ngIf="even" [routerLink]="['/course']" [queryParams]="{category: top_page.title}"  >
-                    <h1 class="{{top_page.icon}} pe-5x pe-va"></h1>
-                    <span class="boxtitle">{{top_page.title}}</span><br>
-                    <p>{{top_page.description}}</p>
-                    <!--<span *ngFor="let tagsArray of tagsArray">{{tagsArray.tag}}&nbsp;</span>-->
-                    <div [innerHTML]="getTags(top_page)"></div>
-                </div>
-                    
-            
-            </span>
+            <div class="col-md-3 sidebar">
+                
+            </div>
         </div>
     </div>
+   
+
 </div>
