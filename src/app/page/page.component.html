@@ -34,8 +34,7 @@
                 <div class="container">
                     <div class="row">
                             <span *ngFor="let top_page of top_page | search: searchTerm | tagsPipe: tag  ; let odd = odd; let even = even;
-                            let i = index; " 
-                            #nGForArray class="bground">
+                            let i = index; " #nGForArray class="bground">
                                 <div class="box col" (click)="fillform(top_page)" >
                                     <!--<span style="color:#333; font-weight: bold;">{{top_page.id}}</span>-->
                                     <h1 class="{{top_page.icon}} pe-5x pe-va icon-image"></h1>
@@ -87,7 +86,6 @@
     
                                             <!-- both input boxes below will be classes for the div -->
                                             <div ngClass="{{iconClass}}"></div>
-                                            <span class="col-4 icon"></span>
                                                 
                                         </span>
                                         <span id="preview" class="col-2 examples">

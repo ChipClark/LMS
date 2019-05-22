@@ -18,10 +18,15 @@ body {
     align-content: center;
 }
 
-.sidebar {
-    background-color: #efefef;
+.app-root {
+    width: 100%;
+    padding-left:0px;
+    padding-right:0px; 
 }
 
+
+/* HEADER & FOOTER  */
+  
 .header {
     width: 100%;
     height: auto;
@@ -31,13 +36,6 @@ body {
     margin-right: 0px;
     padding-left: 0px;
     padding-right: 0px;
-
-}
-
-.app-root {
-    width: 100%;
-    padding-left:0px;
-    padding-right:0px; 
 }
 
 .footer-bar {
@@ -48,6 +46,106 @@ body {
     color:#8c8c8c;
     font-size:10pt;
 }
+
+
+
+
+
+/* Navigation bar */
+.navbar {
+    background-color: #d1462c;
+    color: #fff;
+    font-size: 14pt;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    width: auto;
+  }
+  
+  .page {
+    background: #ffffff;
+  }
+  
+  
+  .search {
+    font-weight: bold;
+    padding-top:10px;
+    padding-bottom: 10px;
+  }
+  
+  .searchbar {
+    display: inline-block;
+    width: 80%;
+    max-width: 400px;
+    height: 80%;
+  }
+  
+  .blank {
+    background-color: #d1462c;
+  }
+  
+  .leftnavbar {
+    text-align: right;
+    top: 10px;
+    float: right;
+    color: #fff;
+    height: 100%;
+  }
+  
+  .active {
+    background: #ab2724;
+  }
+  
+  .btn:hover {
+      background: #ab2724;
+  }
+  
+
+
+
+/* PAGE LAYOUT */
+
+/* Main page */
+
+.row {
+    margin-left:0px;
+    margin-right:0px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  
+.boxtitle {
+    color: #d8613c;
+    font-size: 18pt;
+    font-weight: bold;
+}
+
+.boxcategory {
+    color: #666;
+    font-size: 18pt;
+    font-weight: 600;
+}
+
+.box {
+    padding-top: 50px;
+    padding-bottom: 10px;
+    color: #000;
+    text-align: center;
+    align-content: center;
+    width: 400px;
+    height: 100%;
+}
+
+.box:hover { cursor: pointer; }
+
+.examples { top: 40px; }
+
+td, th, tr { vertical-align: top; }
+
+.sidebar { background-color: #efefef; }
+
+
 
 hr {
     -moz-border-bottom-colors: none;
@@ -66,26 +164,9 @@ hr {
     border: none;
 }
 
-.btn-primary:active {
-    
-}
-
-.btn-primary:hover {
+.btn-primary:hover .btn-primary:focus .btn-primary:active{
     background: #ab2724;
-    border-bottom-color: #74110f;
-    border-top-color: #d8613c;
-    border-left-color: #d8613c;
-    border-right-color: #74110f;
-    border: 1px;
-}
-
-.btn-primary:focus .btn-primary:active{
-    background: #ab2724;
-    border-bottom-color: #74110f;
-    border-top-color: #d8613c;
-    border-left-color: #d8613c;
-    border-right-color: #74110f;
-    border: 5px;
+    border: none;
 }
 
 .icon-image {
@@ -115,19 +196,6 @@ hr {
 }
 
 
-.box {
-    padding-top: 50px;
-    padding-bottom: 10px;
-    color: #000;
-    text-align: center;
-    align-content: center;
-    min-width: 400px;
-    height: 100%;
-  }
-
-.box:hover {
-    cursor: pointer;
-  }
 
 
 body, input[text], button {

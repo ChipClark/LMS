@@ -42,6 +42,7 @@ export class SubpageComponent implements OnInit {
   public title;
   public description;
   public icon;
+  public iconClass = 'pe-5x pe-va icon-image';
   public isactive;
   public urltarget;
   public pageid;
@@ -116,6 +117,7 @@ export class SubpageComponent implements OnInit {
     this.pageid = "";
     this.description = "";
     this.icon = "";
+    this.iconClass = 'pe-5x pe-va icon-image';
     this.isactive = null;
     this.url = null;
     this.urltarget = "";
@@ -206,6 +208,7 @@ export class SubpageComponent implements OnInit {
     this.title = single_page.title;
     this.description = single_page.description;
     this.icon = single_page.icon;
+    this.iconClass = 'pe-5x pe-va icon-image ' + single_page.icon;
     this.isactive = single_page.isactive;
     this.pageid = single_page.pageid;
     this.id = single_page.id
@@ -306,6 +309,7 @@ export class SubpageComponent implements OnInit {
         break;
       }
       case 'icon': {
+        this.iconClass = "pe-5x pe-va icon-image " + newValue;
         this.editPage.icon = newValue;
         break;
       }

@@ -1,6 +1,6 @@
 <div class="page">
     <nav class="navbar">
-        <div class="container-fluid">
+        <div class="container">
             
             <div class="searchsub col-12">
                 SEARCH &nbsp;&nbsp;<input  class="form-control searchsubbar" id="subSearchBar" placeholder="" value="" autofocus
@@ -9,15 +9,16 @@
             
         </div>
     </nav>
-    <div class="container-fluid">
+    <div class="container">
+
+        <!--   TOP SECTION - display of the items on the subpage -->
         <div class="row">
             <div class="col-md-9">
                 <div class="container">
                     <div class="row">
                             <span *ngFor="let subpageitems of subpageitems | searchsub: subsearchTerm  ; let odd = odd; let even = even;
-                            let i = index;"
-                            #nGForArray>
-                                <div class="box col-4 courselink" (click)="fillform(subpageitems)" >
+                            let i = index;" #nGForArray class="bground">
+                                <div class="box col courselink" (click)="fillform(subpageitems)" >
                                     <!--<span style="color:#333; font-weight: bold;">{{subpageitems.id}}</span>-->
                                     <h1 class="{{subpageitems.icon}} pe-5x pe-va icon-image"></h1>
                                     <span class="boxtitle">{{subpageitems.title}}</span><br>
@@ -33,13 +34,20 @@
             
             
         </div>
+
+        <!--   DIVIDER -->
+        <div class="row">
+            <div class="col divider-padding">&nbsp;</div>
+        </div>
+    
+        <!--   FORM SECTION - form to fillout new records/edit existing records -->
         <div class="row" id="Form">
                 <div class="col-12" id="page form layout">
-                        <button (click)="isPageFormVisible = !isPageFormVisible; editPages();" *ngIf="!isPageFormVisible">Edit Pages</button>
+                        <button class="btn-primary" (click)="isPageFormVisible = !isPageFormVisible; editPages();" *ngIf="!isPageFormVisible">Edit Pages</button>
                         <div id="page_form" *ngIf="isPageFormVisible" class="page_form">
-                          <button (click)="isPageFormVisible = !isPageFormVisible; clearForm();" *ngIf="isPageFormVisible">Hide Form</button>
+                          <button class="btn-primary" (click)="isPageFormVisible = !isPageFormVisible; clearForm();" *ngIf="isPageFormVisible">Hide Form</button>
                             <form novalidate #formPage="ngForm"  class="col-12" > 
-                                <div class="col-10">
+                                <div class="col-10 formline">
                                     <span class="col-2 pageID">
                                         <span style="color:#333; font-weight: bold;">ID: {{this.id}}</span>
                                     </span>
@@ -48,23 +56,26 @@
                                         <input list="pagelist" class="col-6 form-control" [(ngModel)]="relatedPage" 
                                             id="relatedPage" [value]="" name="relatedPage" #pageRelatedPage="ngModel" >
                                     </span>
+                                </div>
+                                <div class="col-10 formline">
                                     <span class="col-6 titlepageentry">
                                             <label>Title</label>
                                         <input type="text" class="col-6 form-control" [(ngModel)]="title" 
                                             id="title" [value]="" name="title" #pageTitle="ngModel" >
                                     </span>
                                 </div>
-                                <div class="col-10">
+                                <div class="col-10 formline">
                                     <label>Description</label>
                                     <textarea rows="3" class="form-control" [(ngModel)]="description" 
                                         id="description" [value]="" name="description" #pageDescription="ngModel" ></textarea>
                                 </div>
-                                <div class="col-10">
-                                    <div class="col-10">
-                                        <span class="col-3 iconentry">
+                                <div class="col-10 formline">
+                                    <div class="row">
+                                        <span class="col-1 iconentry">
                                             <label>Icon:</label>
-                                            <input list="iconlist" class="col-12 form-control" [(ngModel)]="icon"
-                                                id="icon" [value]="" name="icon"  #pageIcon="ngModel" >
+                                            <!-- both input boxes below will be classes for the div -->
+                                            <div ngClass="{{iconClass}}"></div>
+                                            <span class="col-4 icon"></span>
                                                 
                                         </span>
                                         <span id="preview" class="col-2 examples">
@@ -78,13 +89,15 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-10">
+                                <div class="col-10 formline">
                                     <span class="col-7 urlentry">
                                         <label>URL</label>
                                         <input type="text" class="col-12 form-control" [(ngModel)]="url" 
                                             id="url" [value]=""  name="url" #pageSidebar="ngModel" >
                                     </span>
-                                    <span class="col-5 urlentry">
+                                </div>
+                                <div class="col-4 formline">
+                                    <span class="urlentry">
                                         <label>URL Target</label>
                                         <input list="targetlist" class="col-8 form-control" [(ngModel)]="urltarget" 
                                             id="urltarget" [value]=""  name="urltarget" #pageSidebar="ngModel" >
@@ -120,13 +133,13 @@
                     
                                 <br>
                                 <span *ngIf="!isCurrent">
-                                    <button class="entry" id="add" (click)="openProofWindow(proof, 'add');">Add</button>&nbsp;&nbsp;
+                                    <button class="btn-primary entry" id="add" (click)="openProofWindow(proof, 'add');">Add</button>&nbsp;&nbsp;
                                 </span>
                                 <span *ngIf="isCurrent">
-                                <button class="entry" id="update" (click)="openProofWindow(proof, 'update');">Update</button>&nbsp;&nbsp;
-                                <button class="entry" id="delete" (click)="openProofWindow(proof, 'delete');">Delete</button>&nbsp;&nbsp;
+                                <button class="btn-primary entry" id="update" (click)="openProofWindow(proof, 'update');">Update</button>&nbsp;&nbsp;
+                                <button class="btn-primary entry" id="delete" (click)="openProofWindow(proof, 'delete');">Delete</button>&nbsp;&nbsp;
                                 </span>
-                                <button class="entry" id="clear" 
+                                <button class="btn-primary entry" id="clear" 
                                     (click)="clearForm(formPage.value); isCurrent = false;
                                     ">Clear</button>
                             </form>

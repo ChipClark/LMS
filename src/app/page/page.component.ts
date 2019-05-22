@@ -134,6 +134,7 @@ export class PageComponent implements OnInit {
     this.title = "";
     this.description = "";
     this.icon = "";
+    this.iconClass = 'pe-5x pe-va icon-image';
     this.isactive = null;
     this.sidebar = null;
     this.id = null;
@@ -236,7 +237,9 @@ export class PageComponent implements OnInit {
     this.title = single_page.title;
     this.description = single_page.description;
     this.icon = single_page.icon;
+    this.iconClass = 'pe-5x pe-va icon-image ' + single_page.icon;
     this.isactive = single_page.isactive;
+    console.log(this.iconClass);
     this.sidebar = single_page.sidebar;
     this.isCurrent = true;
     this.tagsSelect = single_page.tags;
