@@ -75,12 +75,12 @@
                                     <input type="text" class="form-control" [(ngModel)]="title" 
                                         id="title" [value]="" name="title" #pageTitle="ngModel" (change)="setElement('title', title)" >
                                 </div>
-                                <div class="col-10 formline">
+                                <div class="col-10 formline" id="descriptionInput">
                                     <label>Description</label>
                                     <textarea rows="3" class="form-control" [(ngModel)]="description" 
                                         id="description" [value]="" name="description" #pageDescription="ngModel" (change)="setElement('description', description)" ></textarea>
                                 </div>
-                                <div class="col-10 formline">
+                                <div class="col-10 formline" id="iconInput">
                                     <div class="row">
                                         <span class="col-1 iconentry">
                                             <label>Icon:</label>
@@ -102,13 +102,13 @@
                                     </div>
                                     
                                 </div>
-                                <div class="col-10 formline">
+                                <div class="col-10 formline" id="sidebarInput">
                                     <label>Sidebar</label>
                                     <!-- <textarea rows="5" class="form-control" [(ngModel)]="sidebar" 
                                         id="sidebar" [value]=""  name="sidebar" #pageSidebar="ngModel" (change)="setElement('sidebar', value)" ></textarea> -->
                                         <ckeditor [(ngModel)]="sidebar" name="sidebar" [editor]="Editor" #pageSidebar="ngModel"></ckeditor>
                                 </div>
-                                <div class="col-10 formline">
+                                <div class="col-10 formline" id="tagsInput">
                                     <label>Tags</label>&nbsp;
                                     <span *ngFor="let tagsArray of tagsArray; let i = index" class="">
                                             <label class="checkbox-inline" [class.active]="tag == tagsArray.tag" id="{{tagsArray.tag}}">

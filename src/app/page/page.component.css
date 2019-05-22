@@ -96,11 +96,6 @@
   cursor: pointer;
 }
 
-.iconentry, .icon, .activedisplay, .activeentry {
-  display: inline-block;
-  vertical-align: top;
-}
-
 .examples {
   top: 40px;
 }
