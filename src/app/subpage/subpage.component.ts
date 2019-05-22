@@ -29,6 +29,7 @@ export class SubpageComponent implements OnInit {
   @ViewChildren('nGForArray') filtered;
   public subsearchTerm = null;
   public topTitle;
+  public SidebarHTML;
   public queryStrings;
 
   url: string;
@@ -61,11 +62,14 @@ export class SubpageComponent implements OnInit {
     this.staffService.getPageData(this.mainApp.internal_db)
       .subscribe(top_page => {
         this.top_page = top_page;
-        console.log(this.top_page);
+        
         this.getTopTitle();
         this.top_category = this.top_page.find( p => {
           return p.title === this.topTitle[0]
         });
+
+        this.SidebarHTML = this.top_category.sidebar;
+
         this.staffService.getSubpageData(this.mainApp.internal_db)
           .subscribe(subpage => {
             this.subpage = subpage;

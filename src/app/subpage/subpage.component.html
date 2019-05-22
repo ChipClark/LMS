@@ -1,8 +1,8 @@
 <div class="page">
     <nav class="navbar">
-        <div class="container-fluid">
+        <div class="container">
             <div class="col-4 pagetitle">
-              {{topTitle}}
+              &nbsp;&nbsp;{{topTitle}}
             </div>
             
             <div class="searchsub col-8">
@@ -12,21 +12,32 @@
             
         </div>
     </nav>
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
-            <span *ngFor="let subpageitems of subpageitems | searchsub: subsearchTerm  ; let odd = odd; let even = even;
-            let i = index;"
-            #nGForArray>
-                <div class="box col-4" >
-                    <a class="courselink" href="{{subpageitems.url}}">
-                        <h1 class="{{subpageitems.icon}} pe-5x pe-va"></h1>
-                        <span class="boxtitle">{{subpageitems.title}}</span><br>
-                        <p>{{subpageitems.description}}</p> 
-                    </a>
+            <!-- BOXES -->
+            <div class="col-md-9">
+                <div class="container">
+                    <div class="row">
+                        <span *ngFor="let subpageitems of subpageitems | searchsub: subsearchTerm  ; let odd = odd; let even = even;
+                        let i = index;" #nGForArray   class="bground">
+                            <div class="box col" >
+                                <a class="courselink" href="{{subpageitems.url}}">
+                                    <h1 class="{{subpageitems.icon}} pe-5x pe-va  icon-image"></h1>
+                                    <span class="boxtitle">{{subpageitems.title}}</span><br>
+                                    <p>{{subpageitems.description}}</p> 
+                                </a>
+                            </div>
+                                
+                        
+                        </span>
+                    </div>
                 </div>
-                    
+            </div>
+            <!-- SIDEBAR -->
+            <div class="col-md-3 sidebar">
+                <div [innerHTML]="SidebarHTML"  ></div>
+            </div>
             
-            </span>
         </div>
     </div>
 </div>
