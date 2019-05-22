@@ -66,11 +66,26 @@ hr {
     color: #002A5F;
 }
 
+.iconentry, .icon, .activedisplay, .activeentry {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+.iconentry {
+      left: -10px;
+  }
+
 .align-right {
     float: right;
 }
 
- {}
+.formline {
+    padding-top: 10px;
+}
+
+.divider-padding {
+    height: 10px;
+}
 
 
 .box {

@@ -43,6 +43,7 @@ export class PageComponent implements OnInit {
   public title;
   public description;
   public icon;
+  public iconClass = 'pe-5x pe-va icon-image';
   public isactive;
   public sidebar;
   public id;
@@ -76,9 +77,6 @@ export class PageComponent implements OnInit {
     tags: null
   }
 
-  
-
-  
   //completePerson: PersonPage[];
   router: RouterLink;
 
@@ -355,6 +353,7 @@ export class PageComponent implements OnInit {
         break;
       }
       case 'icon': {
+        this.iconClass = "pe-5x pe-va icon-image " + newValue;
         this.editPage.icon = newValue;
         break;
       }

@@ -57,48 +57,58 @@
             
         </div>
 
+        <!--   DIVIDER -->
+        <div class="row">
+            <div class="col divider-padding">&nbsp;</div>
+        </div>
+
+
         <!--   FORM SECTION - form to fillout new records/edit existing records -->
         <div class="row" id="Form">
                 <div class="col-12" id="page form layout">
-                        <button (click)="isPageFormVisible = !isPageFormVisible; " *ngIf="!isPageFormVisible">Edit Pages</button>
+                        <button class="btn-primary" (click)="isPageFormVisible = !isPageFormVisible; " *ngIf="!isPageFormVisible">Edit Pages</button>
                         <div id="page_form" *ngIf="isPageFormVisible" class="page_form">
-                          <button (click)="isPageFormVisible = !isPageFormVisible; clearForm();" *ngIf="isPageFormVisible">Hide Form</button>
+                          <button class="btn-primary" (click)="isPageFormVisible = !isPageFormVisible; clearForm();" *ngIf="isPageFormVisible">Hide Form</button>
                             <form novalidate #formPage="ngForm"  class="col-12" > 
-                                <div class="col-5">
+                                <div class="col-5 formline">
                                     <label>Title</label>
                                     <input type="text" class="form-control" [(ngModel)]="title" 
                                         id="title" [value]="" name="title" #pageTitle="ngModel" (change)="setElement('title', title)" >
                                 </div>
-                                <div class="col-10">
+                                <div class="col-10 formline">
                                     <label>Description</label>
                                     <textarea rows="3" class="form-control" [(ngModel)]="description" 
                                         id="description" [value]="" name="description" #pageDescription="ngModel" (change)="setElement('description', description)" ></textarea>
                                 </div>
-                                <div class="col-10">
-                                    <span class="col-3 iconentry">
-                                        <label>Icon:</label>
-                                        <input list="iconlist" class="col-12 form-control" [(ngModel)]="icon"
-                                            id="icon" [value]="" name="icon"  #pageIcon="ngModel"  (change)="setElement('icon', icon)" >
-                                        <span class="col-4 icon"></span>
-                                            
-                                    </span>
-                                    <span id="preview" class="col-2 examples">
-                                            <button (click)="openLGWindow(content)">Icon Examples</button>
-                                    </span>
-                                    <span class="spacer col-2">&nbsp;</span>
-                                    <span class="col-4 activeentry">
-                                        <label>Active:</label>
-                                        <input list="activelist" class="col-3 form-control" [(ngModel)]="isactive"
-                                                id="isactive" [value]="" name="isactive" #pageIsactive="ngModel" (change)="setElement('is_active', value)">
-                                    </span>
+                                <div class="col-10 formline">
+                                    <div class="row">
+                                        <span class="col-1 iconentry">
+                                            <label>Icon:</label>
+    
+                                            <!-- both input boxes below will be classes for the div -->
+                                            <div ngClass="{{iconClass}}"></div>
+                                            <span class="col-4 icon"></span>
+                                                
+                                        </span>
+                                        <span id="preview" class="col-2 examples">
+                                                <button (click)="openLGWindow(content)">Icon Examples</button>
+                                        </span>
+                                        <span class="spacer col-2">&nbsp;</span>
+                                        <span class="col-4 activeentry">
+                                            <label>Active:</label>
+                                            <input list="activelist" class="col-3 form-control" [(ngModel)]="isactive"
+                                                    id="isactive" [value]="" name="isactive" #pageIsactive="ngModel" (change)="setElement('is_active', value)">
+                                        </span>
+                                    </div>
+                                    
                                 </div>
-                                <div class="col-10">
+                                <div class="col-10 formline">
                                     <label>Sidebar</label>
                                     <!-- <textarea rows="5" class="form-control" [(ngModel)]="sidebar" 
                                         id="sidebar" [value]=""  name="sidebar" #pageSidebar="ngModel" (change)="setElement('sidebar', value)" ></textarea> -->
                                         <ckeditor [(ngModel)]="sidebar" name="sidebar" [editor]="Editor" #pageSidebar="ngModel"></ckeditor>
                                 </div>
-                                <div class="col-10">
+                                <div class="col-10 formline">
                                     <label>Tags</label>&nbsp;
                                     <span *ngFor="let tagsArray of tagsArray; let i = index" class="">
                                             <label class="checkbox-inline" [class.active]="tag == tagsArray.tag" id="{{tagsArray.tag}}">
@@ -132,13 +142,13 @@
                         
                                 <br>
                                 <span *ngIf="!isCurrent">
-                                    <button class="entry" id="add" (click)="openProofWindow(proof, 'add');">Add</button>&nbsp;&nbsp;
+                                    <button class="btn-primary entry" id="add" (click)="openProofWindow(proof, 'add');">Add</button>&nbsp;&nbsp;
                                 </span>
                                 <span *ngIf="isCurrent">
-                                    <button class="entry" id="update" (click)="openProofWindow(proof, 'update');">Update</button>&nbsp;&nbsp; <!--updateRequest();-->
-                                    <button class="entry" id="delete" (click)="openProofWindow(proof, 'delete');">Delete</button>&nbsp;&nbsp;
+                                    <button class="btn-primary entry" id="update" (click)="openProofWindow(proof, 'update');">Update</button>&nbsp;&nbsp; <!--updateRequest();-->
+                                    <button class="btn-primary entry" id="delete" (click)="openProofWindow(proof, 'delete');">Delete</button>&nbsp;&nbsp;
                                 </span>
-                                <button class="entry" id="clear" 
+                                <button class="btn-primary entry" id="clear" 
                                     (click)="clearForm(formPage.value); isCurrent = false;
                                     ">Clear</button>
                             </form>
