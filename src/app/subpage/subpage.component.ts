@@ -61,6 +61,7 @@ export class SubpageComponent implements OnInit {
     this.staffService.getPageData(this.mainApp.internal_db)
       .subscribe(top_page => {
         this.top_page = top_page;
+        console.log(this.top_page);
         this.getTopTitle();
         this.top_category = this.top_page.find( p => {
           return p.title === this.topTitle[0]

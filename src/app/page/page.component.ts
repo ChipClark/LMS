@@ -1,8 +1,7 @@
 // page.components.ts
 
 import { Component, OnInit, Input, ViewChild, ViewChildren } from '@angular/core';
-import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl, SafeValue } from '@angular/platform-browser';
-import { Page, Tags, assoc_top_tag, SubPage } from '../datatables/page';
+import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClient, HttpHeaders, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { APIService } from '../api.service';
@@ -11,7 +10,7 @@ import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { debugOutputAstAsTypeScript } from '@angular/compiler';
 
-// datatables 
+import { Page, Tags, assoc_top_tag, SubPage } from '../datatables/page';
 
 
 @Component({
