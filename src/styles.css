@@ -61,6 +61,33 @@ hr {
     margin: 18px 0;
   }
 
+.btn-primary {
+    background: #d8613c;
+    border: none;
+}
+
+.btn-primary:active {
+    
+}
+
+.btn-primary:hover {
+    background: #ab2724;
+    border-bottom-color: #74110f;
+    border-top-color: #d8613c;
+    border-left-color: #d8613c;
+    border-right-color: #74110f;
+    border: 1px;
+}
+
+.btn-primary:focus .btn-primary:active{
+    background: #ab2724;
+    border-bottom-color: #74110f;
+    border-top-color: #d8613c;
+    border-left-color: #d8613c;
+    border-right-color: #74110f;
+    border: 5px;
+}
+
 .icon-image {
     font-size: 42pt;
     color: #002A5F;
@@ -69,11 +96,11 @@ hr {
 .iconentry, .icon, .activedisplay, .activeentry {
     display: inline-block;
     vertical-align: top;
-  }
+}
 
 .iconentry {
       left: -10px;
-  }
+}
 
 .align-right {
     float: right;
