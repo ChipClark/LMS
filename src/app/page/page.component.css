@@ -16,18 +16,24 @@
 .btn-modal {
   text-decoration: none;
   background-color: #fff;
+  color: #666;
   top: -10px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  bottom: -20px;
+  padding: 15px;
   height: 100%;
   display: inline-block;
   font-weight: bold;
 }
 
 .btn-modal:hover {
-  background-color: #ddd;
+  background-color: #d8613c;
+  color: #000;
 }
+
+.btn-success {
+  color: #333;
+  padding-right:40px;
+}
+
 
 .border {
   border-style: solid;
