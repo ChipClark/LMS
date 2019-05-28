@@ -18,11 +18,13 @@ const httpOptions = {
 
 export class APIService {
 
-  public externalPageURL = 'http://am-web05:3035/api/v1/pages?filter={"include":["tags"]}'; 
-  public externalPagePost = 'http://am-web05:3035/api/v1/pages';
-  public externalTagsURL = 'http://am-web05:3035/api/v1/tags'; 
-  public externalSubpageURL = 'http://am-web05:3035/api/v1/subpages';  
-  public externalConnectionURL = 'http://am-web05:3035/api/v1/assocpagetags';
+  private baseURL = 'http://am-web05:3040/api/v1/';
+
+  public externalPageURL = this.baseURL + 'pages?filter={"include":["tags"]}'; 
+  public externalPagePost = this.baseURL + 'pages';
+  public externalTagsURL = this.baseURL + 'tags'; 
+  public externalSubpageURL = this.baseURL + 'subpages';  
+  public externalConnectionURL = this.baseURL + 'assocpagetags';
 
   public internalPageURL = '../assets/temppage.json';
   public internalTagsURL = '../assets/temptags.json';

@@ -8,7 +8,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MessagesComponent } from './messages/messages.component';
-import { SearchPipe, TagPipe, SearchSubPagePipe } from './pipes/search.pipe';
+import { SearchPipe, TagPipe, SearchSubPagePipe, SortPipe } from './pipes/search.pipe';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -31,6 +31,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SearchPipe,
     SearchSubPagePipe,
     TagPipe,
+    SortPipe,
     FooterComponent,
     SubpageComponent
   ],

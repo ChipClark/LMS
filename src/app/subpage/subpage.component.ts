@@ -52,6 +52,8 @@ export class SubpageComponent implements OnInit {
   
   public isCurrent = false;
   public isPageFormVisible = false;
+  public sortNumber: number;
+  public sortQuantity = 100;
 
   public relatedPage: string;
   url: string;
@@ -73,7 +75,8 @@ export class SubpageComponent implements OnInit {
     icon: null,
     isactive: null,
     url: null,
-    urltarget: null
+    urltarget: null,
+    sort: null
   }
   
   router: RouterLink;
@@ -160,7 +163,8 @@ export class SubpageComponent implements OnInit {
       "icon": this.icon,
       "isactive": this.isactive,
       "url": this.url,
-      "urltarget": this.urltarget
+      "urltarget": this.urltarget,
+      "sort": this.sortNumber
     };
     this.apiService.postSubpageData(body)
       .subscribe(
@@ -213,6 +217,12 @@ export class SubpageComponent implements OnInit {
     this.pageid = single_page.pageid;
     this.id = single_page.id
     this.isCurrent = true;
+
+    if (!single_page.sort) {
+      single_page.sort = 50;
+    }
+    this.sortNumber = single_page.sort;
+
     this.relatedPage = this.top_page.find( p => {
        return p.id === this.pageid}).title
     for (let i = 0; i < this.top_page.length; i++) {
@@ -232,7 +242,6 @@ export class SubpageComponent implements OnInit {
         return t.title === this.relatedPage
       }).id
     }
-    console.log("the pageid is " + this.pageid);
   }
 
   getData(): any {
@@ -289,6 +298,7 @@ export class SubpageComponent implements OnInit {
     this.editPage.url = this.url;
     this.editPage.urltarget = this.urltarget;
     this.editPage.isactive = this.isactive;
+    this.editPage.sort = this.sortNumber;
     this.updateType = target;
     this.modalService.open(content);
   }
@@ -316,6 +326,10 @@ export class SubpageComponent implements OnInit {
       case 'isactive': {
         if (newValue == "true")
         this.editPage.isactive = true;
+        break;
+      }
+      case 'sortNumber': {
+        this.editPage.sort = newValue;
         break;
       }
       case 'url': {
@@ -346,6 +360,7 @@ export class SubpageComponent implements OnInit {
       "url": this.url,
       "urltarget": this.urltarget,
       "isactive": this.isactive,
+      "sort": this.sortNumber
     };
     this.apiService.updateSubpageData(body)
       .subscribe(

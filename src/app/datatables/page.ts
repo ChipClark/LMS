@@ -6,6 +6,7 @@ export class Page {
   sidebar: string;
   tags: any[];
   isactive: boolean;
+  sort: number;
 }
 
 export class Tags {
@@ -32,6 +33,7 @@ export class SubPage {
   url: string;
   url_target: string;
   isactive: boolean;
+  sort: number;
 }
 
 export class RelatedPages {

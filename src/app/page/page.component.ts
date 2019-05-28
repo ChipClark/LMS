@@ -56,6 +56,8 @@ export class PageComponent implements OnInit {
   
   public isPageFormVisible = false;
   public isCurrent = false;
+  public sortNumber: number;
+  public sortQuantity = 100;
 
   url: string;
   top_page: Page[];
@@ -74,7 +76,8 @@ export class PageComponent implements OnInit {
     isactive: null,
     sidebar: null,
     id: null,
-    tags: null
+    tags: null,
+    sort: null
   }
 
   //completePerson: PersonPage[];
@@ -176,6 +179,7 @@ export class PageComponent implements OnInit {
       "icon": this.icon,
       "sidebar": this.sidebar,
       "isactive": this.isactive,
+      "sort": this.sortNumber
     };
 
     this.apiService.postPageData(body).toPromise().then(
@@ -230,7 +234,6 @@ export class PageComponent implements OnInit {
 
 
   fillform(single_page): void {
-    console.log(single_page);
     this.clearCheckedTags()
     this.isPageFormVisible = true;
     this.id = single_page.id
@@ -239,11 +242,14 @@ export class PageComponent implements OnInit {
     this.icon = single_page.icon;
     this.iconClass = 'pe-5x pe-va icon-image ' + single_page.icon;
     this.isactive = single_page.isactive;
-    console.log(this.iconClass);
     this.sidebar = single_page.sidebar;
     this.isCurrent = true;
     this.tagsSelect = single_page.tags;
-
+    if (!single_page.sort) {
+      single_page.sort = 50;
+    }
+    this.sortNumber = single_page.sort;
+    
     const body = {
       "id": this.id,
       "title": this.title,
@@ -251,6 +257,7 @@ export class PageComponent implements OnInit {
       "icon": this.icon,
       "isactive": this.isactive,
       "sidebar": this.sidebar,
+      "sort": this.sortNumber
     };
 
     for (let i = 0; i < this.tagsSelect.length; i++) {
@@ -346,6 +353,7 @@ export class PageComponent implements OnInit {
   }
 
   setElement(field: string, newValue: string): void {
+    console.log(this.editPage);
     switch (field) {
       case 'title': {
         this.editPage.title = newValue;
@@ -369,6 +377,10 @@ export class PageComponent implements OnInit {
         this.editPage.sidebar = newValue;
         break;
       }
+      case 'sortNumber': {
+        this.editPage.sort = newValue;
+        break;
+      }
     }
   }
 
@@ -381,6 +393,7 @@ export class PageComponent implements OnInit {
     this.updatePage.isactive = false;
     this.updatePage.sidebar = null;
     this.updatePage.tags = null;
+    this.updatePage.sort = null;
   }
 
   tagChecked(t: string): void {
@@ -478,7 +491,10 @@ export class PageComponent implements OnInit {
       "icon": this.icon,
       "sidebar": this.sidebar,
       "isactive": this.isactive,
+      "sort": this.sortNumber
     };
+
+    console.log(body);
 
 
     this.apiService.updatePageData(body).toPromise().then(
