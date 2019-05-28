@@ -58,6 +58,7 @@ export class PageComponent implements OnInit {
   public isCurrent = false;
   public sortNumber: number;
   public sortQuantity = 100;
+  public sidebarContent;
 
   url: string;
   top_page: Page[];
