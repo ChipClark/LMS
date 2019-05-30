@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { PageComponent }      from './page/page.component';
 import { SubpageComponent } from './subpage/subpage.component';
-import { EditpageComponent } from './editpage/editpage.component';
 //import { homedir } from 'os';
 
 
